@@ -6,6 +6,28 @@ const view = ({ text, links, contact, isVisible }) => {
 			<div className="about__text">
 				<p>{text}</p>
 			</div>
+			<ul className="about__contact">
+				{
+					contact.map((option, i) => {
+						return (
+							<li className="about__contact-option" key={i}>
+								<a href={option.url}>{option.entry}</a>
+							</li>
+						);
+					})
+				}
+			</ul>
+			<ul className="about__links">
+				{
+					links.map((link, i) => {
+						return (
+							<li className="about__link" key={i}>
+								<a href={link.url}>{link.label}</a>
+							</li>
+						);
+					})
+				}
+			</ul>
 		</section>
 	);
 };

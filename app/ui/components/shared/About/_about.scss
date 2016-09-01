@@ -1,0 +1,16 @@
+.about {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(255, 255, 0, 0.92);
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	transition: opacity 0.1s ease;
+}
+
+.about--hidden {
+	opacity: 0;
+	pointer-events: none;
+}

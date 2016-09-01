@@ -3,7 +3,11 @@ import OverviewStoryItem from '../OverviewStoryItem/OverviewStoryItem.js';
 
 const view = ({ story, isMouseOver, onMouseEnter, onMouseLeave }) => {
 	return (
-		<div className={`overview-story overview-story--${isMouseOver ? 'mouse-over' : 'mouse-out'}`}>
+		<div
+			className={`overview-story overview-story--${isMouseOver ? 'mouse-over' : 'mouse-out'}`}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+		>
 			{
 				story.items.map((item, i) => {
 					return <OverviewStoryItem item={item} key={i} />;
@@ -26,11 +30,11 @@ const data = Component => class extends React.Component {
 	}
 
 	onMouseEnter() {
-		this.setState({ isMouseOver: false });
+		this.setState({ isMouseOver: true });
 	}
 
 	onMouseLeave() {
-		this.setState({ isMouseOver: true });
+		this.setState({ isMouseOver: false });
 	}
 
 	render() {
