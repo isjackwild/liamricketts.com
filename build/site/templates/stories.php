@@ -1,26 +1,45 @@
 <?php
 
-	$all_stories = $page->children();
+	$stories = $page->children();
 	$json = array();
 
 	foreach ($stories as $story) {
-		$title 			= (string)$story->title()->html(); // All
-		$subtitle 		= ($story->subtitle()->exists() ? (string)$subtitle->subtitle()->html() : null); // only Text
-		$background		= (string)$story->background()->html();
+		$content = $story->children();
+		$content_json = array();
 
-		$images_json = array();
+		foreach ($content as $item) {
+			$files = $item->files();
+			$large = $files->find('large.jpg');
+			$medium = $files->find('medium.jpg');
+			$small = $files->find('small.jpg');
+			$aR = ($large->exists() ? ($large->dimensions()->width() / $large->dimensions()->height()) : null);
 
-		
+			$images_json = array(
+				'large' => ($large->exists() ? (string)$large->url() : null),
+				'medium' => ($medium->exists() ? (string)$medium->url() : null),
+				'small' => ($small->exists() ? (string)$small->url() : null),
+				'aspectRatio' => (float)$aR,
+			);
+
+			$item_json = array(
+				'size' 		=> (string)$item->size()->value(),
+				'alignment' => (string)$item->alignment()->value(),
+				'margin'	 => (string)$item->margin()->value(),
+				'hideInHomepage' => (bool)$item->hideinhomepage()->bool(),
+				'images' 	=> $images_json,
+			);
+			
+			array_push($content_json, $item_json);
+		}
 
 		$story_json = array(
-			'title' => $title,
-			'subtitle' => $title,
-			'images' => $images_json,
+			'title'		=> (string)$story->title()->html(),
+			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->html() : null),
+			'background'=> (string)$story->background()->html(),
+			'items'	=> $content_json,
 		);
-		
 		array_push($json, $story_json);
 	}
 
 	echo json_encode($json);
-
 ?>
