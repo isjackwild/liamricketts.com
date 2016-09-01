@@ -12,12 +12,12 @@
 			$large = $files->find('large.jpg');
 			$medium = $files->find('medium.jpg');
 			$small = $files->find('small.jpg');
-			$aR = ($large->exists() ? ($large->dimensions()->width() / $large->dimensions()->height()) : null);
+			$aR = ($large->exists() ? ($large->dimensions()->height() / $large->dimensions()->width()) : null);
 
 			$images_json = array(
-				'large' => ($large->exists() ? (string)$large->url() : null),
-				'medium' => ($medium->exists() ? (string)$medium->url() : null),
-				'small' => ($small->exists() ? (string)$small->url() : null),
+				'large' => ($large ? (string)$large->url() : null),
+				'medium' => ($medium ? (string)$medium->url() : null),
+				'small' => ($small ? (string)$small->url() : null),
 				'aspectRatio' => (float)$aR,
 			);
 
@@ -28,7 +28,7 @@
 				'hideInHomepage' => (bool)$item->hideinhomepage()->bool(),
 				'images' 	=> $images_json,
 			);
-			
+
 			array_push($content_json, $item_json);
 		}
 

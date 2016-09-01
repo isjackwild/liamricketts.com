@@ -19,9 +19,7 @@ export default class TransitionManager extends React.Component {
 	}
 
 	componentWillMount() {
-		getData(buildApiEndpoint(this.props.location.pathname)).then(data => {
-			this.willTransition(this.props, data);
-		});
+		this.willTransition(this.props, window.stories);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -31,12 +29,11 @@ export default class TransitionManager extends React.Component {
 			isDataReady: false,
 		});
 
-		getData(buildApiEndpoint(nextProps.location.pathname)).then(data => {
-			this.willTransition(nextProps, data);
-		});
+		this.willTransition(this.props, window.stories);
 	}
 
 	willTransition(transitionProps, data) {
+		console.log('will transition');
 		if (!isEqual(this.props.location, transitionProps.location)) return;
 
 		this.setState({
@@ -51,7 +48,7 @@ export default class TransitionManager extends React.Component {
 			this.state.isInitialLoadReady ?
 			React.cloneElement(this.props.children, { data: this.state.data })
 			:
-			<div>Loading Site Cover</div>
+			<div>Loading</div>
 		);
 	}
 }

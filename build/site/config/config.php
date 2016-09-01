@@ -53,8 +53,6 @@ c::set('routes', array(
 
 
 kirby()->hook('panel.file.upload', function($file) {
-
-
   if ($file->type() == 'image') {
     $file->rename('fullsize');
 
@@ -68,22 +66,21 @@ kirby()->hook('panel.file.upload', function($file) {
     $image->process();
 
     $image = new ImageConverter($file, array(
-      'width' => 600,
-      'height' => 600,
+      'width' => 900,
+      'height' => 900,
       'upscale' => false,
-      'quality' => 70,
+      'quality' => 80,
       'filename' => 'medium.{extension}',
     ));
     $image->process();
 
     $image = new ImageConverter($file, array(
-      'width' => 250,
-      'height' => 250,
+      'width' => 400,
+      'height' => 400,
       'upscale' => false,
-      'quality' => 70,
+      'quality' => 80,
       'filename' => 'small.{extension}',
     ));
     $image->process();
   }
-
 });

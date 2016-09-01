@@ -20,6 +20,7 @@ $site_data = json_encode($site_json);
 	window.site = <?php echo $site_data ?>;
 	window.initSlug = '<?php echo $init_data['slug'] ?>';
 	window.stories = <?php echo $init_data['stories'] ?>;
+	window.about = <?php echo $init_data['about'] ?>;
 </script>
 
 <?php snippet('footer') ?>

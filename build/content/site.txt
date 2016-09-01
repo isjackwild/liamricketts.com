@@ -1,16 +1,16 @@
-Title: Kirby Starterkit
+Title: Liam Ricketts
 
 ----
 
-Description: This is Kirby's Starterkit.
+Description: Liam Ricketts — London-based Photographer specialising in Editorial work.
 
 ----
 
-Keywords: Kirby,CMS,file-based
+Keywords: Liam Ricketts, Photographer, London, Photos, Editorial, Magazines, Photography
 
 ----
 
-Copyright: © 2009-(date: Year) (link: http://getkirby.com text: Kirby)
+Copyright: © 2016-(date: Year) Liam Ricketts
 
 ----
 
