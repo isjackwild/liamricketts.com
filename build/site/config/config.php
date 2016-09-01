@@ -50,3 +50,40 @@ c::set('routes', array(
     }
   ),
 ));
+
+
+kirby()->hook('panel.file.upload', function($file) {
+
+
+  if ($file->type() == 'image') {
+    $file->rename('fullsize');
+
+    $image = new ImageConverter($file, array(
+      'width' => 2000,
+      'height' => 2000,
+      'upscale' => false,
+      'quality' => 80,
+      'filename' => 'large.{extension}',
+    ));
+    $image->process();
+
+    $image = new ImageConverter($file, array(
+      'width' => 600,
+      'height' => 600,
+      'upscale' => false,
+      'quality' => 70,
+      'filename' => 'medium.{extension}',
+    ));
+    $image->process();
+
+    $image = new ImageConverter($file, array(
+      'width' => 250,
+      'height' => 250,
+      'upscale' => false,
+      'quality' => 70,
+      'filename' => 'small.{extension}',
+    ));
+    $image->process();
+  }
+
+});

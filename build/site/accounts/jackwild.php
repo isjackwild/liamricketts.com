@@ -6,3 +6,7 @@ password: >
 email: jack.wild@live.co.uk
 language: en
 role: admin
+history:
+  - stories/portraits/two
+  - stories/portraits/one
+  - stories/portraits

@@ -1,0 +1,25 @@
+Size: large
+
+----
+
+Alignment: middle
+
+----
+
+Margin: medium
+
+----
+
+Caption: First image
+
+----
+
+Hideinhomepage: false
+
+----
+
+Info: 
+
+----
+
+Title: one

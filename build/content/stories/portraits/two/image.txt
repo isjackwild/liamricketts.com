@@ -1,0 +1,25 @@
+Size: small
+
+----
+
+Alignment: middle
+
+----
+
+Margin: mirco
+
+----
+
+Caption: 
+
+----
+
+Hideinhomepage: false
+
+----
+
+Info: 
+
+----
+
+Title: two

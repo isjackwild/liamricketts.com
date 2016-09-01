@@ -7,7 +7,7 @@ options:
   template: false
 files:
   max: 1
-  size: 2000000
+  size: 8000000
   type: image
 deletable: true
 fields:

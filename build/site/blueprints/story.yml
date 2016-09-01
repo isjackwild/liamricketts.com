@@ -16,9 +16,12 @@ fields:
     required: false
   background:
     label: Background colour
-    type:  textarea
+    type:  text
     default: '#FFFFFF'
     help: Use the 6-character hexcode, including the preceding '#',
+    validation:
+      minLength: 7
+      maxLength: 7
   info:
     label: Adding, editing and deleting story images
     type: info
