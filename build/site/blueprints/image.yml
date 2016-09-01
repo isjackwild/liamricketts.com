@@ -1,0 +1,13 @@
+title: Image
+pages: story
+files: false
+options:
+  preview: false
+  status: false
+  url: false
+fields:
+  info:
+    label: Adding, editing and deleting stories
+    type: info
+    text: >
+      To edit an existing story, click it in the left hand panel, under 'Pages'. To add a new story, click 'Add' in the left-hand panel, next to 'Pages'. To delete a story, click 'Edit' in the left-hand panel, next to 'Pages', and delete it from the next page.

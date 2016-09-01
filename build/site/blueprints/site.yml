@@ -1,0 +1,42 @@
+title: Site
+pages: false
+files: false
+options:
+  preview: false
+  status: false
+  url: false
+fields:
+  title:
+    label: Title
+    type:  text
+  description:
+    label: Description
+    type:  textarea
+  keywords:
+    label: Keywords
+    type:  tags
+  copyright:
+    label: Copyright
+    type:  textarea
+  instagram:
+    label: Instagram URL
+    type:  url
+  facebook:
+    label: Facebook URL
+    type:  url
+  externalmenulinks:
+    label: External Menu Links
+    type: structure
+    help: External links to include in the site main navigation.
+    entry: >
+      Label: {{label}}<br/>
+      URL: {{externalurl}}
+    fields:
+      label:
+        label: Label
+        type: text
+        required: true
+      externalurl:
+        label: URL
+        type: url
+        required: true

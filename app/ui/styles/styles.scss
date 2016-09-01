@@ -1,0 +1,24 @@
+%block-list-item {
+	width: 3.5em;
+	height: 2em;
+	font-size: 1.25em;
+	text-align: center;
+	line-height: 2em;
+	margin: 0 10px 0 0;
+	background-color: $brand-pink;
+	color: $white;
+	flex-shrink: 0;
+
+	a {
+		display: block;
+		@include size(100%);
+		color: $white;
+		background-color: $medium-grey;
+		transition: background-color 0.1s ease, color 0.1s ease;
+
+		&:hover {
+			background-color: $white;
+			color: $black;
+		}
+	}
+}

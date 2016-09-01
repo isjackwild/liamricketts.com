@@ -1,0 +1,29 @@
+Title: Kirby Starterkit
+
+----
+
+Description: This is Kirby's Starterkit.
+
+----
+
+Keywords: Kirby,CMS,file-based
+
+----
+
+Copyright: © 2009-(date: Year) (link: http://getkirby.com text: Kirby)
+
+----
+
+Instagram: 
+
+----
+
+Facebook: 
+
+----
+
+Externalmenulinks: 
+
+- 
+  label: Shop
+  externalurl: http://google.com

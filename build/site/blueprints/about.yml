@@ -1,0 +1,23 @@
+title: About
+pages: false
+files: false
+deletable: false
+fields:
+  about:
+    label: About
+    type:  textarea
+  links:
+    label: Links
+    type: structure
+    entry: >
+      Label: {{label}}<br/>
+      URL: {{externalurl}}
+    fields:
+      label:
+        label: Label
+        type: text
+        required: true
+      externalurl:
+        label: URL
+        type: url
+        required: true
