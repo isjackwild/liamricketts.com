@@ -1,5 +1,5 @@
 title: Site
-pages: false
+pages: true
 files: false
 options:
   preview: false

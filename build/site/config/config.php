@@ -32,26 +32,17 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 
 c::set('routes', array(
-
-  // serve the home page with any URL (except api/). Client takes care of routing
   array(
-    'pattern' => array('(:any)', '/'), // any slug not beginning with 'api', or the index will run this code and return the homepage
+    'pattern' => array('(:any)', '/'),
     'action'  => function($slug = false) {
       
-      $dates = page('tour-dates'); // get the tour dates page data
-      $collections = page('collections'); // get the collections data
-
-      if ($slug == false) {
-        $slug = $collections->defaultcollection()->text(); // If there's no slug in the route, the slug is the default collection specified in the CMS.
-      }
-      $all_collections = $collections->children(); // Get all the collections.
-      $collection = $all_collections->find($slug); // Find the initial collection (by slug) from all collections 
-      
+      $about = page('about');
+      $stories = page('stories');
 
       $data = array();
       $data['initData'] = array(
-        'dates' => static::render($dates), // Render the Tour Dates template JSON (site/templates/tour-dates.php)
-        'collection' => static::render($collection), // Render the start collection template JSON (site/templates/tour-dates.php)
+        'about' => static::render($about), // Render the Tour Dates template JSON (site/templates/tour-dates.php)
+        'stories' => static::render($stories),
         'slug' => $slug,
       );
 

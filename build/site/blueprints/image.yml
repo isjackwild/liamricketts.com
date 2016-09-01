@@ -1,13 +1,52 @@
 title: Image
-pages: story
-files: false
+pages: false
 options:
   preview: false
   status: false
   url: false
+  template: false
+files:
+  max: 1
+  size: 2000000
+  type: image
+deletable: true
 fields:
+  size:
+    label: Size
+    type:  select
+    default: large
+    required: true
+    options:
+      large: Large
+      medium: Medium
+      small: Small
+  alignment:
+    label: Alignment (only applies to Medium and Small images)
+    type:  select
+    default: middle
+    required: true
+    options:
+      top: Top
+      middle: Middle
+      bottom: Bottom
+  margin:
+    label: Margin (right)
+    type:  select
+    default: medium
+    required: true
+    options:
+      mirco: Micro
+      small: Small
+      medium: Medium
+      large: Large
+  caption:
+    label: Caption (optional)
+    type: text
+    required: false
+    validate:
+      maxLength: 140
   info:
-    label: Adding, editing and deleting stories
+    label: Uploading the image
     type: info
     text: >
-      To edit an existing story, click it in the left hand panel, under 'Pages'. To add a new story, click 'Add' in the left-hand panel, next to 'Pages'. To delete a story, click 'Edit' in the left-hand panel, next to 'Pages', and delete it from the next page.
+      To add the image, click 'Add' in the left-hand panel, next to 'Files'. You *must* upload an image (.jpg). The image should be resized and compressed prior to upload. If you upload multiple images, only the first will be used.
