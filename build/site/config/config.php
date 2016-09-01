@@ -40,26 +40,13 @@ c::set('routes', array(
       $stories = page('stories');
 
       $data = array();
-      $data['initData'] = array(
-        'about' => static::render($about), // Render the Tour Dates template JSON (site/templates/tour-dates.php)
+      $data['init_data'] = array(
+        'about' => static::render($about),
         'stories' => static::render($stories),
         'slug' => $slug,
       );
 
-      return array('home', $data); // return the home page, passing in the dates and collection and initial slug data (site/templates/home.php);
+      return array('home', $data);
     }
   ),
-
-  // api routes to render JSON response
-  array(
-    'pattern' => array('api/(:any)'), // Any route prepended with 'api' will find the collection by the slug, and render it.
-    'action'  => function($slug) {
-
-      $collections = page('collections');
-      $all_collections = $collections->children(); // Get all collections
-      $collection = $all_collections->find($slug); // Find the collection by slug. If not found, the response will be empty.
-
-      return page($collection); // Return that collection (JSON).
-    }
-  )
 ));

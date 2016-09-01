@@ -6,6 +6,21 @@ fields:
   about:
     label: About
     type:  textarea
+  contact:
+    label: Contact
+    type: structure
+    entry: >
+      Entry: {{entry}}<br/>
+      URL: {{url}}
+    fields:
+      entry:
+        label: Entry
+        type: textarea
+        required: true
+      url:
+        label: URL
+        type: url
+        required: false
   links:
     label: Links
     type: structure

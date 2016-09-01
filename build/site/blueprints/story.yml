@@ -14,6 +14,11 @@ fields:
     label: Subtitle
     type:  textarea
     required: false
+  background:
+    label: Background colour
+    type:  textarea
+    default: '#FFFFFF'
+    help: Use the 6-character hexcode, including the preceding '#',
   info:
     label: Adding, editing and deleting story images
     type: info

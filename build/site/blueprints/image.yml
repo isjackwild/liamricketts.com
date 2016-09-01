@@ -45,6 +45,12 @@ fields:
     required: false
     validate:
       maxLength: 140
+  hideinhomepage:
+    label: Hide in homepage?
+    type: toggle
+    text: yes/no
+    default: false
+    help: If set to yes, the image will be hidden from the story overview on the homepage.
   info:
     label: Uploading the image
     type: info
