@@ -3,12 +3,12 @@
 @import './resets';
 @import './styles.scss';
 
-body {
+body, html {
 	font-family: $fonts;
 	font-size: $font-size;
-	
 	padding: 0;
 	margin: 0;
+	background: $liam-yellow;
 }
 
 @import '../layouts/Master/_master.scss';
@@ -16,9 +16,9 @@ body {
 @import '../pages/Story/_story.scss';
 
 @import '../components/shared/About/_about.scss';
-@import '../components/shared/Loader/_loader.scss';
 @import '../components/shared/Nav/_nav.scss';
 
+@import '../components/home/Loader/_loader.scss';
 @import '../components/home/Overview/_overview.scss';
 @import '../components/home/OverviewStory/_overview-story.scss';
 @import '../components/home/OverviewStoryItem/_overview-story-item.scss';

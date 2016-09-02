@@ -5,6 +5,8 @@ import routes from './routes.js';
 
 import { dataStore } from './app.js';
 
+import { init as initLoadManager } from './lib/load-manager.js';
+
 /*
 	On the server, optionally render initial page JSON.
 	window.initPageSlug should be the key.
@@ -14,6 +16,7 @@ if (window.initCollectionSlug) {
 	dataStore[`${window.location.origin}/api/${window.initCollectionSlug}`] = window.initCollectionData;
 }
 
+initLoadManager();
 
 render((
 	<Router history={browserHistory} routes={routes} />

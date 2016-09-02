@@ -4,10 +4,10 @@ import Nav from '../../../ui/components/shared/Nav/Nav.js';
 
 import TransitionManager from '../../../ui/TransitionManager.js';
 
-const Master = ({ location, children }) => {
+const view = ({ location, children, isReady }) => {
 	return (
 		<div className="master-layout">
-			<main className="page-content">
+			<main className={`page-content ${isReady ? 'page-content--ready' : ''}`}>
 				<TransitionManager location={ location }>
 					{ children }
 				</TransitionManager>
@@ -17,6 +17,28 @@ const Master = ({ location, children }) => {
 		</div>
 	);
 };
+
+const data = Component => class extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isReady: false,
+		};
+	}
+
+	componentDidMount() {
+		setTimeout(() => {
+			this.setState({ isReady: true });
+		}, 33);
+	}
+
+	render() {
+		return <Component {...this.state} {...this.props} />
+	}
+};
+
+const Master = data(view);
 
 export default Master;
 

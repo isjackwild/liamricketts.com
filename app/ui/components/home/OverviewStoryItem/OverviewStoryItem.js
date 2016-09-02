@@ -1,9 +1,10 @@
 import React from 'react';
+import PubSub from 'pubsub-js';
 
-const view = ({ src, padding, ready, onImageLoad }) => {
+const view = ({ src, padding, isReady, onImageLoad }) => {
 	return (
 		<div
-			className={`overview-story__item overview-story__item--${ready ? 'loaded' : 'pending'}`}
+			className={`overview-story__item overview-story__item--${isReady ? 'ready' : 'pending'}`}
 			style={{ backgroundImage: `url(${src})` }}
 		>
 			<div
@@ -21,22 +22,49 @@ const data = Component => class extends React.Component {
 
 		this.state = {
 			src: null,
-			loaded: false,
+			isLoaded: false,
+			isReady: false,
 		}
 
+		this.imgLoader = new Image();
 		this.onImageLoad = this.onImageLoad.bind(this);
+		this.subs = [];
 	}
 
 	componentDidMount() {
-		console.log(this.props.item);
 		this.setState({
 			src: this.props.item.images.small,
 			padding: this.props.item.images.aspectRatio * 100,
 		});
+
+		this.subs.push(PubSub.subscribe('load.complete', () => {
+			this.setState({ isReady: true });
+		}));
+		
+		setTimeout(() => {
+			this.loadImage();
+		}, 333);
+	}
+
+	componentWillUnmount() {
+		this.subs.forEach(sub => PubSub.unsubscribe(sub));
+		this.imgLoader.src = '';
+		this.imgLoader = undefined;
+	}
+
+	loadImage() {
+		console.log('load image')
+		PubSub.publish('load.add');
+		this.imgLoader.onload = this.onImageLoad;
+		this.imgLoader.onerror = this.onImageLoad;
+		setTimeout(() => {
+			this.imgLoader.src = this.state.src;
+		}, 0)
 	}
 
 	onImageLoad() {
 		this.setState({ loaded: true });
+		PubSub.publish('load.loaded');
 	}
 
 	render() {

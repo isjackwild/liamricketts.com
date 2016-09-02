@@ -1,6 +1,19 @@
 .overview-story {
 	cursor: pointer;
-	display: inline;
+	display: block;
 	font-size: 0;
-	margin-right: 184px;
+	display: inline;
+	transition: opacity $timing--overview-hover ease-in-out;
+	opacity: 0.95;
+	// flex-wrap: wrap;
+	// align-items: flex-end;
+	// justify-content: space-between;
+}
+
+.overview-story--mouse-over {
+	opacity: 1;
+}
+
+.overview-story--dimmed {
+	opacity: 0.07;
 }

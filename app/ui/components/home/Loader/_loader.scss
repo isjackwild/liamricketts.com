@@ -1,0 +1,36 @@
+.loader {
+	width: 430px;
+	height: 15px;
+	background: red;
+	position: absolute;
+	display: inline-block;
+	border-radius: 3px;
+	margin-top: 50px;
+	overflow: hidden;
+	transition: opacity $timing--loaded ease-in;
+}
+
+.loader--pending {
+	opacity: 1;
+}
+
+.loader--loaded {
+	opacity: 0;
+}
+
+.loader__image {
+	height: 100%;
+	width: 3.33%;
+	outline: 1px solid white;
+	position: relative;
+	display: inline-block;
+	transition: opacity 0.12s ease-out;
+}
+
+.loader__image--dim {
+	opacity: 0.2;
+}
+
+.loader__image--lit {
+	opacity: 1;
+}

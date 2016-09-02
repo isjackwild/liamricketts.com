@@ -1,0 +1,8 @@
+.page-content {
+	opacity: 0;
+	transition: opacity 0.1s ease-in;
+}
+
+.page-content--ready {
+	opacity: 1;
+}

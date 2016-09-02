@@ -1,3 +1,8 @@
 .overview {
 	font-size: 0;
+	width: 100%;
+	display: block;
+	position: relative;
+	padding: 80px #{$size--site-side-padding - $size--overview-item-padding} 0 $size--site-side-padding;
+	background: #FFFFFF;
 }

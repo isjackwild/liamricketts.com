@@ -1,8 +1,9 @@
 import React from 'react';
+import PubSub from 'pubsub-js';
 
-const view = ({ text, links, contact, isVisible }) => {
+const view = ({ text, links, contact, isVisible, isDisplayed }) => {
 	return (
-		<section className={`about about--${isVisible ? 'visible' : 'hidden'}`}>
+		<section className={`about about--${isVisible ? 'visible' : 'hidden'} about--${isDisplayed ? 'display' : 'display-none'}`}>
 			<div className="about__text">
 				<p>{text}</p>
 			</div>
@@ -41,7 +42,10 @@ const data = Component => class extends React.Component {
 			links: [],
 			contact: [],
 			isVisible: false,
+			isDisplayed: false,
 		}
+
+		this.subs = [];
 	}
 
 	componentDidMount() {
@@ -50,6 +54,24 @@ const data = Component => class extends React.Component {
 			links: window.about.links,
 			contact: window.about.contact,
 		});
+		
+		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
+			if (data === true) {
+				this.setState({ isDisplayed: data });
+				setTimeout((e) => {
+					this.setState({ isVisible: data })
+				}, 10);
+			} else {
+				this.setState({ isVisible: data });
+				setTimeout((e) => {
+					this.setState({ isDisplayed: data })
+				}, 333);
+			}
+		}));
+	}
+
+	componentWillUnmount() {
+		this.subs.forEach(sub => PubSub.unsubscribe(sub));
 	}
 
 	render() {

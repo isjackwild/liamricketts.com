@@ -3,12 +3,42 @@ $black: #000000;
 $white: #FFFFFF;
 $dark-grey: #252525;
 $medium-grey: #444444;
-$brand-pink: #F54997;
+
+$liam-yellow: #FFD002;
+
 
 /* TRANSITIONS */
 $easing: cubic-bezier(0.77, 0, 0.175, 1);
+$timing--overview-hover: 0.22s;
+$timing--loaded: 0.8s;
 
 /* FONTS */
-$fonts: 'Source Code Pro', 'Office Code Pro', 'Courier New', 'Courier', 'monospace', 'serif';
+$fonts: 'CooperHewittBookItalic', 'Helvetica', 'sans-serif';
 $font-size: 100%;
 $line-height: 1;
+
+
+/* SIZES */
+$size--overview-item-padding: 12px;
+$size--site-side-padding: 50px;
+
+/* TYPE */
+%typo--breadcrumb {
+	font-family: 'CooperHewittBookItalic', sans-serif;
+	font-size: rem(12px);
+	letter-spacing: em(0.35px);
+}
+
+%typo--wordmark {
+	font-family: 'CooperHewittBoldItalic', sans-serif;
+	font-size: rem(12px);
+	letter-spacing: em(1.05px);
+	text-transform: uppercase;
+}
+
+%typo--showstopper-wordmark {
+	font-family: 'CooperHewittBoldItalic', sans-serif;
+	font-size: rem(40px);
+	letter-spacing: em(3.7px);
+	text-transform: uppercase;
+}

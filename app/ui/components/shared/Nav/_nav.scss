@@ -1,0 +1,76 @@
+.nav {
+	position: fixed;
+	top: 22px;
+	left: 0;
+	right: 0;
+	padding: 0 $size--site-side-padding;
+}
+
+.nav__breadcrumbs {
+	display: inline-block;
+}
+
+.nav__breadcrumbs li {
+	display: inline-block;
+}
+
+.nav__breadcrumb {
+	@extend %typo--breadcrumb;
+}
+
+.nav__breadcrumb-dash {
+	@extend %typo--breadcrumb;
+	display: inline-block;
+	margin: 0 3px;
+	// vertical-align: middle;
+}
+
+.nav__wordmark {
+	@extend %typo--wordmark;
+}
+
+.nav__about-toggle {
+	@extend %typo--breadcrumb;
+	position: absolute;
+	right: $size--site-side-padding;
+	cursor: pointer;
+	text-align: right;
+	min-width: 95px;
+}
+
+.nav__about-toggle-open {
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.nav__about-toggle-back {
+	position: relative;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.nav__back-hand {
+	position: absolute;
+	margin-left: -17px;
+	line-height: 1.4em;
+}
+
+.nav__about-toggle--disabled {
+	pointer-events: none;
+}
+
+.nav__about-toggle--inactive .nav__about-toggle-back {
+	display: none;
+}
+
+.nav__about-toggle--active .nav__about-toggle-back {
+	display: block;
+}
+
+.nav__about-toggle--inactive .nav__about-toggle-open {
+	display: block;
+}
+
+.nav__about-toggle--active .nav__about-toggle-open {
+	display: none;
+}
