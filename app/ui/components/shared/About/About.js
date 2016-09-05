@@ -1,12 +1,10 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
 
-const view = ({ text, links, contact, isVisible, isDisplayed }) => {
+const view = ({ text, links, address, contact, isVisible, isDisplayed }) => {
 	return (
 		<section className={`about about--${isVisible ? 'visible' : 'hidden'} about--${isDisplayed ? 'display' : 'display-none'}`}>
-			<div className="about__text">
-				<p>{text}</p>
-			</div>
+			<div className="about__text" dangerouslySetInnerHTML={{__html: text}}></div>
 			<ul className="about__contact">
 				{
 					contact.map((option, i) => {
@@ -18,6 +16,7 @@ const view = ({ text, links, contact, isVisible, isDisplayed }) => {
 					})
 				}
 			</ul>
+			<div className="about__address" dangerouslySetInnerHTML={{__html: address}}></div>
 			<ul className="about__links">
 				{
 					links.map((link, i) => {
@@ -29,6 +28,10 @@ const view = ({ text, links, contact, isVisible, isDisplayed }) => {
 					})
 				}
 			</ul>
+			<div className="about__credits">
+				<span>Site Design and Development by <a href="http://www.isjackwild.com" target="blank">Jack Wild</a></span>
+				<span>Typeset in Cooper Hewitt and Libre Baskerville from <a href="http://open-foundry.com/" target="blank">Open Foundry</a></span>
+			</div>
 		</section>
 	);
 };
@@ -38,9 +41,10 @@ const data = Component => class extends React.Component {
 		super(props);
 
 		this.state = {
-			text: '',
-			links: [],
-			contact: [],
+			text: window.about.about,
+			address: window.about.address,
+			links: window.about.links,
+			contact: window.about.contact,
 			isVisible: false,
 			isDisplayed: false,
 		}
@@ -48,13 +52,7 @@ const data = Component => class extends React.Component {
 		this.subs = [];
 	}
 
-	componentDidMount() {
-		this.setState({
-			text: window.about.about,
-			links: window.about.links,
-			contact: window.about.contact,
-		});
-		
+	componentDidMount() {		
 		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
 			if (data === true) {
 				this.setState({ isDisplayed: data });

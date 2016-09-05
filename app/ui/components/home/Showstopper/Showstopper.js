@@ -6,7 +6,7 @@ const view = ({ isReady }) => {
 	return (
 		<section className="showstopper">
 			<div className="showstopper__inner">
-				<span className="showstopper__wordmark">Liam Ricketts</span>
+				<span className={`showstopper__wordmark ${isReady ? 'showstopper__wordmark--ready' : ''}`}>Liam Ricketts</span>
 				<Loader />
 			</div>
 			<div className={`showstopper__arrow ${isReady ? 'showstopper__arrow--ready' : ''}`}></div>

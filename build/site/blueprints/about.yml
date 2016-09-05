@@ -21,6 +21,9 @@ fields:
         label: URL
         type: url
         required: false
+  address:
+    label: Address
+    type:  textarea
   links:
     label: Links
     type: structure

@@ -1,0 +1,20 @@
+.title {
+	position: fixed;
+	left: $size--site-side-padding;
+	top: 150px;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.05s ease-in-out;
+}
+
+.title--visible {
+	opacity: 1;
+}
+
+.title__title {
+	@extend %typo--title;
+}
+
+.title__subtitle {
+	@extend %typo--subtitle;
+}

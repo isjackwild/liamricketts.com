@@ -22,6 +22,11 @@ $line-height: 1;
 $size--overview-item-padding: 12px;
 $size--site-side-padding: 50px;
 
+$size--large-image: 100vh;
+$size--medium-image: 70vh;
+$size--small-image: 40vh;
+
+
 /* TYPE */
 %typo--breadcrumb {
 	font-family: 'CooperHewittBookItalic', sans-serif;
@@ -41,4 +46,40 @@ $size--site-side-padding: 50px;
 	font-size: rem(40px);
 	letter-spacing: em(3.7px);
 	text-transform: uppercase;
+}
+
+%typo--title {
+	font-family: 'CooperHewittBoldItalic', sans-serif;
+	font-size: rem(60px);
+	letter-spacing: em(0.1px);
+	line-height: 1.1em;
+}
+
+%typo--subtitle {
+	font-family: 'Libre Baskerville', 'Times New Roman', serif;
+	font-size: rem(16px);
+	letter-spacing: em(0.2px);
+	font-weight: bold;
+}
+
+%typo--about-text {
+	font-family: 'Libre Baskerville', 'Times New Roman', serif;
+	font-size: rem(16px);
+	line-height: rem(23px);
+	letter-spacing: em(0.2px);
+	font-weight: bold;
+}
+
+%typo--contact {
+	font-family: 'CooperHewittBookItalic', sans-serif;
+	font-size: rem(14px);
+	line-height: rem(23px);
+	letter-spacing: em(0.8px);
+}
+
+%typo--credits {
+	font-family: 'CooperHewittBookItalic', sans-serif;
+	font-size: rem(12px);
+	letter-spacing: em(0.7px);
+	line-height: 1.5em;
 }

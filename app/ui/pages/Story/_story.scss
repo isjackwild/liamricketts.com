@@ -1,3 +1,7 @@
-.hey {
-	font-size: 0;
+.story {
+	white-space: nowrap;
+	height: 100vh;
+	position: absolute;
+	width: 100vw;
+	overflow-x: scroll;
 }

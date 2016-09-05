@@ -1,11 +1,12 @@
 import React from 'react';
 import OverviewStory from '../OverviewStory/OverviewStory.js'
+import _ from 'lodash';
 
 const view = ({ stories }) => {
 	return (
 		<section className="overview">
 			{
-				stories.map((story, i) => {
+				_.map(stories, (story, i) => {
 					return <OverviewStory story={story} key={i} />;
 				})
 			}

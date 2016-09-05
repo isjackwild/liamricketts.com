@@ -53,7 +53,6 @@ const data = Component => class extends React.Component {
 	}
 
 	loadImage() {
-		console.log('load image')
 		PubSub.publish('load.add');
 		this.imgLoader.onload = this.onImageLoad;
 		this.imgLoader.onerror = this.onImageLoad;

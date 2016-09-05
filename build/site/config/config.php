@@ -33,7 +33,7 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 c::set('routes', array(
   array(
-    'pattern' => array('(:any)', '/'),
+    'pattern' => array('(:any)', '(:all)/(:all)', '/'),
     'action'  => function($slug = false) {
       
       $about = page('about');

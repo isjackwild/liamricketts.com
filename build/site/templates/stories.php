@@ -24,6 +24,7 @@
 			$item_json = array(
 				'size' 		=> (string)$item->size()->value(),
 				'alignment' => (string)$item->alignment()->value(),
+				'caption' => (string)$item->caption()->html(),
 				'margin'	 => (string)$item->margin()->value(),
 				'hideInHomepage' => (bool)$item->hideinhomepage()->bool(),
 				'images' 	=> $images_json,
@@ -38,7 +39,9 @@
 			'background'=> (string)$story->background()->html(),
 			'items'	=> $content_json,
 		);
-		array_push($json, $story_json);
+
+		$json[(string)$story->slug()] = $story_json;
+		// array_push($json, $story_json);
 	}
 
 	echo json_encode($json);

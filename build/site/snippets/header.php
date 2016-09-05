@@ -8,6 +8,7 @@
   <title><?php echo $site->title()->html(); ?></title>
   <meta name="description" content="<?php echo $site->description()->html(); ?>">
   <meta name="keywords" content="<?php echo $site->keywords()->html(); ?>">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
 
 </head>
 <body>

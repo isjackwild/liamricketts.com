@@ -8,7 +8,16 @@ body, html {
 	font-size: $font-size;
 	padding: 0;
 	margin: 0;
+	transition: background 0.12s ease;
+	transition-delay: 0.33s;
+}
+
+body {
 	background: $liam-yellow;
+}
+
+body.is-init {
+	background: #FFFFFF;
 }
 
 @import '../layouts/Master/_master.scss';
@@ -17,9 +26,12 @@ body, html {
 
 @import '../components/shared/About/_about.scss';
 @import '../components/shared/Nav/_nav.scss';
+@import '../components/shared/Title/_title.scss';
 
 @import '../components/home/Loader/_loader.scss';
 @import '../components/home/Overview/_overview.scss';
 @import '../components/home/OverviewStory/_overview-story.scss';
 @import '../components/home/OverviewStoryItem/_overview-story-item.scss';
 @import '../components/home/Showstopper/_showstopper.scss';
+
+@import '../components/story/StoryItem/_story-item.scss';

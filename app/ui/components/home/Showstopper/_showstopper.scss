@@ -39,6 +39,7 @@
 
 .showstopper__wordmark {
 	@extend %typo--showstopper-wordmark;
+	transition: color $timing--overview-hover ease-in-out, text-shadow $timing--overview-hover ease-in-out;
 }
 
 .showstopper__wordmark--ready {

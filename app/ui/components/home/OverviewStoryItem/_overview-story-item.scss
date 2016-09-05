@@ -42,6 +42,11 @@
 }
 
 
-.overview-story__item:last-child {
-	margin-right: calc(12.5% + #{$size--overview-item-padding})
+.overview-story__item:first-child {
+	// margin-left: calc(12.5% + #{$size--overview-item-padding});
+	margin-left: 12.5%;
+}
+
+.overview-story:first-child .overview-story__item:first-child {
+	margin-left: 0;
 }

@@ -35,7 +35,7 @@ fields:
     default: medium
     required: true
     options:
-      mirco: Micro
+      micro: Micro
       small: Small
       medium: Medium
       large: Large

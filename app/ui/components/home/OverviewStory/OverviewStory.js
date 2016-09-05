@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import PubSub from 'pubsub-js';
 import OverviewStoryItem from '../OverviewStoryItem/OverviewStoryItem.js';
 
@@ -12,6 +13,7 @@ const view = ({ story, isMouseOver, isDimmed, onMouseEnter, onMouseLeave }) => {
 		>
 			{
 				story.items.map((item, i) => {
+					if (item.hideInHomepage) return;
 					return <OverviewStoryItem item={item} key={i} />;
 				})
 			}
@@ -38,7 +40,7 @@ const data = Component => class extends React.Component {
 	componentDidMount() {
 		this.subs.push(PubSub.subscribe('overview.dim', this.dim));
 		this.subs.push(PubSub.subscribe('load.complete', () => {
-			this.setState({ isReady: true});
+			this.setState({ isReady: true });
 		}));
 	}
 
@@ -50,11 +52,16 @@ const data = Component => class extends React.Component {
 		if (!this.state.isReady) return;
 		this.setState({ isMouseOver: true });
 		PubSub.publish('overview.dim', true);
+		PubSub.publish('title.show', {
+			title: this.props.story.title,
+			subtitle: this.props.story.subtitle,
+		});
 	}
 
 	onMouseLeave() {
 		this.setState({ isMouseOver: false });
 		PubSub.publish('overview.dim', false);
+		PubSub.publish('title.hide', false);
 	}
 
 	dim(e, data) {

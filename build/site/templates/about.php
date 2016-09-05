@@ -20,7 +20,8 @@
 	}
 
 	$json = array(
-		'about' => (string)$page->about()->html(),
+		'about' => (string)$page->about()->kirbytext(),
+		'address' => (string)$page->address()->kirbytext(),
 		'links' => $links_json,
 		'contact' => $contact_json,
 	);
