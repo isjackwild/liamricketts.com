@@ -42,18 +42,18 @@
 }
 
 .about__contact {
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 	@extend %typo--contact;
 }
 
 .about__address {
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 	@extend %typo--contact;
 	line-height: rem(19px);
 }
 
 .about__links {
-	margin-bottom: 65px;
+	margin-bottom: 75px;
 	@extend %typo--contact;
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PubSub from 'pubsub-js';
 import Showstopper from '../../../ui/components/home/Showstopper/Showstopper.js';
 import Overview from '../../../ui/components/home/Overview/Overview.js';
 
@@ -16,6 +17,10 @@ const view = () => {
 const data = Component => class extends React.Component {
 	constructor(props) {
 		super(props);
+	}
+
+	componentDidMount() {
+		PubSub.publish('nav.update', false);
 	}
 
 	render() {

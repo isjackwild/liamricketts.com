@@ -48,6 +48,8 @@ const data = Component => class extends React.Component {
 
 	componentWillUnmount() {
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
+		this.imgLoader.onload = null;
+		this.imgLoader.onerror = null;
 		this.imgLoader.src = '';
 		this.imgLoader = undefined;
 	}

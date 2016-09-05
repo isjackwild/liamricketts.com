@@ -19,7 +19,6 @@ export default class TransitionManager extends React.Component {
 	}
 
 	componentWillMount() {
-		console.log(this.props);
 		this.willTransition(this.props, window.stories);
 	}
 
@@ -30,11 +29,12 @@ export default class TransitionManager extends React.Component {
 			isDataReady: false,
 		});
 
-		this.willTransition();
+		setTimeout(() => {
+			this.willTransition(nextProps);
+		}, 0);
 	}
 
 	willTransition(transitionProps) {
-		console.log('will transition');
 		if (!isEqual(this.props.location, transitionProps.location)) return;
 
 		this.setState({

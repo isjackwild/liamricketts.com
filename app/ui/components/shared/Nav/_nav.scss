@@ -4,24 +4,39 @@
 	left: 0;
 	right: 0;
 	padding: 0 $size--site-side-padding;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.nav a {
+	text-decoration: none;
+	color: inherit;
 }
 
 .nav__breadcrumbs {
 	display: inline-block;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .nav__breadcrumbs li {
 	display: inline-block;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .nav__breadcrumb {
 	@extend %typo--breadcrumb;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .nav__breadcrumb-dash {
 	@extend %typo--breadcrumb;
 	display: inline-block;
 	margin: 0 3px;
+	-webkit-user-select: none;
+	user-select: none;
 	// vertical-align: middle;
 }
 

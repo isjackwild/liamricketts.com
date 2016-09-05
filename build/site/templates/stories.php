@@ -36,12 +36,12 @@
 		$story_json = array(
 			'title'		=> (string)$story->title()->html(),
 			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->html() : null),
+			'slug'		=> (string)$story->slug(),
 			'background'=> (string)$story->background()->html(),
-			'items'	=> $content_json,
+			'items'		=> $content_json,
 		);
 
 		$json[(string)$story->slug()] = $story_json;
-		// array_push($json, $story_json);
 	}
 
 	echo json_encode($json);

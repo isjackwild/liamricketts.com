@@ -1,15 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router';
 import PubSub from 'pubsub-js';
 
-const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled }) => {
+const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled, storyTitle }) => {
 	return (
 		<nav className="nav">
 			<ul className="nav__breadcrumbs">
-				<li className="nav__wordmark">Liam Ricketts</li>
-				<span className="nav__breadcrumb-dash">—</span>
-				<li className="nav__breadcrumb">Test</li>
-				<span className="nav__breadcrumb-dash">—</span>
-				<li className="nav__breadcrumb">Goes Here</li>
+				<li className="nav__wordmark">
+					<Link to='/'>Liam Ricketts</Link>
+				</li>
+				<li className="nav__breadcrumb">
+					<span className="nav__breadcrumb-dash">—</span>
+					<Link to='/'>Stories</Link>
+				</li>
+				{storyTitle?
+					<li className="nav__breadcrumb">
+						<span className="nav__breadcrumb-dash">—</span>
+						{storyTitle}
+					</li>
+					:
+					null
+				}
 			</ul>
 
 			<span className={`nav__about-toggle nav__about-toggle--${isAboutVisible ? 'active' : 'inactive'} nav__about-toggle--${isAboutToggleEnabled ? 'enabled' : 'disabled'}`} onClick={toggleAbout}>
@@ -28,6 +39,7 @@ const data = Component => class extends React.Component {
 		this.state = {
 			isAboutVisible: false,
 			isAboutToggleEnabled: true,
+			storyTitle: false,
 		}
 
 		this.toggleAbout = this.toggleAbout.bind(this);
@@ -37,6 +49,10 @@ const data = Component => class extends React.Component {
 	componentDidMount() {
 		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
 			this.setState({ isAboutVisible: data });
+		}));
+
+		this.subs.push(PubSub.subscribe('nav.update', (e, data) => {
+			this.setState({ storyTitle: data });
 		}));
 	}
 

@@ -63,3 +63,25 @@
 	margin-top: 30vh;
 	margin-top: #{100vh - $size--medium-image};
 }
+
+
+.story__caption {
+	@extend %typo--caption;
+	display: inline-block;
+	white-space: normal;
+}
+
+.story__caption--right {
+	vertical-align: bottom;
+	max-width: 300px;
+	width: 300px;
+	margin-left: 17px;
+	margin-bottom: 8px;
+	position: relative;
+}
+
+.story__caption--below {
+	display: block;
+	max-width: 260px;
+	margin-top: 12px;
+}

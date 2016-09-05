@@ -5,3 +5,14 @@
 	width: 100vw;
 	overflow-x: scroll;
 }
+
+.story__cover {
+	width: 33vw;
+	max-width: 695px;
+	display: inline-block;
+	height: 100%;
+	position: relative;
+	top: 0;
+	vertical-align: middle;
+	font-size: 0;
+}
