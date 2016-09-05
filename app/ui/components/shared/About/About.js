@@ -1,6 +1,7 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
 
+
 const view = ({ text, links, address, contact, isVisible, isDisplayed }) => {
 	return (
 		<section className={`about about--${isVisible ? 'visible' : 'hidden'} about--${isDisplayed ? 'display' : 'display-none'}`}>
@@ -50,16 +51,22 @@ const data = Component => class extends React.Component {
 		}
 
 		this.subs = [];
+
+		this.preventDefault = this.preventDefault.bind(this);
+		this.enableScroll = this.enableScroll.bind(this);
+		this.disableScroll = this.disableScroll.bind(this);
 	}
 
 	componentDidMount() {		
 		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
 			if (data === true) {
+				this.disableScroll();
 				this.setState({ isDisplayed: data });
 				setTimeout((e) => {
 					this.setState({ isVisible: data })
 				}, 10);
 			} else {
+				this.enableScroll();
 				this.setState({ isVisible: data });
 				setTimeout((e) => {
 					this.setState({ isDisplayed: data })
@@ -70,6 +77,26 @@ const data = Component => class extends React.Component {
 
 	componentWillUnmount() {
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
+	}
+
+	preventDefault(e) {
+		e = e || window.event;
+		if (e.preventDefault) e.preventDefault();
+		e.returnValue = false;
+	}
+
+	disableScroll() {
+		if (window.addEventListener) window.addEventListener('DOMMouseScroll', this.preventDefault, false);
+		window.onwheel = this.preventDefault;
+		window.onmousewheel = document.onmousewheel = this.preventDefault;
+		window.ontouchmove  = this.preventDefault;
+	}
+
+	enableScroll() {
+		if (window.removeEventListener) window.removeEventListener('DOMMouseScroll', this.preventDefault, false);
+		window.onmousewheel = document.onmousewheel = null;
+		window.onwheel = null;
+		window.ontouchmove = null;
 	}
 
 	render() {

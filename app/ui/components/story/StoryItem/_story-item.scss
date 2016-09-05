@@ -69,11 +69,11 @@
 	@extend %typo--caption;
 	display: inline-block;
 	white-space: normal;
+	max-width: 300px;
 }
 
 .story__caption--right {
 	vertical-align: bottom;
-	max-width: 300px;
 	width: 300px;
 	margin-left: 17px;
 	margin-bottom: 8px;
@@ -82,6 +82,7 @@
 
 .story__caption--below {
 	display: block;
-	max-width: 260px;
+	max-width: 90%;
 	margin-top: 12px;
+	position: absolute;
 }
