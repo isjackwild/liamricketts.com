@@ -16,12 +16,21 @@
 }
 
 .story__cover {
-	width: 33vw;
-	max-width: 695px;
+	// width: 33vw;
+	// max-width: 695px;
 	display: inline-block;
 	height: 100%;
 	position: relative;
 	top: 0;
 	vertical-align: middle;
 	font-size: 0;
+	padding: 136px #{$size--site-side-padding * 4} $size--site-side-padding $size--site-side-padding;
+}
+
+.story__title {
+	@extend %typo--title;
+}
+
+.story__subtitle {
+	@extend %typo--subtitle;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
 
-const view = ({ src, padding, isReady, onImageLoad }) => {
+const view = ({ src, padding, isReady, onImageLoad, title }) => {
 	return (
 		<div
 			className={`overview-story__item overview-story__item--${isReady ? 'ready' : 'pending'}`}
@@ -12,6 +12,13 @@ const view = ({ src, padding, isReady, onImageLoad }) => {
 				style={{ paddingBottom: `${padding}%` }}
 			>
 			</div>
+			{title ? 
+				<div className="overview-story__title">
+					<h1>{title}</h1>
+				</div>
+				:
+				null
+			}
 		</div>
 	);
 };

@@ -13,7 +13,6 @@ const view = ({ location, children, isReady, params }) => {
 					{ children }
 				</TransitionManager>
 			</main>
-			<Title />
 			<About />
 			<Nav />
 		</div>

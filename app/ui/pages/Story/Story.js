@@ -38,9 +38,9 @@ class Story extends React.Component {
 			delta: 1, 
 		}
 
-		this.naturalForce = -0.12;
+		this.naturalForce = -0;
 		this.sensitivity = 0.6;
-		this.friction = 0.002;
+		this.friction = 0.5;
 		this.torque = 0.05;
 
 		this.animate = this.animate.bind(this);
@@ -62,6 +62,7 @@ class Story extends React.Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.onResize);
 		window.removeEventListener('mousewheel', this.onMouseWheel);
+		cancelAnimationFrame(this.raf);
 	}
 
 	onResize() {
@@ -72,7 +73,7 @@ class Story extends React.Component {
 	onMouseWheel(e) {
 		e.preventDefault();
 		this.setState({
-			targetForce: (this.state.targetForce + e.deltaY * this.sensitivity * -1),
+			targetForce: (this.state.targetForce + (e.deltaY * -1 * this.sensitivity)),
 		});
 	}
 
@@ -81,12 +82,10 @@ class Story extends React.Component {
 		const now = new Date().getTime();
 		const delta = this.state.then ? (this.state.now - this.state.then) / 16.666 : 1;
 
-		console.log(delta);
-
 		const width = this.refs.inner.clientWidth;
-		const currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * 0.1;
-		const targetForce = this.naturalForce + (this.naturalForce - this.state.targetForce) * this.friction;
+		const currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * this.torque;
 		const scrollPosition = _.clamp((this.state.scrollPosition + this.state.currentForce * delta), -(width - window.innerWidth), 0);
+		const targetForce = this.state.targetForce + (this.naturalForce - this.state.targetForce) * this.friction;
 
 		this.setState({
 			scrollPosition,
@@ -98,18 +97,27 @@ class Story extends React.Component {
 			delta,
 		});
 		this.raf = requestAnimationFrame(this.animate);
+		PubSub.publish('story.animate', (currentForce * delta));
 	}
 
 	render() {
-		const { items, title, subtitle, background, scrollPosition } = this.state;
+		const { items, title, subtitle, background, scrollPosition, width } = this.state;
 
 		return (
 			<div className="page page--story story">
 				<div className="story__inner" ref="inner">
-					<div className="story__cover"></div>
+					<div
+						className="story__cover"
+						style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
+					>
+						<div className="story__title-wrapper">
+							<h1 className="story__title">{title}</h1>
+							<h2 className="story__subtitle">{subtitle}</h2>
+						</div>
+					</div>
 					{
 						items.map((item, i) => {
-							return <StoryItem item={item} key={i} scrollPosition={scrollPosition} />;
+							return <StoryItem item={item} index={i} key={i} scrollMax={width} scrollPosition={scrollPosition} />;
 						})
 					}
 				</div>

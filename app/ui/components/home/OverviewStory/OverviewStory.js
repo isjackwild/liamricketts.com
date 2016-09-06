@@ -15,7 +15,7 @@ const view = ({ story, isMouseOver, isDimmed, onMouseEnter, onMouseLeave }) => {
 			{
 				story.items.map((item, i) => {
 					if (item.hideInHomepage) return;
-					return <OverviewStoryItem item={item} key={i} />;
+					return <OverviewStoryItem item={item} key={i} title={i === 0 ? story.title : null} />;
 				})
 			}
 		</Link>
@@ -53,16 +53,16 @@ const data = Component => class extends React.Component {
 		if (!this.state.isReady) return;
 		this.setState({ isMouseOver: true });
 		PubSub.publish('overview.dim', true);
-		PubSub.publish('title.show', {
-			title: this.props.story.title,
-			subtitle: this.props.story.subtitle,
-		});
+		// PubSub.publish('title.show', {
+		// 	title: this.props.story.title,
+		// 	subtitle: this.props.story.subtitle,
+		// });
 	}
 
 	onMouseLeave() {
 		this.setState({ isMouseOver: false });
 		PubSub.publish('overview.dim', false);
-		PubSub.publish('title.hide', false);
+		// PubSub.publish('title.hide', false);
 	}
 
 	dim(e, data) {

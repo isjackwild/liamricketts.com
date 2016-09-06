@@ -4,9 +4,26 @@
 	font-size: 0;
 	display: inline;
 	transition: opacity $timing--overview-hover ease-in-out;
+	position: relative;
 	// flex-wrap: wrap;
 	// align-items: flex-end;
 	// justify-content: space-between;
+}
+
+.overview-story__title {
+	@extend %typo--overview-story-title;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: #555555;
+	transform: translateY(100%);
+	padding-top: 5px;
+	transition: opacity $timing--overview-hover ease-in-out;
+	opacity: 0;
+}
+
+.overview-story:hover .overview-story__title {
+	opacity: 1;
 }
 
 .overview-story--mouse-over {
