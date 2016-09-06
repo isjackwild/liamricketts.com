@@ -1,7 +1,7 @@
 import React from 'react';
 // import PubSub from 'pubsub-js';
 
-const StoryItem = ({ item }) => {
+const StoryItem = ({ item, scrollPosition }) => {
 	const { size, alignment, margin, caption, images } = item;
 
 	const src = (() => {
@@ -23,8 +23,11 @@ const StoryItem = ({ item }) => {
 	})();
 
 	return (
-		<div className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}>
-			<img className="story__image" src={src} />
+		<div
+			className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
+			style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
+		>
+			<img className="story__image" src={src} width={images.fullWidth} height={images.fullHeight}/>
 			{caption ?
 				<span
 					className={`story__caption story__caption--${size === 'large' ? 'right' : 'below'}`}

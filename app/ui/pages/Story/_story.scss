@@ -1,9 +1,18 @@
 .story {
-	white-space: nowrap;
 	height: 100vh;
-	position: absolute;
+	position: relative;
 	width: 100vw;
-	overflow-x: scroll;
+	overflow: hidden;
+	// overflow-x: scroll;
+}
+
+.story__inner {
+	white-space: nowrap;
+	position: relative;
+	width: auto;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
 }
 
 .story__cover {

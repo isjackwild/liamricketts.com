@@ -12,13 +12,17 @@
 			$large = $files->find('large.jpg');
 			$medium = $files->find('medium.jpg');
 			$small = $files->find('small.jpg');
-			$aR = ($large->exists() ? ($large->dimensions()->height() / $large->dimensions()->width()) : null);
+			$fullWidth = ($large->exists() ? $large->dimensions()->width() : 0);
+			$fullHeight = ($large->exists() ? $large->dimensions()->height() : 0);
+			$aR = ($large->exists() ? ($fullHeight / $fullWidth) : null);
 
 			$images_json = array(
 				'large' => ($large ? (string)$large->url() : null),
 				'medium' => ($medium ? (string)$medium->url() : null),
 				'small' => ($small ? (string)$small->url() : null),
 				'aspectRatio' => (float)$aR,
+				'fullWidth' => (float)$fullWidth,
+				'fullHeight' => (float)$fullHeight,
 			);
 
 			$item_json = array(
