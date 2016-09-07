@@ -12,17 +12,19 @@
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
+	pointer-events: none;
 }
 
 .transition--fade-enter.transition--fade-enter-active {
 	opacity: 1;
- 	transition: opacity 800ms ease-in;
+ 	transition: opacity 500ms ease-in;
 	transition-delay: 400ms;
 }
 
 .transition--fade-leave {
 	opacity: 1;
 	position: absolute;
+	pointer-events: none;
 }
 
 .transition--fade-leave.transition--fade-leave-active {

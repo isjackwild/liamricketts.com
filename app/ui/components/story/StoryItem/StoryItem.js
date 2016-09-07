@@ -17,7 +17,7 @@ const coverView = ({ title, subtitle, scrollPosition }) => {
 };
 
 
-const imageView = ({ item, scrollPosition }) => {
+const imageView = ({ item, scrollPosition, openInLightbox }) => {
 	const { size, alignment, margin, caption, images } = item;
 
 	const src = (() => {
@@ -43,7 +43,13 @@ const imageView = ({ item, scrollPosition }) => {
 			className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
 			style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
 		>
-			<img className="story__image" src={src} width={images.fullWidth} height={images.fullHeight}/>
+			<img
+				className="story__image"
+				src={src}
+				width={images.fullWidth}
+				height={images.fullHeight}
+				onClick={openInLightbox}
+			/>
 			{caption ?
 				<span
 					className={`story__caption story__caption--${size === 'large' ? 'right' : 'below'}`}
@@ -71,6 +77,7 @@ const data = Component => class extends React.Component {
 		this.torque = 0.05;
 
 		this.update = this.update.bind(this);
+		this.openInLightbox = this.openInLightbox.bind(this);
 
 		this.subs = [];
 	}
@@ -94,8 +101,12 @@ const data = Component => class extends React.Component {
 		this.setState({ scrollPosition });
 	}
 
+	openInLightbox() {
+		PubSub.publish('lightbox.show', this.props.item.images);
+	}
+
 	render() {
-		return <Component {...this.state} {...this.props} />
+		return <Component {...this.state} {...this.props} openInLightbox={this.openInLightbox} />
 	}
 };
 

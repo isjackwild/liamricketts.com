@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import PubSub from 'pubsub-js';
 import _ from 'lodash';
 import { StoryItem, StoryCover } from '../../../ui/components/story/StoryItem/StoryItem.js';
+import Lightbox from '../../../ui/components/story/Lightbox/Lightbox.js';
 import TweenMax from 'gsap';
 
 
@@ -24,7 +25,7 @@ class Story extends React.Component {
 			delta: 1, 
 		}
 
-		this.naturalForce = -0.13;
+		this.naturalForce = -0.12;
 		this.sensitivity = 0.6;
 		this.friction = 0.5;
 		this.torque = 0.05;
@@ -41,7 +42,7 @@ class Story extends React.Component {
 		this.onResize();
 
 		const fromOne = {
-			x: window.innerWidth / 3.5,
+			x: window.innerWidth / 4,
 			opacity: 0,
 		}
 		const toOne = {
@@ -129,6 +130,7 @@ class Story extends React.Component {
 						})
 					}
 				</div>
+				<Lightbox />
 			</div>
 		);
 	}
