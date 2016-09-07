@@ -1,9 +1,8 @@
 .story {
+	// position: absolute;
 	height: 100vh;
-	position: relative;
 	width: 100vw;
 	overflow: hidden;
-	// background: green;
 	// overflow-x: scroll;
 }
 
@@ -19,7 +18,6 @@
 .story__cover {
 	// width: 33vw;
 	// max-width: 695px;
-	background: rgba(#000, 0.1);
 	display: inline-block;
 	height: 100vh;
 	position: relative;

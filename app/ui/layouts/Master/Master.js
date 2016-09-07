@@ -15,10 +15,8 @@ const view = ({ location, children, isReady, params }) => {
 			<main className={`page-content ${isReady ? 'page-content--ready' : ''}`}>
 				<ReactCSSTransitionGroup 
 					transitionName="transition--fade"
-					transitionAppear={true}
-					transitionAppearTimeout={4000}
-					transitionEnterTimeout={5000} 
-					transitionLeaveTimeout={3000}>
+					transitionEnterTimeout={1200} 
+					transitionLeaveTimeout={350}>
 					{ React.cloneElement(children, { key: location.pathname }) }
 				</ReactCSSTransitionGroup>
 			

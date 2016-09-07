@@ -8,7 +8,7 @@
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	padding: 143px $size--site-side-padding $size--site-side-padding $size--site-side-padding;
-	transition: opacity 0.15s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
 }
 
 .about a {
@@ -27,7 +27,7 @@
 .about--hidden {
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 0.15s ease-in;
+	// transition: opacity 0.3s ease-in;
 }
 
 .about__text {

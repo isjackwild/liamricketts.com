@@ -40,16 +40,26 @@ class Story extends React.Component {
 		window.addEventListener('mousewheel', this.onMouseWheel);
 		this.onResize();
 
-		const from = {
-			x: window.innerWidth / 2,
+		const fromOne = {
+			x: window.innerWidth / 3.5,
 			opacity: 0,
 		}
-		const to = {
+		const toOne = {
 			x: 0,
-			opacity: 1,
-			ease: Power4.easeOut,
+			delay: 0.05,
+			ease: Power2.easeOut,
 		}
-		TweenMax.fromTo(this.refs.inner, 3, from, to);
+		TweenMax.fromTo(this.refs.inner, 3.2, fromOne, toOne);
+
+		const fromTwo = {
+			opacity: 0,
+		}
+		const toTwo = {
+			opacity: 1,
+			ease: Sine.easeIn,
+		}
+		TweenMax.fromTo(this.refs.inner, 1.3, fromTwo, toTwo);
+		// TODO: Kill Tweens and do this using TimeLine
 
 		setTimeout(() => {
 			this.animate();
@@ -99,7 +109,7 @@ class Story extends React.Component {
 		const { items, title, subtitle, background, minScroll } = this.state;
 
 		return (
-			<div className="page page--story story">
+			<div className="page page--story story" style={{ backgroundColor: background }}>
 				<div className="story__inner" ref="inner">
 					<StoryCover
 						title={title}
