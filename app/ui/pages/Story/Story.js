@@ -83,7 +83,13 @@ class Story extends React.Component {
 		const delta = this.state.then ? (this.state.now - this.state.then) / 16.666 : 1;
 
 		const width = this.refs.inner.clientWidth;
-		const currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * this.torque;
+		let currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * this.torque;
+
+		if (currentForce < 0 && this.state.scrollPosition > -100) {
+			const dampening = ((this.state.scrollPosition * -1) / 100);
+			console.log(dampening);
+		}
+
 		const scrollPosition = _.clamp((this.state.scrollPosition + this.state.currentForce * delta), -(width - window.innerWidth), 0);
 		const targetForce = this.state.targetForce + (this.naturalForce - this.state.targetForce) * this.friction;
 
@@ -97,7 +103,7 @@ class Story extends React.Component {
 			delta,
 		});
 		this.raf = requestAnimationFrame(this.animate);
-		PubSub.publish('story.animate', (currentForce * delta));
+		// PubSub.publish('story.animate', (currentForce * delta));
 	}
 
 	render() {
@@ -117,7 +123,7 @@ class Story extends React.Component {
 					</div>
 					{
 						items.map((item, i) => {
-							return <StoryItem item={item} index={i} key={i} scrollMax={width} scrollPosition={scrollPosition} />;
+							return <StoryItem item={item} index={i} key={i} scrollPosition={scrollPosition} />;
 						})
 					}
 				</div>
