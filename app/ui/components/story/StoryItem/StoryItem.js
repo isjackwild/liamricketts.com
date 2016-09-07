@@ -1,7 +1,23 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
 
-const StoryItem = ({ item, scrollPosition }) => {
+
+const coverView = ({ title, subtitle, scrollPosition }) => {
+	return (
+		<div
+			className="story__cover"
+			style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
+		>
+			<div className="story__title-wrapper">
+				<h1 className="story__title">{title}</h1>
+				<h2 className="story__subtitle">{subtitle}</h2>
+			</div>
+		</div>
+	);
+};
+
+
+const imageView = ({ item, scrollPosition }) => {
 	const { size, alignment, margin, caption, images } = item;
 
 	const src = (() => {
@@ -40,111 +56,49 @@ const StoryItem = ({ item, scrollPosition }) => {
 	);
 };
 
-export default StoryItem;
 
+const data = Component => class extends React.Component {
+	constructor(props) {
+		super(props);
 
+		this.state = {
+			scrollPosition: 0,
+		}
 
+		this.naturalForce = -0.1;
+		this.sensitivity = 0.6;
+		this.friction = 0.5;
+		this.torque = 0.05;
 
-// class StoryItem extends React.Component {
-// 	constructor(props) {
-// 		super(props);
+		this.update = this.update.bind(this);
 
-// 		this.state = {
-// 			scrollPosition: 0,
-// 			offsetLeft: 0,
-// 		}
+		this.subs = [];
+	}
 
-// 		this.naturalForce = -0.1;
-// 		this.sensitivity = 0.6;
-// 		this.friction = 0.5;
-// 		this.torque = 0.05;
+	componentDidMount() {
+		this.subs.push(PubSub.subscribe('story.animate', this.update));
+	}
 
-// 		this.update = this.update.bind(this);
-// 		this.onResize = this.onResize.bind(this);
+	componentWillUnmount() {
+		this.subs.forEach(sub => PubSub.unsubscribe(sub));
+	}
 
-// 		this.subs = [];
-// 	}
-
-// 	componentDidMount() {
-// 		window.addEventListener('resize', this.onResize);
-// 		this.subs.push(PubSub.subscribe('story.animate', this.update));
-// 		this.onResize();
-// 	}
-
-// 	componentWillUnmount() {
-// 		window.removeEventListener('resize', this.onResize);
-// 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
-// 	}
-
-// 	onResize() {
-// 		const width = this.refs.self.clientWidth;
-// 		this.setState({ width });
-// 	}
-
-// 	update(e, force) {
-// 		let scrollPosition = this.state.scrollPosition + force;
-// 		const normalizedPosition = ((this.state.scrollPosition * -1) - this.refs.self.offsetLeft) * -1;
-
-// 		const offsetLeft = this.refs.self.offsetLeft;
-// 		const rect = this.refs.self.getBoundingClientRect();
-
-// 		const minIn = (this.refs.self.clientWidth + this.refs.self.offsetLeft) * -1;
-// 		const maxIn = window.innerWidth - this.refs.self.offsetLeft;
+	update(e, force) {
+		let scrollPosition = this.state.scrollPosition + force;
 		
-// 		if (normalizedPosition < (rect.width * -1) && force < 0)
-// 			scrollPosition = offsetLeft + rect.width + this.props.remainingScroll;
-// 		if (normalizedPosition > window.innerWidth && force > 0)
-// 			scrollPosition -= offsetLeft;
+		if (scrollPosition < this.props.minScroll && force < 0)
+			scrollPosition = window.innerWidth;
+		if (scrollPosition > window.innerWidth && force > 0)
+			scrollPosition = this.props.minScroll;
 
-// 		this.setState({ scrollPosition, offsetLeft, minIn, maxIn, normalizedPosition });
-// 	}
+		this.setState({ scrollPosition });
+	}
 
-// 	render() {
-// 		const { scrollPosition, offsetLeft, minIn, maxIn, normalizedPosition } = this.state;
-// 		const { item } = this.props;
-// 		const { size, alignment, margin, caption, images } = item;
+	render() {
+		return <Component {...this.state} {...this.props} />
+	}
+};
 
-// 		const src = (() => {
-// 			switch(size) {
-// 				case 'small':
-// 					return images.medium;
-// 				case 'medium':
-// 				case 'large':
-// 					return images.large;
-// 				default:
-// 					return images.medium;
-// 			}
-// 		})();
+export const StoryItem = data(imageView);
+export const StoryCover = data(coverView);
 
-// 		const alignmentClass = (() => {
-// 			if (size === 'large') return 'top';
-// 			if (size === 'medium') return 'middle';
-// 			return alignment;
-// 		})();
-
-// 		return (
-// 			<div
-// 				className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
-// 				style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
-// 				ref="self"
-// 			>
-// 				<img className="story__image" src={src} width={images.fullWidth} height={images.fullHeight}/>
-// 				{caption ?
-// 					<span
-// 						className={`story__caption story__caption--${size === 'large' ? 'right' : 'below'}`}
-// 						dangerouslySetInnerHTML={{ __html: caption }}
-// 					></span>
-// 					:
-// 					null
-// 				}
-// 				<div className="story__debug">
-// 					<span>scrollPosition: {scrollPosition}</span><br/>
-// 					<span>offsetLeft: {offsetLeft}</span><br />
-// 					<span>normalizedPosition: {normalizedPosition}</span>
-// 				</div>
-// 			</div>
-// 		);
-// 	}
-// };
-
-// export default StoryItem;

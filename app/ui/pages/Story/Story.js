@@ -2,23 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import PubSub from 'pubsub-js';
 import _ from 'lodash';
-import StoryItem from '../../../ui/components/story/StoryItem/StoryItem.js';
+import { StoryItem, StoryCover } from '../../../ui/components/story/StoryItem/StoryItem.js';
+import TweenMax from 'gsap';
 
-
-// const view = ({ items, scrollPosition }) => {
-// 	return (
-// 		<div className="page page--story story">
-// 			<div className="story__inner">
-// 				<div className="story__cover"></div>
-// 				{
-// 					items.map((item, i) => {
-// 						return <StoryItem item={item} key={i} scrollPosition={scrollPosition} />;
-// 					})
-// 				}
-// 			</div>
-// 		</div>
-// 	);
-// };
 
 class Story extends React.Component {
 	constructor(props) {
@@ -38,7 +24,7 @@ class Story extends React.Component {
 			delta: 1, 
 		}
 
-		this.naturalForce = -0;
+		this.naturalForce = -0.13;
 		this.sensitivity = 0.6;
 		this.friction = 0.5;
 		this.torque = 0.05;
@@ -53,6 +39,17 @@ class Story extends React.Component {
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousewheel', this.onMouseWheel);
 		this.onResize();
+
+		const from = {
+			x: window.innerWidth / 2,
+			opacity: 0,
+		}
+		const to = {
+			x: 0,
+			opacity: 1,
+			ease: Power4.easeOut,
+		}
+		TweenMax.fromTo(this.refs.inner, 3, from, to);
 
 		setTimeout(() => {
 			this.animate();
@@ -82,20 +79,12 @@ class Story extends React.Component {
 		const now = new Date().getTime();
 		const delta = this.state.then ? (this.state.now - this.state.then) / 16.666 : 1;
 
-		const width = this.refs.inner.clientWidth;
+		const minScroll = this.refs.inner.clientWidth * -1;
 		let currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * this.torque;
-
-		if (currentForce < 0 && this.state.scrollPosition > -100) {
-			const dampening = ((this.state.scrollPosition * -1) / 100);
-			console.log(dampening);
-		}
-
-		const scrollPosition = _.clamp((this.state.scrollPosition + this.state.currentForce * delta), -(width - window.innerWidth), 0);
 		const targetForce = this.state.targetForce + (this.naturalForce - this.state.targetForce) * this.friction;
 
 		this.setState({
-			scrollPosition,
-			width,
+			minScroll,
 			currentForce,
 			targetForce,
 			now,
@@ -103,27 +92,30 @@ class Story extends React.Component {
 			delta,
 		});
 		this.raf = requestAnimationFrame(this.animate);
-		// PubSub.publish('story.animate', (currentForce * delta));
+		PubSub.publish('story.animate', (currentForce * delta));
 	}
 
 	render() {
-		const { items, title, subtitle, background, scrollPosition, width } = this.state;
+		const { items, title, subtitle, background, minScroll } = this.state;
 
 		return (
 			<div className="page page--story story">
 				<div className="story__inner" ref="inner">
-					<div
-						className="story__cover"
-						style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
-					>
-						<div className="story__title-wrapper">
-							<h1 className="story__title">{title}</h1>
-							<h2 className="story__subtitle">{subtitle}</h2>
-						</div>
-					</div>
+					<StoryCover
+						title={title}
+						subtitle={subtitle}
+						minScroll={minScroll}
+					/>
 					{
 						items.map((item, i) => {
-							return <StoryItem item={item} index={i} key={i} scrollPosition={scrollPosition} />;
+							return (
+								<StoryItem
+									item={item}
+									index={i}
+									key={i}
+									minScroll={minScroll}
+								/>
+							)
 						})
 					}
 				</div>

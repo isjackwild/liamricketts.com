@@ -2,16 +2,26 @@ import React from 'react';
 import About from '../../../ui/components/shared/About/About.js';
 import Nav from '../../../ui/components/shared/Nav/Nav.js';
 import Title from '../../../ui/components/shared/Title/Title.js';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import TransitionManager from '../../../ui/TransitionManager.js';
 
+
+	// <TransitionManager location={ location } params={params} >
+	// 			</TransitionManager>
 const view = ({ location, children, isReady, params }) => {
 	return (
 		<div className="master-layout">
 			<main className={`page-content ${isReady ? 'page-content--ready' : ''}`}>
-				<TransitionManager location={ location } params={params} >
-					{ children }
-				</TransitionManager>
+				<ReactCSSTransitionGroup 
+					transitionName="transition--fade"
+					transitionAppear={true}
+					transitionAppearTimeout={4000}
+					transitionEnterTimeout={5000} 
+					transitionLeaveTimeout={3000}>
+					{ React.cloneElement(children, { key: location.pathname }) }
+				</ReactCSSTransitionGroup>
+			
 			</main>
 			<About />
 			<Nav />

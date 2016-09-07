@@ -2,6 +2,7 @@ import React from 'react';
 import { isEqual } from 'lodash';
 
 import { getData, buildApiEndpoint } from '../lib/utils.js';
+import TweenMax from 'gsap';
 
 
 export default class TransitionManager extends React.Component {
