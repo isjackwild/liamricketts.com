@@ -22,10 +22,11 @@ class Story extends React.Component {
 			scrollPosition: 0,
 			then: null,
 			now: null,
-			delta: 1, 
+			delta: 1,
+			naturalForce: 0,
 		}
 
-		this.naturalForce = -0.12;
+		// this.naturalForce = -0.12;
 		this.sensitivity = 0.6;
 		this.friction = 0.5;
 		this.torque = 0.05;
@@ -80,9 +81,16 @@ class Story extends React.Component {
 
 	onMouseWheel(e) {
 		e.preventDefault();
+		let naturalForce = null;
+		if (e.deltaY === 0) naturalForce = this.state.naturalForce;
+		if (e.deltaY < 0) naturalForce = 0.15;
+		if (e.deltaY > 0) naturalForce = -0.15;
+
 		this.setState({
 			targetForce: (this.state.targetForce + (e.deltaY * -1 * this.sensitivity)),
+			naturalForce, 
 		});
+
 	}
 
 	animate() {
@@ -92,7 +100,7 @@ class Story extends React.Component {
 
 		const minScroll = this.refs.inner.clientWidth * -1;
 		let currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * this.torque;
-		const targetForce = this.state.targetForce + (this.naturalForce - this.state.targetForce) * this.friction;
+		const targetForce = this.state.targetForce + (this.state.naturalForce - this.state.targetForce) * this.friction;
 
 		this.setState({
 			minScroll,

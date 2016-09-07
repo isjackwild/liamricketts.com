@@ -72,7 +72,6 @@ const data = Component => class extends React.Component {
 			targetForceX,
 			targetForceY,
 		});
-		console.log(targetForceX, targetForceY)
 	}
 
 	onResize() {
