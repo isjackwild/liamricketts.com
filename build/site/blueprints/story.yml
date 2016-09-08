@@ -12,11 +12,12 @@ fields:
     required: true
   subtitle:
     label: Subtitle
-    type:  textarea
-    required: false
+    type:  text
+    required: true
   tags:
     label: Tags
     type:  tags
+    required: true
   background:
     label: Background colour
     type:  text

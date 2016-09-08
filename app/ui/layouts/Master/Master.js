@@ -16,7 +16,7 @@ const view = ({ location, children, isReady, params }) => {
 				<ReactCSSTransitionGroup 
 					transitionName="transition--fade"
 					transitionEnterTimeout={900} 
-					transitionLeaveTimeout={350}>
+					transitionLeaveTimeout={450}>
 					{ React.cloneElement(children, { key: location.pathname }) }
 				</ReactCSSTransitionGroup>
 			

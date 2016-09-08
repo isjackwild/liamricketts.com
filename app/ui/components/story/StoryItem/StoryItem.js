@@ -25,50 +25,83 @@ const coverView = ({ title, subtitle, tags, scrollPosition }) => {
 };
 
 
-const imageView = ({ item, scrollPosition, openInLightbox }) => {
-	const { size, alignment, margin, caption, images } = item;
+class Image extends React.Component {
+	constructor(props) {
+		super(props);
 
-	const src = (() => {
-		switch(size) {
-			case 'small':
-				return images.medium;
-			case 'medium':
-			case 'large':
-				return images.large;
-			default:
-				return images.medium;
+		this.state = {
+			isLoaded: false,
 		}
-	})();
 
-	const alignmentClass = (() => {
-		if (size === 'large') return 'top';
-		if (size === 'medium') return 'middle';
-		return alignment;
-	})();
+		this.onLoaded = this.onLoaded.bind(this);
+	}
 
-	return (
-		<div
-			className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
-			style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
-		>
-			<img
-				className="story__image"
-				src={src}
-				width={images.fullWidth}
-				height={images.fullHeight}
-				onClick={openInLightbox}
-			/>
-			{caption ?
-				<span
-					className={`story__caption story__caption--${size === 'large' ? 'right' : 'below'}`}
-					dangerouslySetInnerHTML={{ __html: caption }}
-				></span>
-				:
-				null
+	componentDidMount() {
+		if (this.refs.image.complete) {
+			this.onLoaded();
+		} else {
+			this.refs.image.onload = this.onLoaded;
+		}
+	}
+
+	componentWillUnmount() {
+		this.refs.image.onload = null;
+	}
+
+	onLoaded() {
+		this.setState({ isLoaded: true });
+	}
+
+	render() {
+		const { isLoaded } = this.state;
+		const { item, scrollPosition, openInLightbox } = this.props;
+		const { size, alignment, margin, caption, images } = item;
+
+		const src = (() => {
+			switch(size) {
+				case 'small':
+					return images.medium;
+				case 'medium':
+				case 'large':
+					return images.large;
+				default:
+					return images.medium;
 			}
-		</div>
-	);
-};
+		})();
+
+		const alignmentClass = (() => {
+			if (size === 'large') return 'top';
+			if (size === 'medium') return 'middle';
+			return alignment;
+		})();
+
+		return (
+			<div
+				className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
+				style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
+			>
+				<div className={`story__image-wrapper story__image-wrapper--${isLoaded ? 'loaded' : 'loading'}`}>
+					<img
+						ref="image"
+						className="story__image"
+						src={src}
+						width={images.fullWidth}
+						height={images.fullHeight}
+						onClick={openInLightbox}
+					/>
+				</div>
+				{caption ?
+					<span
+						className={`story__caption story__caption--${size === 'large' ? 'right' : 'below'}`}
+						dangerouslySetInnerHTML={{ __html: caption }}
+					></span>
+					:
+					null
+				}
+			</div>
+		);
+	}
+}
 
 
 const data = Component => class extends React.Component {
@@ -118,6 +151,6 @@ const data = Component => class extends React.Component {
 	}
 };
 
-export const StoryItem = data(imageView);
+export const StoryItem = data(Image);
 export const StoryCover = data(coverView);
 

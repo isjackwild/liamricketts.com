@@ -2,18 +2,30 @@ import React from 'react';
 import { Link } from 'react-router';
 import PubSub from 'pubsub-js';
 
-const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled, isLightboxVisible, storyTitle }) => {
+const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled, isVisible, storyTitle, hideAbout }) => {
 	return (
-		<nav className={`nav nav--${isLightboxVisible ? 'hidden' : 'visible'}`}>
-			<ul className="nav__breadcrumbs">
+		<nav className={`nav nav--${isVisible ? 'visible' : 'hidden'}`}>
+			<ul className="nav__breadcrumbs" onClick={hideAbout}>
 				<li className="nav__wordmark">
 					<Link to='/'>Liam Ricketts</Link>
 				</li>
-				<li className="nav__breadcrumb">
-					<span className="nav__breadcrumb-dash">—</span>
-					<Link to='/'>Stories</Link>
-				</li>
-				{storyTitle?
+				{isAboutVisible ?
+					<li className="nav__breadcrumb">
+						<span className="nav__breadcrumb-dash">—</span>
+						About
+					</li>
+					:
+					null
+				}
+				{!isAboutVisible ?
+					<li className="nav__breadcrumb">
+						<span className="nav__breadcrumb-dash">—</span>
+						<Link to='/'>Stories</Link>
+					</li>
+					:
+					null
+				}
+				{storyTitle && !isAboutVisible ?
 					<li className="nav__breadcrumb">
 						<span className="nav__breadcrumb-dash">—</span>
 						{storyTitle}
@@ -38,12 +50,13 @@ const data = Component => class extends React.Component {
 		super(props);
 		this.state = {
 			isAboutVisible: false,
-			isLightboxVisible: false,
+			isVisible: true,
 			isAboutToggleEnabled: true,
 			storyTitle: false,
 		}
 
 		this.toggleAbout = this.toggleAbout.bind(this);
+		this.hideAbout = this.hideAbout.bind(this);
 		this.subs = [];
 	}
 
@@ -57,16 +70,24 @@ const data = Component => class extends React.Component {
 		}));
 
 		this.subs.push(PubSub.subscribe('lightbox.show', (e, data) => {
-			this.setState({ isLightboxVisible: true });
+			this.setState({ isVisible: false });
 		}));
 
 		this.subs.push(PubSub.subscribe('lightbox.hide', (e, data) => {
-			this.setState({ isLightboxVisible: false });
+			this.setState({ isVisible: true });
+		}));
+
+		this.subs.push(PubSub.subscribe('overview.dim', (e, data) => {
+			this.setState({ isVisible: !data });
 		}));
 	}
 
 	componentWillUnmount() {
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
+	}
+
+	hideAbout() {
+		PubSub.publish('about.toggle', false);
 	}
 
 	toggleAbout() {
@@ -81,7 +102,7 @@ const data = Component => class extends React.Component {
 	}
 
 	render() {
-		return <Component {...this.state} {...this.props} toggleAbout={this.toggleAbout} />
+		return <Component {...this.state} {...this.props} toggleAbout={this.toggleAbout} hideAbout={this.hideAbout} />
 	}
 };
 

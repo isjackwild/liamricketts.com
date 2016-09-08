@@ -34,7 +34,7 @@
 	height: 100%;
 	top: 0;
 	left: 0;
-	background: #D8D8D8;
+	background: $unloaded-grey;
 	transition: opacity $timing--loaded ease;
 }
 

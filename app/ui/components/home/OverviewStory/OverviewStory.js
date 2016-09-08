@@ -47,6 +47,7 @@ const data = Component => class extends React.Component {
 
 	componentWillUnmount() {
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
+		PubSub.publish('overview.dim', false);
 	}
 
 	onMouseEnter() {

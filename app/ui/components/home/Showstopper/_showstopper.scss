@@ -4,6 +4,11 @@
 	height: 56.25vw;
 	max-height: 80vh;
 	background: $liam-yellow;
+	transition: opacity $timing--overview-hover ease-in-out;
+}
+
+.showstopper--dimmed {
+	opacity: 0.12;
 }
 
 .showstopper__inner {

@@ -38,7 +38,7 @@ const data = Component => class extends React.Component {
 			scrollY: 0,
 		}
 
-		this.dampenDist = 200;
+		this.dampenDist = 300;
 		this.subs = [];
 		this.raf = undefined;
 		this.show = this.show.bind(this);
@@ -65,8 +65,8 @@ const data = Component => class extends React.Component {
 		if (!this.state.isVisible) return;
 		const fromCenterX = e.clientX - (window.innerWidth / 2);
 		const fromCenterY = e.clientY - (window.innerHeight / 2);
-		const targetForceX = _.clamp(fromCenterX, window.innerWidth/-2, window.innerWidth/2) * -0.05;
-		const targetForceY = _.clamp(fromCenterY, window.innerHeight/-2, window.innerHeight/2) * -0.05;
+		const targetForceX = _.clamp(fromCenterX, -500, 500) * -0.05;
+		const targetForceY = _.clamp(fromCenterY, -500, 500) * -0.05;
 
 		this.setState({
 			targetForceX,
@@ -135,8 +135,8 @@ const data = Component => class extends React.Component {
 		const overflowY = (mode === 'wide') ? 0 : height - window.innerHeight;
 
 		this.setState({
-			scrollX: 0,
-			scrollY: 0,
+			scrollX: overflowX / -2,
+			scrollY: overflowY / -2,
 			currentForceX: 0,
 			currentForceY: 0,
 			targetForceX: 0,
