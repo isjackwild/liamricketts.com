@@ -2,7 +2,7 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 
 
-const coverView = ({ title, subtitle, scrollPosition }) => {
+const coverView = ({ title, subtitle, tags, scrollPosition }) => {
 	return (
 		<div
 			className="story__cover"
@@ -11,6 +11,14 @@ const coverView = ({ title, subtitle, scrollPosition }) => {
 			<div className="story__title-wrapper">
 				<h1 className="story__title">{title}</h1>
 				<h2 className="story__subtitle">{subtitle}</h2>
+			</div>
+
+			<div className="story__tag-wrapper">
+				{
+					tags.map((tag, i) => {
+						return <span className="story__tag" key={i}>{tag}</span>
+					})
+				}
 			</div>
 		</div>
 	);

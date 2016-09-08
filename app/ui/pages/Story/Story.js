@@ -13,6 +13,7 @@ class Story extends React.Component {
 
 		this.state = {
 			title: window.stories[props.params.storySlug].title,
+			tags: window.stories[props.params.storySlug].tags,
 			subtitle: window.stories[props.params.storySlug].subtitle,
 			items: window.stories[props.params.storySlug].items,
 			background: window.stories[props.params.storySlug].background,
@@ -37,13 +38,16 @@ class Story extends React.Component {
 	}
 
 	componentDidMount() {
-		PubSub.publish('nav.update', this.state.title);
+		setTimeout(() => {
+			PubSub.publish('nav.update', this.state.title);
+		}, 0);
+
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousewheel', this.onMouseWheel);
 		this.onResize();
 
 		const fromOne = {
-			x: window.innerWidth / 4,
+			x: window.innerWidth / 5,
 			opacity: 0,
 		}
 		const toOne = {
@@ -51,7 +55,7 @@ class Story extends React.Component {
 			delay: 0.05,
 			ease: Power2.easeOut,
 		}
-		TweenMax.fromTo(this.refs.inner, 3.2, fromOne, toOne);
+		TweenMax.fromTo(this.refs.inner, 2.2, fromOne, toOne);
 
 		const fromTwo = {
 			opacity: 0,
@@ -60,7 +64,7 @@ class Story extends React.Component {
 			opacity: 1,
 			ease: Sine.easeIn,
 		}
-		TweenMax.fromTo(this.refs.inner, 1.3, fromTwo, toTwo);
+		TweenMax.fromTo(this.refs.inner, 1, fromTwo, toTwo);
 		// TODO: Kill Tweens and do this using TimeLine
 
 		setTimeout(() => {
@@ -115,13 +119,14 @@ class Story extends React.Component {
 	}
 
 	render() {
-		const { items, title, subtitle, background, minScroll } = this.state;
+		const { items, title, tags, subtitle, background, minScroll } = this.state;
 
 		return (
 			<div className="page page--story story" style={{ backgroundColor: background }}>
 				<div className="story__inner" ref="inner">
 					<StoryCover
 						title={title}
+						tags={tags}
 						subtitle={subtitle}
 						minScroll={minScroll}
 					/>

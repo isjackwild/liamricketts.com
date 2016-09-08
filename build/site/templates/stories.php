@@ -40,6 +40,7 @@
 		$story_json = array(
 			'title'		=> (string)$story->title()->html(),
 			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->html() : null),
+			'tags'		=> $story->tags()->split(),
 			'slug'		=> (string)$story->slug(),
 			'background'=> (string)$story->background()->html(),
 			'items'		=> $content_json,

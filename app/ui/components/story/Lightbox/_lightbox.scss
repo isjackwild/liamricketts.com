@@ -6,7 +6,7 @@
 	font-size: 0;
 	position: absolute;
 	cursor: zoom-out;
-	transition: opacity 0.2s ease;
+	transition: opacity $timing--lightbox-show ease;
 }
 
 .lightbox--hidden {

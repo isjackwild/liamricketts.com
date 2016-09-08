@@ -38,6 +38,7 @@ const data = Component => class extends React.Component {
 			scrollY: 0,
 		}
 
+		this.dampenDist = 200;
 		this.subs = [];
 		this.raf = undefined;
 		this.show = this.show.bind(this);
@@ -49,7 +50,6 @@ const data = Component => class extends React.Component {
 
 	componentDidMount() {
 		this.subs.push(PubSub.subscribe('lightbox.show', this.show));
-		this.subs.push(PubSub.subscribe('lightbox.hide', this.hide));
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousemove', this.onMouseMove);
 	}
@@ -65,8 +65,8 @@ const data = Component => class extends React.Component {
 		if (!this.state.isVisible) return;
 		const fromCenterX = e.clientX - (window.innerWidth / 2);
 		const fromCenterY = e.clientY - (window.innerHeight / 2);
-		const targetForceX = _.clamp(fromCenterX, -500, 500) * -0.05;
-		const targetForceY = _.clamp(fromCenterY, -300, 300) * -0.05;
+		const targetForceX = _.clamp(fromCenterX, window.innerWidth/-2, window.innerWidth/2) * -0.05;
+		const targetForceY = _.clamp(fromCenterY, window.innerHeight/-2, window.innerHeight/2) * -0.05;
 
 		this.setState({
 			targetForceX,
@@ -96,8 +96,23 @@ const data = Component => class extends React.Component {
 		const currentForceX = this.state.currentForceX + (this.state.targetForceX - this.state.currentForceX) * 0.022;
 		const currentForceY = this.state.currentForceY + (this.state.targetForceY - this.state.currentForceY) * 0.022;
 
-		let scrollX = this.state.scrollX + currentForceX;
-		let scrollY = this.state.scrollY + currentForceY;
+		let dampeningY = 1;
+		if (currentForceY > 0 && this.state.scrollY > (this.dampenDist * -1)) {
+			dampeningY = Math.abs(this.state.scrollY) / this.dampenDist;
+		} else if (currentForceY < 0 && this.state.scrollY < (this.state.overflowY - this.dampenDist) * -1) {
+			dampeningY = (this.state.scrollY - (this.state.overflowY * -1)) / this.dampenDist;
+		}
+
+		let dampeningX = 1;
+		if (currentForceX > 0 && this.state.scrollX > (this.dampenDist * -1)) {
+			dampeningX = Math.abs(this.state.scrollX) / this.dampenDist;
+		} else if (currentForceX < 0 && this.state.scrollX < (this.state.overflowX - this.dampenDist) * -1) {
+			dampeningX = (this.state.scrollX - (this.state.overflowX * -1)) / this.dampenDist;
+		}
+
+		const easeOutCubic = (t) => (--t)*t*t+1;
+		let scrollX = this.state.scrollX + (currentForceX * easeOutCubic(dampeningX));
+		let scrollY = this.state.scrollY + (currentForceY * easeOutCubic(dampeningY));
 		
 		scrollX = _.clamp(scrollX, (this.state.overflowX * -1), 0);
 		scrollY = _.clamp(scrollY, (this.state.overflowY * -1), 0);
@@ -148,6 +163,7 @@ const data = Component => class extends React.Component {
 			targetForceY: 0,
 		});
 		cancelAnimationFrame(this.raf);
+		PubSub.publish('lightbox.hide');
 	}
 
 	render() {

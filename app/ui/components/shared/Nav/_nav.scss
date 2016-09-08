@@ -6,6 +6,12 @@
 	padding: 0 $size--site-side-padding;
 	-webkit-user-select: none;
 	user-select: none;
+	transition: opacity $timing--lightbox-show ease;
+}
+
+.nav--hidden {
+	opacity: 0;
+	pointer-events: none;
 }
 
 .nav a {

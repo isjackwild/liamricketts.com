@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import PubSub from 'pubsub-js';
 
-const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled, storyTitle }) => {
+const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled, isLightboxVisible, storyTitle }) => {
 	return (
-		<nav className="nav">
+		<nav className={`nav nav--${isLightboxVisible ? 'hidden' : 'visible'}`}>
 			<ul className="nav__breadcrumbs">
 				<li className="nav__wordmark">
 					<Link to='/'>Liam Ricketts</Link>
@@ -38,6 +38,7 @@ const data = Component => class extends React.Component {
 		super(props);
 		this.state = {
 			isAboutVisible: false,
+			isLightboxVisible: false,
 			isAboutToggleEnabled: true,
 			storyTitle: false,
 		}
@@ -53,6 +54,14 @@ const data = Component => class extends React.Component {
 
 		this.subs.push(PubSub.subscribe('nav.update', (e, data) => {
 			this.setState({ storyTitle: data });
+		}));
+
+		this.subs.push(PubSub.subscribe('lightbox.show', (e, data) => {
+			this.setState({ isLightboxVisible: true });
+		}));
+
+		this.subs.push(PubSub.subscribe('lightbox.hide', (e, data) => {
+			this.setState({ isLightboxVisible: false });
 		}));
 	}
 

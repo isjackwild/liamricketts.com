@@ -11,6 +11,7 @@ $liam-yellow: #FFD002;
 $easing: cubic-bezier(0.77, 0, 0.175, 1);
 $timing--overview-hover: 0.25s;
 $timing--loaded: 0.8s;
+$timing--lightbox-show: 0.3s;
 
 /* FONTS */
 $fonts: 'CooperHewittBookItalic', 'Helvetica', 'sans-serif';
@@ -67,6 +68,10 @@ $size--overview-story-item: 10%;
 	font-size: rem(16px);
 	letter-spacing: em(0.2px);
 	font-weight: bold;
+}
+
+%typo--tag {
+	@extend %typo--breadcrumb;
 }
 
 %typo--about-text {
