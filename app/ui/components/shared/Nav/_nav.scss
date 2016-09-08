@@ -36,6 +36,15 @@
 	@extend %typo--breadcrumb;
 	-webkit-user-select: none;
 	user-select: none;
+	transition: opacity 0.15s ease;
+}
+
+.nav__breadcrumb:hover + .nav__breadcrumb {
+	opacity: 0;
+}
+
+.nav__wordmark:hover ~ .nav__breadcrumb {
+	opacity: 0;
 }
 
 .nav__breadcrumb-dash {

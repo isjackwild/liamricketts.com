@@ -2,7 +2,7 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 import _ from 'lodash';
 
-const view = ({ isVisible, mode, hide, width, height, src, scrollX, scrollY }) => {
+const view = ({ isVisible, isLoaded, mode, hide, width, height, src, loaderSrc, scrollX, scrollY }) => {
 	return (
 		<div
 			className={`lightbox lightbox--${isVisible ? 'visible' : 'hidden'}`}
@@ -13,6 +13,7 @@ const view = ({ isVisible, mode, hide, width, height, src, scrollX, scrollY }) =
 				style={{transform: `translate3d(${scrollX}px, ${scrollY}px, 0)`}}
 			>
 				<img className={`lightbox__image lightbox__image--${mode}`} src={src} />
+				<img className={`lightbox__image-loader lightbox__image-loader--${mode} lightbox__image-loader--${isLoaded ? 'hidden' : 'visible'}`} src={loaderSrc} />
 			</div>
 		</div>
 	);
@@ -23,6 +24,8 @@ const data = Component => class extends React.Component {
 		super(props);
 		this.state = {
 			isVisible: false,
+			isLoaded: false,
+			loaderSrc: null,
 			src: null,
 			mode: null,
 			aspectRatio: window.innerHeight / window.innerWidth,
@@ -38,6 +41,8 @@ const data = Component => class extends React.Component {
 			scrollY: 0,
 		}
 
+		this.loadImage = new Image();
+
 		this.dampenDist = 300;
 		this.subs = [];
 		this.raf = undefined;
@@ -46,12 +51,14 @@ const data = Component => class extends React.Component {
 		this.onResize = this.onResize.bind(this);
 		this.onMouseMove = this.onMouseMove.bind(this);
 		this.animate = this.animate.bind(this);
+		this.onLoaded = this.onLoaded.bind(this);
 	}
 
 	componentDidMount() {
 		this.subs.push(PubSub.subscribe('lightbox.show', this.show));
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousemove', this.onMouseMove);
+		this.loadImage.onload = this.onLoaded;
 	}
 
 	componentWillUnmount() {
@@ -59,6 +66,8 @@ const data = Component => class extends React.Component {
 		cancelAnimationFrame(this.raf);
 		window.removeEventListener('resize', this.onResize);
 		window.removeEventListener('mousemove', this.onMouseMove);
+		this.loadImage.src = null;
+		this.loadImage.onload = null;
 	}
 
 	onMouseMove(e) {
@@ -134,6 +143,7 @@ const data = Component => class extends React.Component {
 		const overflowX = (mode === 'tall') ? 0 : width - window.innerWidth;
 		const overflowY = (mode === 'wide') ? 0 : height - window.innerHeight;
 
+
 		this.setState({
 			scrollX: overflowX / -2,
 			scrollY: overflowY / -2,
@@ -144,6 +154,8 @@ const data = Component => class extends React.Component {
 			isVisible: true,
 			image: image,
 			src: image.large,
+			loaderSrc: image.small,
+			isLoaded: false,
 			mode,
 			width,
 			height, 
@@ -151,10 +163,12 @@ const data = Component => class extends React.Component {
 			overflowY,
 		});
 
+		this.loadImage.src = image.large;
 		this.animate();
 	}
 
 	hide() {
+		this.loadImage.src = null;
 		this.setState({
 			isVisible: false,
 			currentForceX: 0,
@@ -164,6 +178,11 @@ const data = Component => class extends React.Component {
 		});
 		cancelAnimationFrame(this.raf);
 		PubSub.publish('lightbox.hide');
+	}
+
+	onLoaded() {
+		console.log('on loaded');
+		this.setState({ isLoaded: true });
 	}
 
 	render() {
