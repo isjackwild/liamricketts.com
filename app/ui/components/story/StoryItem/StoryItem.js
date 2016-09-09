@@ -2,11 +2,11 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 
 
-const coverView = ({ title, subtitle, tags, scrollPosition }) => {
+const Cover = ({ title, subtitle, tags, scrollPosition }) => {
 	return (
 		<div
 			className="story__cover"
-			style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
+			style={{transform: `translate3d(${scrollPosition ? scrollPosition : 0}px, 0, 0)`}}
 		>
 			<div className="story__title-wrapper">
 				<h1 className="story__title">{title}</h1>
@@ -34,6 +34,7 @@ class Image extends React.Component {
 		}
 
 		this.onLoaded = this.onLoaded.bind(this);
+		this.openInLightbox = this.openInLightbox.bind(this);
 	}
 
 	componentDidMount() {
@@ -52,9 +53,13 @@ class Image extends React.Component {
 		this.setState({ isLoaded: true });
 	}
 
+	openInLightbox() {
+		PubSub.publish('lightbox.show', this.props.item.images);
+	}
+
 	render() {
 		const { isLoaded } = this.state;
-		const { item, scrollPosition, openInLightbox } = this.props;
+		const { item, scrollPosition } = this.props;
 		const { size, alignment, margin, caption, images } = item;
 
 		const src = (() => {
@@ -78,16 +83,22 @@ class Image extends React.Component {
 		return (
 			<div
 				className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
-				style={{transform: `translate3d(${scrollPosition}px, 0, 0)`}}
+				style={{transform: `translate3d(${scrollPosition ? scrollPosition : 0}px, 0, 0)`}}
 			>
 				<div className={`story__image-wrapper story__image-wrapper--${isLoaded ? 'loaded' : 'loading'}`}>
 					<img
 						ref="image"
-						className="story__image"
+						className={`story__image ${!isLoaded ? 'story__image--hidden' : ''}`}
 						src={src}
 						width={images.fullWidth}
 						height={images.fullHeight}
-						onClick={openInLightbox}
+						onClick={this.openInLightbox}
+					/>
+					<img
+						className={`story__image-loader ${isLoaded ? 'story__image-loader--hidden' : ''}`}
+						src={images.small}
+						width={images.fullWidth}
+						height={images.fullHeight}
 					/>
 				</div>
 				{caption ?
@@ -104,7 +115,7 @@ class Image extends React.Component {
 }
 
 
-const data = Component => class extends React.Component {
+const decorator = Component => class extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -112,14 +123,8 @@ const data = Component => class extends React.Component {
 			scrollPosition: 0,
 		}
 
-		this.naturalForce = -0.1;
-		this.sensitivity = 0.6;
-		this.friction = 0.5;
-		this.torque = 0.05;
 
 		this.update = this.update.bind(this);
-		this.openInLightbox = this.openInLightbox.bind(this);
-
 		this.subs = [];
 	}
 
@@ -142,15 +147,14 @@ const data = Component => class extends React.Component {
 		this.setState({ scrollPosition });
 	}
 
-	openInLightbox() {
-		PubSub.publish('lightbox.show', this.props.item.images);
-	}
-
 	render() {
 		return <Component {...this.state} {...this.props} openInLightbox={this.openInLightbox} />
 	}
 };
 
-export const StoryItem = data(Image);
-export const StoryCover = data(coverView);
+// export const StoryItem = decorator(Image);
+// export const StoryCover = decorator(Cover);
+// 
+export const StoryItem = Image;
+export const StoryCover = Cover;
 

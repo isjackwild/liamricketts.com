@@ -5,6 +5,10 @@
 	max-height: 80vh;
 	background: $liam-yellow;
 	transition: opacity $timing--overview-hover ease-in-out;
+
+	@include mobile {
+		height: 80vh;
+	}
 }
 
 .showstopper--dimmed {

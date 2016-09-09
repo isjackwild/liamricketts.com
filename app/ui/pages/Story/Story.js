@@ -21,10 +21,12 @@ class Story extends React.Component {
 			currentForce: -0.15,
 			targetForce: -0.15,
 			scrollPosition: 0,
+			nextUpScrollPosition: 0,
 			then: null,
 			now: null,
 			delta: 1,
 			naturalForce: 0,
+			isScrollDisabled: false,
 		}
 
 		// this.naturalForce = -0.12;
@@ -35,12 +37,18 @@ class Story extends React.Component {
 		this.animate = this.animate.bind(this);
 		this.onResize = this.onResize.bind(this);
 		this.onMouseWheel = this.onMouseWheel.bind(this);
+
+		this.subs = []
 	}
 
 	componentDidMount() {
 		setTimeout(() => {
 			PubSub.publish('nav.update', this.state.title);
 		}, 0);
+
+		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
+			this.setState({ isScrollDisabled: data });
+		}));
 
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousewheel', this.onMouseWheel);
@@ -76,6 +84,7 @@ class Story extends React.Component {
 		window.removeEventListener('resize', this.onResize);
 		window.removeEventListener('mousewheel', this.onMouseWheel);
 		cancelAnimationFrame(this.raf);
+		this.subs.forEach(sub => PubSub.unsubscribe(sub));
 	}
 
 	onResize() {
@@ -84,6 +93,8 @@ class Story extends React.Component {
 	}
 
 	onMouseWheel(e) {
+		if (this.state.isScrollDisabled) return;
+
 		e.preventDefault();
 		let naturalForce = null;
 		if (e.deltaY === 0) naturalForce = this.state.naturalForce;
@@ -106,16 +117,25 @@ class Story extends React.Component {
 		let currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * this.torque;
 		const targetForce = this.state.targetForce + (this.state.naturalForce - this.state.targetForce) * this.friction;
 
+		let scrollPosition = this.state.scrollPosition + currentForce * delta;
+		let nextUpScrollPosition = this.state.nextUpScrollPosition + currentForce * delta;
+		
+		if (scrollPosition < minScroll && currentForce < 0)
+			scrollPosition = window.innerWidth;
+		if (scrollPosition > window.innerWidth && currentForce > 0)
+			scrollPosition = minScroll;
+
 		this.setState({
 			minScroll,
 			currentForce,
 			targetForce,
+			scrollPosition,
 			now,
 			then,
 			delta,
 		});
 		this.raf = requestAnimationFrame(this.animate);
-		PubSub.publish('story.animate', (currentForce * delta));
+		// PubSub.publish('story.animate', (currentForce * delta));
 	}
 
 	render() {
@@ -123,7 +143,28 @@ class Story extends React.Component {
 
 		return (
 			<div className="page page--story story" style={{ backgroundColor: background }}>
-				<div className="story__inner" ref="inner">
+				<div className="story__next-up">
+					<span className="story__next-up-inner">
+						<div>
+							{
+								items.map((item, i) => {
+									return (
+										<img
+											src={item.images.small}
+											key={i}
+											className="story__next-up-image"
+										/>
+									)
+								})
+							}
+						</div>
+					</span>
+				</div>
+				<div
+					className="story__inner"
+					ref="inner"
+					style={{transform: `translate3d(${this.state.scrollPosition}px, 0, 0)`, backgroundColor: background}}
+				>
 					<StoryCover
 						title={title}
 						tags={tags}
@@ -148,5 +189,10 @@ class Story extends React.Component {
 		);
 	}
 };
+
+// <span className="story__next-up-span-wrapper">
+// 							<span className="story__next-up-span story__next-up-span--text">Next up: </span>
+// 							<span className="story__next-up-span story__next-up-span--title">Musicians</span>
+// 						</span>
 
 export default Story;

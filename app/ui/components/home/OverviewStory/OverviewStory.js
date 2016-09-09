@@ -11,6 +11,8 @@ const view = ({ story, isMouseOver, isDimmed, onMouseEnter, onMouseLeave }) => {
 			className={`overview-story overview-story--${isMouseOver ? 'mouse-over' : 'mouse-out'} ${isDimmed ? 'overview-story--dimmed' : ''}`}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
+			onTouchStart={onMouseEnter}
+			onTouchEnd={onMouseLeave}
 		>
 			{
 				story.items.map((item, i) => {

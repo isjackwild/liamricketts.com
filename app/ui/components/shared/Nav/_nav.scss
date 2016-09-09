@@ -7,6 +7,10 @@
 	-webkit-user-select: none;
 	user-select: none;
 	transition: opacity $timing--lightbox-show ease;
+
+	@include mobile {
+		padding: 0 $size--site-side-padding--mobile;
+	}
 }
 
 .nav--hidden {
@@ -24,6 +28,7 @@
 	-webkit-user-select: none;
 	user-select: none;
 	cursor: pointer;
+	vertical-align: top;
 }
 
 .nav__breadcrumbs li {
@@ -36,7 +41,7 @@
 	@extend %typo--breadcrumb;
 	-webkit-user-select: none;
 	user-select: none;
-	transition: opacity 0.15s ease;
+	transition: opacity $timing--lightbox-show ease;
 }
 
 .nav__breadcrumb:hover + .nav__breadcrumb {
@@ -67,6 +72,10 @@
 	cursor: pointer;
 	text-align: right;
 	min-width: 95px;
+
+	@include mobile {
+		right: $size--site-side-padding--mobile;
+	}
 }
 
 .nav__about-toggle-open {

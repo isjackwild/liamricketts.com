@@ -2,9 +2,9 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 
 
-const view = ({ text, links, address, contact, isVisible, isDisplayed }) => {
+const view = ({ text, links, address, contact, isVisible }) => {
 	return (
-		<section className={`about about--${isVisible ? 'visible' : 'hidden'} about--${isDisplayed ? 'display' : 'display-none'}`}>
+		<section className={`about about--${isVisible ? 'visible' : 'hidden'}`}>
 			<div className="about__text" dangerouslySetInnerHTML={{__html: text}}></div>
 			<ul className="about__contact">
 				{
@@ -47,7 +47,6 @@ const data = Component => class extends React.Component {
 			links: window.about.links,
 			contact: window.about.contact,
 			isVisible: false,
-			isDisplayed: false,
 		}
 
 		this.subs = [];
@@ -59,19 +58,7 @@ const data = Component => class extends React.Component {
 
 	componentDidMount() {		
 		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
-			if (data === true) {
-				this.disableScroll();
-				this.setState({ isDisplayed: data });
-				setTimeout((e) => {
-					this.setState({ isVisible: data })
-				}, 10);
-			} else {
-				this.enableScroll();
-				this.setState({ isVisible: data });
-				setTimeout((e) => {
-					this.setState({ isDisplayed: data })
-				}, 333);
-			}
+			this.setState({ isVisible: data });
 		}));
 	}
 

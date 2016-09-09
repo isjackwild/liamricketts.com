@@ -1,13 +1,20 @@
 .overview-story {
 	cursor: pointer;
-	display: block;
 	font-size: 0;
 	display: inline;
 	transition: opacity $timing--overview-hover ease-in-out;
 	position: relative;
-	// flex-wrap: wrap;
-	// align-items: flex-end;
-	// justify-content: space-between;
+
+	@include mobile {
+		display: block;
+		margin-bottom: calc(5vw + 20px);
+	}
+}
+
+.overview-story:last-child {
+	@include mobile {
+		margin-bottom: 0;
+	}
 }
 
 .overview-story__title {
@@ -20,6 +27,11 @@
 	padding-top: 5px;
 	transition: opacity $timing--overview-hover ease-in-out;
 	opacity: 0;
+
+	@include mobile {
+		opacity: 1;
+		white-space: nowrap;
+	}
 }
 
 .overview-story:hover .overview-story__title {

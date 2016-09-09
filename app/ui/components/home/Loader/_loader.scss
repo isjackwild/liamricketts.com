@@ -7,6 +7,11 @@
 	margin-top: 40px;
 	overflow: hidden;
 	transition: opacity $timing--overview-hover ease-in-out;
+
+	@include mobile {
+		width: calc(100% - #{$size--site-side-padding--mobile * 4});
+		max-width: 430px;
+	}
 }
 
 .loader--pending {
