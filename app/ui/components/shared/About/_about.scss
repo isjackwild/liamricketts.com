@@ -11,7 +11,7 @@
 	transition: opacity 0.3s ease-in-out;
 
 	@include mobile {
-		padding: #{(100vh - $size--medium-image) / 2} $size--site-side-padding--mobile $size--site-side-padding--mobile $size--site-side-padding--mobile;
+		padding: #{(100vh - $size--medium-image--mobile) / 2} $size--site-side-padding--mobile #{$size--site-side-padding--mobile - 7px} $size--site-side-padding--mobile;
 	}
 }
 
@@ -54,12 +54,19 @@
 .about__contact {
 	margin-bottom: 20px;
 	@extend %typo--contact;
+
+	@include mobile {
+		margin-bottom: 12px;
+	}
 }
 
 .about__address {
 	margin-bottom: 20px;
 	@extend %typo--contact;
-	line-height: rem(19px);
+	line-height: rem(16px);
+	@include mobile {
+		margin-bottom: 12px;
+	}
 }
 
 .about__links {
@@ -69,8 +76,10 @@
 
 .about__credits {
 	@extend %typo--credits;
+	line-height: 1.4em;
 }
 
 .about__credits span {
 	display: block;
+	margin-bottom: 4px;
 }

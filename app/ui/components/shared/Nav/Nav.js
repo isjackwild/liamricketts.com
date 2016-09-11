@@ -20,7 +20,7 @@ const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled, isVisible, st
 				{!isAboutVisible ?
 					<li className="nav__breadcrumb">
 						<span className="nav__breadcrumb-dash">—</span>
-						<Link to='/'>Stories</Link>
+						<Link to='/?stories'>Stories</Link>
 					</li>
 					:
 					null
@@ -36,10 +36,19 @@ const view = ({ toggleAbout, isAboutVisible, isAboutToggleEnabled, isVisible, st
 			</ul>
 
 			<span className={`nav__about-toggle nav__about-toggle--${isAboutVisible ? 'active' : 'inactive'} nav__about-toggle--${isAboutToggleEnabled ? 'enabled' : 'disabled'}`} onClick={toggleAbout}>
-				<span className="nav__about-toggle-open">About & Contact</span>
-				<span className="nav__about-toggle-back">
-					<span className="nav__back-hand">☜</span>Back
-				</span>
+				{window.innerWidth <= 768 ?
+					<span className="nav__about-toggle-open nav__icon">ℹ</span>
+					:
+					<span className="nav__about-toggle-open">About & Contact</span>
+				}
+				{window.innerWidth <= 768 ?
+					<span className="nav__about-toggle-back nav__icon">🔙</span>
+					:
+					<span className="nav__about-toggle-back">
+						<span className="nav__back-hand">☜</span>Back
+					</span>
+				}
+				
 			</span>
 		</nav>
 	);

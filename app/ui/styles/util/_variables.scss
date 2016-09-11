@@ -11,6 +11,7 @@ $unloaded-grey: #D8D8D8;
 /* TRANSITIONS */
 $easing: cubic-bezier(0.77, 0, 0.175, 1);
 $timing--overview-hover: 0.4s;
+$timing--overview-hover--mobile: 0.15s;
 $timing--loaded: 0.8s;
 $timing--lightbox-show: 0.4s;
 
@@ -81,6 +82,7 @@ $size--overview-story-item--mobile: 20%;
 
 %typo--overview-story-title {
 	@extend %typo--breadcrumb;
+	line-height: 1.1em;
 }
 
 %typo--title {
@@ -88,6 +90,10 @@ $size--overview-story-item--mobile: 20%;
 	font-size: rem(60px);
 	letter-spacing: em(0.1px);
 	line-height: 1.2em;
+
+	@include mobile {
+		font-size: rem(40px);
+	}
 }
 
 %typo--subtitle {
@@ -95,6 +101,11 @@ $size--overview-story-item--mobile: 20%;
 	font-size: rem(16px);
 	letter-spacing: em(0.2px);
 	font-weight: bold;
+
+	@include mobile {
+		font-size: rem(12px);
+		letter-spacing: 0;
+	}
 }
 
 %typo--tag {
@@ -107,6 +118,11 @@ $size--overview-story-item--mobile: 20%;
 	line-height: rem(23px);
 	letter-spacing: em(0.2px);
 	font-weight: bold;
+
+	@include mobile {
+		font-size: rem(14px);
+		line-height: rem(21px);
+	}
 }
 
 %typo--contact {
@@ -124,7 +140,7 @@ $size--overview-story-item--mobile: 20%;
 %typo--caption {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
 	font-size: rem(11px);
-	line-height: rem(18px);
+	line-height: rem(15px);
 }
 
 %typo--next-up {

@@ -44,6 +44,7 @@
 			'slug'		=> (string)$story->slug(),
 			'background'=> (string)$story->background()->html(),
 			'items'		=> $content_json,
+			'next'		=> ($story->next() ? (string)$story->next()->slug() : (string)$stories->first()->slug()),
 		);
 
 		$json[(string)$story->slug()] = $story_json;

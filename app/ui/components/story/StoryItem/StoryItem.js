@@ -3,10 +3,12 @@ import PubSub from 'pubsub-js';
 
 
 const Cover = ({ title, subtitle, tags, scrollPosition }) => {
+	const transform = scrollPosition ? `translate3d(${scrollPosition}px, 0, 0)` : null
+
 	return (
 		<div
 			className="story__cover"
-			style={{transform: `translate3d(${scrollPosition ? scrollPosition : 0}px, 0, 0)`}}
+			style={{transform: transform}}
 		>
 			<div className="story__title-wrapper">
 				<h1 className="story__title">{title}</h1>
@@ -31,10 +33,17 @@ class Image extends React.Component {
 
 		this.state = {
 			isLoaded: false,
+			height: 0,
+			marginTop: 0,
 		}
 
 		this.onLoaded = this.onLoaded.bind(this);
 		this.openInLightbox = this.openInLightbox.bind(this);
+		this.onResize = this.onResize.bind(this);
+	}
+
+	componentWillMount() {
+		this.onResize();
 	}
 
 	componentDidMount() {
@@ -43,10 +52,56 @@ class Image extends React.Component {
 		} else {
 			this.refs.image.onload = this.onLoaded;
 		}
+
+		window.addEventListener('resize', this.onResize);
 	}
 
 	componentWillUnmount() {
 		this.refs.image.onload = null;
+	}
+
+	onResize() {
+		const { size, alignment, margin } = this.props.item
+
+		const multiplier = (() => {
+			switch(size) {
+				case 'small':
+					return (window.innerWidth <= 768) ? 0.3 : 0.4;
+				case 'medium':
+					return (window.innerWidth <= 768) ? 0.6 : 0.7;
+				case 'large':
+					return 1;
+				default:
+					return 1;
+			}
+		})();
+		
+		const height = window.innerHeight * multiplier;
+
+		const marginTop = (() => {
+			if (size === 'large') {
+				return 0;
+			} else if (size === 'medium' && alignment === 'top'){
+				return 0;
+			} else if (size === 'medium' && alignment === 'bottom') {
+				return window.innerHeight - height;
+			} else if (size === 'small' && alignment === 'top') {
+				const multiMedium = (window.innerWidth <= 768) ? 0.6 : 0.7;
+				const heightMedium = window.innerHeight * multiMedium;
+				return (window.innerHeight - heightMedium) / 2;
+			} else if (size === 'small' && alignment === 'bottom') {
+				const multiMedium = (window.innerWidth <= 768) ? 0.6 : 0.7;
+				const heightMedium = window.innerHeight * multiMedium;
+				return window.innerHeight - heightMedium;
+			} else {
+				return (window.innerHeight - height) / 2;
+			}
+		})();
+
+		this.setState({
+			height,
+			marginTop,
+		});
 	}
 
 	onLoaded() {
@@ -58,7 +113,7 @@ class Image extends React.Component {
 	}
 
 	render() {
-		const { isLoaded } = this.state;
+		const { isLoaded, height, marginTop } = this.state;
 		const { item, scrollPosition } = this.props;
 		const { size, alignment, margin, caption, images } = item;
 
@@ -80,12 +135,17 @@ class Image extends React.Component {
 			return alignment;
 		})();
 
+		const transform = scrollPosition ? `translate3d(${scrollPosition}px, 0, 0)` : null
+
 		return (
 			<div
 				className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
-				style={{transform: `translate3d(${scrollPosition ? scrollPosition : 0}px, 0, 0)`}}
+				style={{transform: transform}}
 			>
-				<div className={`story__image-wrapper story__image-wrapper--${isLoaded ? 'loaded' : 'loading'}`}>
+				<div
+					className={`story__image-wrapper story__image-wrapper--${isLoaded ? 'loaded' : 'loading'}`}
+					style={{marginTop: `${marginTop}px`}}
+				>
 					<img
 						ref="image"
 						className={`story__image ${!isLoaded ? 'story__image--hidden' : ''}`}
@@ -93,6 +153,7 @@ class Image extends React.Component {
 						width={images.fullWidth}
 						height={images.fullHeight}
 						onClick={this.openInLightbox}
+						style={{height: `${height}px`}}
 					/>
 					<img
 						className={`story__image-loader ${isLoaded ? 'story__image-loader--hidden' : ''}`}

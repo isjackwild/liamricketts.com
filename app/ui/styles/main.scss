@@ -10,14 +10,31 @@ body, html {
 	margin: 0;
 	transition: background 0.12s ease;
 	transition-delay: 0.33s;
+	will-change: scroll-position;
 }
 
 body {
 	background: $liam-yellow;
+	user-select: none;
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	-webkit-touch-callout: none !important;
 }
 
 body.is-init {
 	background: #FFFFFF;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	user-select: none !important;
+	-webkit-user-select: none !important;
+	-webkit-touch-callout: none !important;
+}
+
+* {
+	-webkit-tap-highlight-color: transparent;
 }
 
 @import '../layouts/Master/_master.scss';

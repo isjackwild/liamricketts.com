@@ -32,6 +32,7 @@ const view = ({ text, links, address, contact, isVisible }) => {
 			<div className="about__credits">
 				<span>Site Design and Development by <a href="http://www.isjackwild.com" target="blank">Jack Wild</a></span>
 				<span>Typeset in Cooper Hewitt and Libre Baskerville from <a href="http://open-foundry.com/" target="blank">Open Foundry</a></span>
+				<span>Made in <a href="http://www.studiothree.net" target="blank">Studio Three</a></span>
 			</div>
 		</section>
 	);

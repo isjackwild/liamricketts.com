@@ -12,7 +12,12 @@ const view = ({ isVisible, isLoaded, mode, hide, width, height, src, loaderSrc, 
 				className="lightbox__inner"
 				style={{transform: `translate3d(${scrollX}px, ${scrollY}px, 0)`}}
 			>
-				<img className={`lightbox__image lightbox__image--${mode} ${!isLoaded ? 'lightbox__image--hidden' : ''}`} src={src} />
+				<img
+					className={`lightbox__image lightbox__image--${mode} ${!isLoaded ? 'lightbox__image--hidden' : ''}`}
+					src={src}
+					width={`${width}px`}
+					height={`${height}px`}
+				/>
 				<img className={`lightbox__image-loader lightbox__image-loader--${mode} lightbox__image-loader--${isLoaded ? 'hidden' : 'visible'}`} src={loaderSrc} />
 			</div>
 		</div>
@@ -88,10 +93,12 @@ const data = Component => class extends React.Component {
 	onResize() {
 		const aspectRatio = window.innerHeight / window.innerWidth;
 		const mode = this.state.image && this.state.image.aspectRatio > aspectRatio ? 'tall' : 'wide';
-		const width = (mode === 'tall') ? window.innerWidth : window.innerWidth * this.state.image.aspectRatio;
+		const width = (mode === 'tall') ? window.innerWidth : window.innerHeight * this.state.image.aspectRatio;
 		const height = (mode === 'wide') ? window.innerHeight : window.innerWidth * this.state.image.aspectRatio;
 		const overflowX = (mode === 'tall') ? 0 : width - window.innerWidth;
 		const overflowY = (mode === 'wide') ? 0 : height - window.innerHeight;
+
+
 
 		this.setState({
 			aspectRatio,
@@ -140,11 +147,10 @@ const data = Component => class extends React.Component {
 
 	show(e, image) {
 		const mode = image.aspectRatio > this.state.aspectRatio ? 'tall' : 'wide';
-		const width = (mode === 'tall') ? window.innerWidth : window.innerWidth / image.aspectRatio;
+		const width = (mode === 'tall') ? window.innerWidth : window.innerHeight / image.aspectRatio;
 		const height = (mode === 'wide') ? window.innerHeight : window.innerWidth * image.aspectRatio;
 		const overflowX = (mode === 'tall') ? 0 : width - window.innerWidth;
 		const overflowY = (mode === 'wide') ? 0 : height - window.innerHeight;
-
 
 		this.setState({
 			scrollX: this.state.isMobile ? 0 : overflowX / -2,
@@ -186,7 +192,10 @@ const data = Component => class extends React.Component {
 		cancelAnimationFrame(this.raf);
 		PubSub.publish('lightbox.hide');
 		this.nullifyTimeout = setTimeout(() => {
-			this.setState({ src: null });
+			this.setState({
+				src: null,
+				loaderSrc: null,
+			});
 		}, 333);
 	}
 

@@ -5,14 +5,20 @@
 	max-height: 80vh;
 	background: $liam-yellow;
 	transition: opacity $timing--overview-hover ease-in-out;
+	// pointer-events: none;
 
 	@include mobile {
 		height: 80vh;
+		transition: opacity $timing--overview-hover--mobile ease-in-out;
 	}
 }
 
 .showstopper--dimmed {
 	opacity: 0.12;
+
+	@include mobile {
+		opacity: 0;
+	}
 }
 
 .showstopper__inner {

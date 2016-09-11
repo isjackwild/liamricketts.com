@@ -9,8 +9,11 @@
 	transition: opacity $timing--overview-hover ease-in-out;
 
 	@include mobile {
-		width: calc(100% - #{$size--site-side-padding--mobile * 4});
+		width: calc(100% - #{$size--site-side-padding--mobile * 2});
 		max-width: 430px;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 }
 

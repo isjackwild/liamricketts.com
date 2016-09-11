@@ -1,16 +1,18 @@
 .story {
-	// position: absolute;
-	height: 100vh;
-	width: 100vw;
-	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
 	white-space: nowrap;
-	// overflow-x: scroll;
+	overflow: hidden;
 }
 
 .story__inner {
 	white-space: nowrap;
 	position: relative;
 	width: auto;
+	height: 100%;
 	display: inline-block;
 	vertical-align: middle;
 	position: relative;
@@ -20,16 +22,19 @@
 .story__cover {
 	// width: 33vw;
 	// max-width: 695px;
-	display: inline-block;
-	height: 100vh;
+	height: 100%;
 	position: relative;
 	top: 0;
 	vertical-align: middle;
 	font-size: 0;
-	padding: 136px #{$size--site-side-padding * 2.5} $size--site-side-padding $size--site-side-padding;
+	padding: #{(100vh - $size--medium-image) / 2} #{$size--site-side-padding * 2.5} $size--site-side-padding $size--site-side-padding;
 	display: inline-flex;
 	flex-direction: column;
 	justify-content: space-between;
+
+	@include mobile {
+		padding: #{(100vh - $size--medium-image--mobile) / 2} #{$size--site-side-padding--mobile * 2.5} $size--site-side-padding--mobile $size--site-side-padding--mobile;
+	}
 }
 
 .story__cover:after {
@@ -37,9 +42,13 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 1px;
+	// width: 1px;
 	height: 100%;
 	background: rgba(#000, 0.07);
+}
+
+.story__title-wrapper {
+	margin-top: -13px;
 }
 
 .story__title {
@@ -48,6 +57,9 @@
 
 .story__subtitle {
 	@extend %typo--subtitle;
+	position: absolute;
+	max-width: 80%;
+	white-space: normal;
 }
 
 .story__tag-wrapper {
@@ -81,16 +93,29 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: rgba($unloaded-grey, 0.5);
-	// background: #eee;
+	background: rgba($unloaded-grey, 0.8);
+	opacity: 0;
+	transition: opacity 0.22s ease;
+	flex-direction: column;
+	// display: none;
+}
+
+.story__next-up--visible {
+	opacity: 1;
 }
 
 .story__next-up-inner {
 	text-align: center;
+	white-space: normal;
+	padding: $size--site-side-padding;
+
+	@include mobile {
+		padding: $size--site-side-padding--mobile;		
+	}
 }
 
 .story__next-up-span-wrapper {
-	display: inline-block;
+	display: block;
 	text-align: left;
 }
 
@@ -109,6 +134,6 @@
 
 .story__next-up-image {
 	box-shadow: 0px 0px 2px 0px rgba(34,34,34,0.08);
-	width: 50px;
-	margin: 0 3px;
+	width: calc(2vw + 40px);
+	margin: 0 4px 12px 4px;
 }

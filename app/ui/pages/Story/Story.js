@@ -4,7 +4,7 @@ import PubSub from 'pubsub-js';
 import _ from 'lodash';
 import { StoryItem, StoryCover } from '../../../ui/components/story/StoryItem/StoryItem.js';
 import Lightbox from '../../../ui/components/story/Lightbox/Lightbox.js';
-import TweenMax from 'gsap';
+import TweenLite from 'gsap';
 
 
 class Story extends React.Component {
@@ -17,9 +17,11 @@ class Story extends React.Component {
 			subtitle: window.stories[props.params.storySlug].subtitle,
 			items: window.stories[props.params.storySlug].items,
 			background: window.stories[props.params.storySlug].background,
+			nextSlug: window.stories[props.params.storySlug].next,
 			width: 0,
-			currentForce: -0.15,
-			targetForce: -0.15,
+			lastTouchX: 0,
+			currentForce: 0,
+			targetForce: 0,
 			scrollPosition: 0,
 			nextUpScrollPosition: 0,
 			then: null,
@@ -27,6 +29,8 @@ class Story extends React.Component {
 			delta: 1,
 			naturalForce: 0,
 			isScrollDisabled: false,
+			debounceTouchMove: false,
+			incomingTransitionIsFinished: false,
 		}
 
 		// this.naturalForce = -0.12;
@@ -37,6 +41,9 @@ class Story extends React.Component {
 		this.animate = this.animate.bind(this);
 		this.onResize = this.onResize.bind(this);
 		this.onMouseWheel = this.onMouseWheel.bind(this);
+		this.onTouchStart = this.onTouchStart.bind(this);
+		this.onTouchMove = _.throttle(this.onTouchMove.bind(this), 16);
+		this.onTouchEnd = this.onTouchEnd.bind(this);
 
 		this.subs = []
 	}
@@ -52,10 +59,14 @@ class Story extends React.Component {
 
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousewheel', this.onMouseWheel);
+		window.addEventListener('touchstart', this.onTouchStart);
+		window.addEventListener('touchmove', this.onTouchMove);
+		window.addEventListener('touchend', this.onTouchEnd);
+
 		this.onResize();
 
 		const fromOne = {
-			x: window.innerWidth / 5,
+			x: Math.max(window.innerWidth / 4, 300),
 			opacity: 0,
 		}
 		const toOne = {
@@ -63,7 +74,7 @@ class Story extends React.Component {
 			delay: 0.05,
 			ease: Power2.easeOut,
 		}
-		TweenMax.fromTo(this.refs.inner, 2.2, fromOne, toOne);
+		TweenLite.fromTo(this.refs.inner, 2.2, fromOne, toOne);
 
 		const fromTwo = {
 			opacity: 0,
@@ -72,8 +83,12 @@ class Story extends React.Component {
 			opacity: 1,
 			ease: Sine.easeIn,
 		}
-		TweenMax.fromTo(this.refs.inner, 1, fromTwo, toTwo);
+		TweenLite.fromTo(this.refs.inner, 1, fromTwo, toTwo);
 		// TODO: Kill Tweens and do this using TimeLine
+		
+		setTimeout(() => {
+			this.setState({ incomingTransitionIsFinished: true });
+		}, 2222);
 
 		setTimeout(() => {
 			this.animate();
@@ -83,6 +98,9 @@ class Story extends React.Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.onResize);
 		window.removeEventListener('mousewheel', this.onMouseWheel);
+		window.removeEventListener('touchstart', this.onTouchStart);
+		window.removeEventListener('touchmove', this.onTouchMove);
+		window.removeEventListener('touchend', this.onTouchEnd);
 		cancelAnimationFrame(this.raf);
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
 	}
@@ -96,16 +114,42 @@ class Story extends React.Component {
 		if (this.state.isScrollDisabled) return;
 
 		e.preventDefault();
+		this.setForce(e.deltaY);
+	}
+
+	onTouchStart(e) {
+		if (this.state.isScrollDisabled) return;
+		this.setState({lastTouchX: e.touches[0].clientX });
+	}
+
+	onTouchMove(e) {
+		if (this.state.isScrollDisabled || this.state.debounceTouchMove) return;
+		e.preventDefault();
+
+		const delta = this.state.lastTouchX - e.touches[0].clientX;
+		this.setState({
+			lastTouchX: e.touches[0].clientX,
+			debounceTouchMove: true,
+		});
+		this.setForce(delta)
+	}
+
+	onTouchEnd(e) {
+		// e.preventDefault();
+		// e.stopPropagation();
+		this.setForce(0);
+	}
+
+	setForce(delta) {
 		let naturalForce = null;
-		if (e.deltaY === 0) naturalForce = this.state.naturalForce;
-		if (e.deltaY < 0) naturalForce = 0.15;
-		if (e.deltaY > 0) naturalForce = -0.15;
+		if (delta === 0) naturalForce = this.state.naturalForce;
+		if (delta < 0) naturalForce = 0.15;
+		if (delta > 0) naturalForce = -0.15;
 
 		this.setState({
-			targetForce: (this.state.targetForce + (e.deltaY * -1 * this.sensitivity)),
+			targetForce: (this.state.targetForce + (delta * -1 * this.sensitivity)),
 			naturalForce, 
 		});
-
 	}
 
 	animate() {
@@ -133,21 +177,24 @@ class Story extends React.Component {
 			now,
 			then,
 			delta,
+			debounceTouchMove: false,
 		});
 		this.raf = requestAnimationFrame(this.animate);
 		// PubSub.publish('story.animate', (currentForce * delta));
 	}
 
 	render() {
-		const { items, title, tags, subtitle, background, minScroll } = this.state;
+		const { items, title, tags, subtitle, background, minScroll, incomingTransitionIsFinished } = this.state;
+		const nextItems = window.stories[this.state.nextSlug].items;
+		const nextTitle = window.stories[this.state.nextSlug].title;
 
 		return (
 			<div className="page page--story story" style={{ backgroundColor: background }}>
-				<div className="story__next-up">
+				<div className={`story__next-up story__next-up--${incomingTransitionIsFinished ? 'visible' : 'hidden'}`}>
 					<span className="story__next-up-inner">
-						<div>
+						<Link to={`/story/${this.state.nextSlug}`}>
 							{
-								items.map((item, i) => {
+								nextItems.map((item, i) => {
 									return (
 										<img
 											src={item.images.small}
@@ -157,7 +204,13 @@ class Story extends React.Component {
 									)
 								})
 							}
-						</div>
+						</Link>
+					</span>
+					<span className="story__next-up-span-wrapper">
+						<span className="story__next-up-span story__next-up-span--text">Next up: </span>
+						<Link to={`/story/${this.state.nextSlug}`}>
+							<span className="story__next-up-span story__next-up-span--title">{nextTitle}</span>
+						</Link>
 					</span>
 				</div>
 				<div
@@ -189,10 +242,5 @@ class Story extends React.Component {
 		);
 	}
 };
-
-// <span className="story__next-up-span-wrapper">
-// 							<span className="story__next-up-span story__next-up-span--text">Next up: </span>
-// 							<span className="story__next-up-span story__next-up-span--title">Musicians</span>
-// 						</span>
 
 export default Story;
