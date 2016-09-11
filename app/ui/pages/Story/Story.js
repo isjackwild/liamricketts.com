@@ -35,7 +35,7 @@ class Story extends React.Component {
 
 		// this.naturalForce = -0.12;
 		this.sensitivity = 0.6;
-		this.friction = 0.5;
+		this.friction = window.innerWidth <= 768 ? 0.25 : 0.5;
 		this.torque = 0.05;
 
 		this.animate = this.animate.bind(this);
@@ -126,7 +126,7 @@ class Story extends React.Component {
 		if (this.state.isScrollDisabled || this.state.debounceTouchMove) return;
 		e.preventDefault();
 
-		const delta = this.state.lastTouchX - e.touches[0].clientX;
+		const delta = (this.state.lastTouchX - e.touches[0].clientX);
 		this.setState({
 			lastTouchX: e.touches[0].clientX,
 			debounceTouchMove: true,
@@ -180,7 +180,6 @@ class Story extends React.Component {
 			debounceTouchMove: false,
 		});
 		this.raf = requestAnimationFrame(this.animate);
-		// PubSub.publish('story.animate', (currentForce * delta));
 	}
 
 	render() {

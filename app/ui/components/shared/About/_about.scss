@@ -8,7 +8,9 @@
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	padding: #{(100vh - $size--medium-image) / 2} $size--site-side-padding $size--site-side-padding $size--site-side-padding;
-	transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.2s ease-in-out, transform 0.2s ease-out;
+	transform: scale(1);
+	transform-origin: 50% 50%;
 
 	@include mobile {
 		padding: #{(100vh - $size--medium-image--mobile) / 2} $size--site-side-padding--mobile #{$size--site-side-padding--mobile - 7px} $size--site-side-padding--mobile;
@@ -24,14 +26,20 @@
 	text-decoration: underline;
 }
 
-// .about--display-none {
-// 	display: none;
-// }
+.about--display-none {
+	display: none;
+}
 
 .about--hidden {
 	opacity: 0;
 	pointer-events: none;
-	// transition: opacity 0.3s ease-in;
+	transition: opacity 0.2s ease-in-out, transform 0.2s ease-in;
+	transform: scale(1.033);
+
+	@include mobile {
+		display: none;
+		transform: scale(1);
+	}
 }
 
 .about__text {

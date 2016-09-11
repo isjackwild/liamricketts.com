@@ -8,9 +8,9 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "gulp": "gulp --gulpfile ./gulp/gulpfile.js --env development",
+    "gulp": "gulp --gulpfile ./gulp/gulpfile.js --env production",
     "server": "php -S 127.0.0.1:4000 -t build/",
-    "build": "gulp build --env production",
+    "build": "gulp build --gulpfile ./gulp/gulpfile.js --env production",
     "dev": "npm-run-all --parallel gulp server"
   },
   "dependencies": {

@@ -4,6 +4,7 @@
 	left: 0;
 	right: 0;
 	font-size: 0;
+	line-height: 0;
 	position: fixed;
 	cursor: zoom-out;
 	transition: opacity $timing--lightbox-show ease;
@@ -48,6 +49,8 @@
 	transition: opacity $timing--loaded ease;
 	opacity: 0.5;
 	pointer-events: none;
+	font-size: 0;
+	line-height: 0;
 }
 
 .lightbox--loaded .lightbox__inner:after {

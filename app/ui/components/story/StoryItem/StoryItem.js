@@ -78,6 +78,7 @@ class Image extends React.Component {
 		
 		const height = window.innerHeight * multiplier;
 
+
 		const marginTop = (() => {
 			if (size === 'large') {
 				return 0;
@@ -92,7 +93,7 @@ class Image extends React.Component {
 			} else if (size === 'small' && alignment === 'bottom') {
 				const multiMedium = (window.innerWidth <= 768) ? 0.6 : 0.7;
 				const heightMedium = window.innerHeight * multiMedium;
-				return window.innerHeight - heightMedium;
+				return ((window.innerHeight - heightMedium) / 2) + (heightMedium - height);
 			} else {
 				return (window.innerHeight - height) / 2;
 			}
@@ -215,7 +216,6 @@ const decorator = Component => class extends React.Component {
 
 // export const StoryItem = decorator(Image);
 // export const StoryCover = decorator(Cover);
-// 
 export const StoryItem = Image;
 export const StoryCover = Cover;
 

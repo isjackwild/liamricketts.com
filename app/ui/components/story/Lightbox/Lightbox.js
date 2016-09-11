@@ -171,9 +171,11 @@ const data = Component => class extends React.Component {
 		});
 
 		this.loadImage.src = image.large;
-		setTimeout(() => {
+		// setTimeout(() => {
+		// }, 16.666);
+		requestAnimationFrame(() => {
 			this.setState({ isVisible: true });
-		}, 0);
+		});
 
 		if (!this.state.isMobile) {
 			this.animate();
