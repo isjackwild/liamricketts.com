@@ -29,31 +29,41 @@
 	pointer-events: none;
 }
 
-.showstopper__arrow {
+.showstopper__canvas {
 	position: absolute;
-	bottom: 20px;
-	left: 50%;
-	display: inline-block;
-	width: 44px;
-	height: 17px;
-	margin-left: -21px;
-	background-image: url('../icons/arrow--down.png');
-	opacity: 0;
-	transform: translateY(-17px);
-	transition: opacity $timing--loaded cubic-bezier(0.000, 0.000, 0.1, 1), transform 0.85s cubic-bezier(0.000, 0.000, 0.1, 1);
-	cursor: pointer;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	// background: rgba(255,0,0,0.6);
 }
 
-.showstopper__arrow--ready {
-	transform: translateY(0);
-	opacity: 1;
-}
+// .showstopper__arrow {
+// 	position: absolute;
+// 	bottom: 20px;
+// 	left: 50%;
+// 	display: inline-block;
+// 	width: 44px;
+// 	height: 17px;
+// 	margin-left: -21px;
+// 	background-image: url('../icons/arrow--down.png');
+// 	opacity: 0;
+// 	transform: translateY(-17px);
+// 	transition: opacity $timing--loaded cubic-bezier(0.000, 0.000, 0.1, 1), transform 0.85s cubic-bezier(0.000, 0.000, 0.1, 1);
+// 	cursor: pointer;
+// }
 
-.showstopper__arrow--ready:hover {
-	transform: translateY(4px);
-}
+// .showstopper__arrow--ready {
+// 	transform: translateY(0);
+// 	opacity: 1;
+// }
+
+// .showstopper__arrow--ready:hover {
+// 	transform: translateY(4px);
+// }
 
 .showstopper__wordmark {
+	position: relative;
 	@extend %typo--showstopper-wordmark;
 	transition: color $timing--overview-hover ease-in-out, text-shadow $timing--overview-hover ease-in-out;
 }

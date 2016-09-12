@@ -141,14 +141,14 @@ class Story extends React.Component {
 	}
 
 	setForce(delta) {
-		let naturalForce = null;
-		if (delta === 0) naturalForce = this.state.naturalForce;
-		if (delta < 0) naturalForce = 0.15;
-		if (delta > 0) naturalForce = -0.15;
+		// let naturalForce = null;
+		// if (delta === 0) naturalForce = this.state.naturalForce;
+		// if (delta < 0) naturalForce = 0.15;
+		// if (delta > 0) naturalForce = -0.15;
 
 		this.setState({
 			targetForce: (this.state.targetForce + (delta * -1 * this.sensitivity)),
-			naturalForce, 
+			// naturalForce,
 		});
 	}
 

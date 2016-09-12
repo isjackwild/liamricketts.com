@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "gulp": "gulp --gulpfile ./gulp/gulpfile.js --env production",
+    "gulp": "gulp --gulpfile ./gulp/gulpfile.js --env development",
     "server": "php -S 127.0.0.1:4000 -t build/",
     "build": "gulp build --gulpfile ./gulp/gulpfile.js --env production",
     "dev": "npm-run-all --parallel gulp server"
@@ -22,7 +22,8 @@
     "react-addons-css-transition-group": "^15.3.1",
     "react-dom": "^15.0.2",
     "react-router": "^2.4.0",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "three": "^0.80.1"
   },
   "devDependencies": {
     "babel": "^6.5.2",

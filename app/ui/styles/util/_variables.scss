@@ -101,6 +101,7 @@ $size--overview-story-item--mobile: 20%;
 	font-size: rem(16px);
 	letter-spacing: em(0.2px);
 	font-weight: bold;
+	line-height: 1.4em;
 
 	@include mobile {
 		font-size: rem(12px);

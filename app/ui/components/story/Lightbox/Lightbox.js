@@ -145,12 +145,25 @@ const data = Component => class extends React.Component {
 		this.raf = requestAnimationFrame(this.animate);
 	}
 
-	show(e, image) {
-		const mode = image.aspectRatio > this.state.aspectRatio ? 'tall' : 'wide';
-		const width = (mode === 'tall') ? window.innerWidth : window.innerHeight / image.aspectRatio;
-		const height = (mode === 'wide') ? window.innerHeight : window.innerWidth * image.aspectRatio;
+	show(e, item) {
+		const { images, size } = item;
+		const mode = images.aspectRatio > this.state.aspectRatio ? 'tall' : 'wide';
+		const width = (mode === 'tall') ? window.innerWidth : window.innerHeight / images.aspectRatio;
+		const height = (mode === 'wide') ? window.innerHeight : window.innerWidth * images.aspectRatio;
 		const overflowX = (mode === 'tall') ? 0 : width - window.innerWidth;
 		const overflowY = (mode === 'wide') ? 0 : height - window.innerHeight;
+
+		const loaderSrc = (() => {
+			switch(size) {
+				case 'small':
+					return images.medium;
+				case 'medium':
+				case 'large':
+					return images.large;
+				default:
+					return images.medium;
+			}
+		})();
 
 		this.setState({
 			scrollX: this.state.isMobile ? 0 : overflowX / -2,
@@ -159,9 +172,9 @@ const data = Component => class extends React.Component {
 			currentForceY: 0,
 			targetForceX: 0,
 			targetForceY: 0,
-			image: image,
-			src: this.state.isMobile ? image.medium : image.large,
-			loaderSrc: image.small,
+			image: images,
+			src: this.state.isMobile ? images.medium : images.large,
+			loaderSrc,
 			isLoaded: false,
 			mode,
 			width,
@@ -170,7 +183,7 @@ const data = Component => class extends React.Component {
 			overflowY,
 		});
 
-		this.loadImage.src = image.large;
+		this.loadImage.src = images.large;
 		// setTimeout(() => {
 		// }, 16.666);
 		requestAnimationFrame(() => {

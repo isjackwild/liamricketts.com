@@ -53,6 +53,7 @@
 
 .story__title {
 	@extend %typo--title;
+	margin-left: -2px;
 }
 
 .story__subtitle {
@@ -74,13 +75,13 @@
 	line-height: 1em;
 	display: inline-block;
 	margin-right: 6px;
-	border: 1px solid rgba(44,44,44,1);
+	border: 1px solid rgba(44,44,44,0.7);
 	border-radius: 3px;
 	padding: 6px 5px 3px 6px;
 	position: relative;
 	white-space: nowrap;
 	margin-bottom: 6px;
-	cursor: help;
+	cursor: default;
 }
 
 .story__next-up {

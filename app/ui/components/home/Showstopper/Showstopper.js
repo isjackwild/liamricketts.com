@@ -2,18 +2,16 @@ import React from 'react';
 import Loader from '../Loader/Loader.js';
 import PubSub from 'pubsub-js';
 import TweenLite from 'gsap';
+import { init, kill } from './cloth-scene.js';
 
 const view = ({ isReady, isDimmed, scrollDown }) => {
 	return (
 		<section className={`showstopper ${isDimmed ? 'showstopper--dimmed' : ''}`}>
 			<div className="showstopper__inner">
+				<canvas className='showstopper__canvas'></canvas>
 				<span className={`showstopper__wordmark ${isReady ? 'showstopper__wordmark--ready' : ''}`}>Liam Ricketts</span>
 				<Loader />
 			</div>
-			<div
-				className={`showstopper__arrow ${isReady ? 'showstopper__arrow--ready' : ''}`}
-				onClick={scrollDown}
-			></div>
 		</section>
 	);
 };
@@ -38,21 +36,24 @@ const data = Component => class extends React.Component {
 		this.subs.push(PubSub.subscribe('overview.dim', (e, data) => {
 			this.setState({ isDimmed: data });
 		}));
+
+		init();
 	}
 
 	componentWillUnmount() {
+		kill();
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
 	}
 
-	scrollDown() {
-		const scrollTop = document.getElementsByClassName('overview')[0].offsetTop;
-		const to = {
-			scrollTop,
-			ease: Power3.easeInOut,
-		}
+	// scrollDown() {
+	// 	const scrollTop = document.getElementsByClassName('overview')[0].offsetTop;
+	// 	const to = {
+	// 		scrollTop,
+	// 		ease: Power3.easeInOut,
+	// 	}
 
-		TweenLite.to(document.body, 0.8, to);
-	}
+	// 	TweenLite.to(document.body, 0.8, to);
+	// }
 
 	render() {
 		return <Component {...this.state} {...this.props} scrollDown={this.scrollDown} />
