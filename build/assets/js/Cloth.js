@@ -38,12 +38,10 @@ var wind = true;
 var windStrength = 2;
 var windForce = new THREE.Vector3( 0, 0, 0 );
 
-// var ballPosition = new THREE.Vector3( 0, - 45, 0 );
-// var ballSize = 60; //40
 
 var tmpForce = new THREE.Vector3();
 
-var lastTime;
+// var lastTime;
 
 
 function plane( width, height ) {
@@ -226,12 +224,12 @@ function Cloth( w, h ) {
 
 function simulate( time ) {
 
-	if ( ! lastTime ) {
+	// if ( ! lastTime ) {
 
-		lastTime = time;
-		return;
+	// 	lastTime = time;
+	// 	return;
 
-	}
+	// }
 
 	var i, il, particles, particle, pt, constraints, constraint;
 

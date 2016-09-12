@@ -1,19 +1,21 @@
+import { Cloth, simulate, clothFunction } from './Cloth.js';
+
 let canvas, ctx, camera, renderer, scene, light, showStopper;
 let raf, then, now, delta;
 let width, height;
-let clothGeometry;
+let clothGeometry, cloth;
 const pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 const THREE = window.THREE;
 let boxMesh;
 
 export const init = () => {
 	canvas = document.getElementsByClassName('showstopper__canvas')[0];
-	showStopper = document.getElementsByClassName('showstopper');
+	showStopper = document.getElementsByClassName('showstopper')[0];
 	window.addEventListener('resize', onResize);
 	now = new Date().getTime();
 	onResize();
 	setupScene();
-	// setupCloth();
+	setupCloth();
 	setupRenderer();
 	animate();
 }
@@ -27,42 +29,26 @@ const onResize = () => {
 	width = showStopper.clientWidth;
 	height = showStopper.clientHeight;
 
-	// if (renderer) renderer.setSize(width, height);
-	// if (camera) {
-	// 	camera.aspect = width / height;
-	// 	camera.updateProjectionMatrix();
-	// }
+	if (renderer) renderer.setSize(width, height);
+	if (camera) {
+		camera.aspect = width / height;
+		camera.updateProjectionMatrix();
+	}
 }
 
 const setupScene = () => {
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(75, width / height, 1, 10000);
-	camera.position.z = 1000;
-	
+	camera.position.z = 400;
+
 	// scene.add(camera);
 
-	// light = new THREE.DirectionalLight(0xdfebff, 1.75);
-	// light.position.set(50, 200, 100);
-	// light.position.multiplyScalar(1.3);
-	// light.castShadow = true;
-	// light.shadow.mapSize.width = 1024;
-	// light.shadow.mapSize.height = 1024;
 
-	// const d = 300;
-
-	// light.shadow.camera.left = - d;
-	// light.shadow.camera.right = d;
-	// light.shadow.camera.top = d;
-	// light.shadow.camera.bottom = - d;
-	// light.shadow.camera.far = 1000;
-
-
-	// const groundMaterial = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: true } );
-	// const mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 20000, 20000 ), groundMaterial );
-	// mesh.position.y = 0;
-	// mesh.rotation.x = - Math.PI / 2;
-	// scene.add( mesh );
-
+	const groundMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } );
+	const mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 20000, 20000 ), groundMaterial );
+	mesh.position.y = -250;
+	mesh.rotation.x = - Math.PI / 2;
+	scene.add( mesh );
 
 
 	const boxGeometry = new THREE.BoxGeometry( 200, 200, 200 );
@@ -71,13 +57,12 @@ const setupScene = () => {
     scene.add( boxMesh );
 
 
-
-
-	// scene.add( new THREE.AmbientLight( 0x666666 ) );
-	// scene.add(light);
+	scene.add( new THREE.AmbientLight( 0xffffff ) );
 }
 
 const setupCloth = () => {
+	cloth = new Cloth(16, 9)
+
 	const loader = new THREE.TextureLoader();
 	const clothTexture = loader.load( 'assets/198A3542-2000x1339.jpg' );
 	clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
@@ -86,12 +71,12 @@ const setupCloth = () => {
 	const clothMaterial = new THREE.MeshPhongMaterial( {
 		specular: 0x030303,
 		map: clothTexture,
-		side: THREE.SingleSide,
+		side: THREE.DoubleSide,
 		alphaTest: 0.5
 	} );
 
 	// cloth geometry
-	clothGeometry = new THREE.ParametricGeometry( clothFunction, cloth.w, cloth.h );
+	clothGeometry = new THREE.ParametricGeometry( clothFunction, cloth.width, cloth.height );
 	clothGeometry.dynamic = true;
 
 	const uniforms = { texture:  { value: clothTexture } };
@@ -114,41 +99,36 @@ const setupCloth = () => {
 
 const setupRenderer = () => {
 	const options = {
-		// anitalias: true,
+		anitalias: true,
 		canvas: canvas,
-		// alpha: false,
 	}
 
 	renderer = new THREE.WebGLRenderer(options);
-	renderer.setClearColor( 0x666666 );
+	renderer.setClearColor( 0xFFD002 );
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(width, height);
-
-	// renderer.gammaInput = true;
-	// renderer.gammaOutput = true;
-	// renderer.shadowMap.enabled = true;
 }
 
 const update = (delta) => {
+	const time = Date.now();
+
+	cloth.simulate(time, clothGeometry.faces);
+
+	cloth.particles.forEach((particle, i) => {
+		clothGeometry.vertices[i].copy(particle.position);
+	});
+
 	boxMesh.rotation.x += 0.01;
 	boxMesh.rotation.y += 0.02;
 }
 
 const render = () => {
-	// const p = cloth.particles;
+	clothGeometry.computeFaceNormals();
+	clothGeometry.computeVertexNormals();
 
-	// for (let i = 0, il = p.length; i < il; i ++) {
-	// 	clothGeometry.vertices[ i ].copy( p[ i ].position );
-	// }
+	clothGeometry.normalsNeedUpdate = true;
+	clothGeometry.verticesNeedUpdate = true;
 
-	// clothGeometry.computeFaceNormals();
-	// clothGeometry.computeVertexNormals();
-
-	// clothGeometry.normalsNeedUpdate = true;
-	// clothGeometry.verticesNeedUpdate = true;
-
-	// camera.lookAt(scene.position);
-	console.log('render');
 	renderer.render(scene, camera);
 }
 
