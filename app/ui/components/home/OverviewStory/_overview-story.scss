@@ -24,7 +24,7 @@
 	left: 0;
 	color: #000000;
 	transform: translateY(100%);
-	padding-top: 5px;
+	padding-top: 10px;
 	transition: opacity $timing--overview-hover ease-in-out;
 	opacity: 0;
 
@@ -43,10 +43,10 @@
 	opacity: 1;
 }
 
-.overview-story--dimmed {
-	opacity: 0.03;
+// .overview-story--dimmed {
+// 	opacity: 0.03;
 
-	@include mobile {
-		opacity: 0;
-	}
-}
+// 	@include mobile {
+// 		opacity: 0;
+// 	}
+// }

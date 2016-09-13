@@ -173,14 +173,14 @@
 	@extend %typo--caption;
 	display: inline-block;
 	white-space: normal;
-	max-width: 350px;
+	max-width: 400px;
 }
 
 .story__caption--right {
 	vertical-align: bottom;
 	width: 300px;
-	margin-left: 12px;
-	margin-bottom: 8px;
+	margin-left: 18px;
+	margin-bottom: 12px;
 	position: relative;
 
 	@include mobile {
@@ -192,9 +192,9 @@
 .story__caption--below {
 	display: block;
 	max-width: 100%;
-	margin-top: 6px;
+	margin-top: 9px;
 	position: absolute;
-	max-width: 300px;
+	max-width: 400px;
 
 	@include mobile {
 		margin-top: 3px;

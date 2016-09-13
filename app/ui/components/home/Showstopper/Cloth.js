@@ -153,7 +153,6 @@ export class Cloth {
 
 		pins.forEach((xy) => {
 			const p = this.particles[xy];
-			if (xy === 0) console.log(p.original, p.position);
 			p.position.copy(p.original);
 			p.previous.copy(p.original);
 		});

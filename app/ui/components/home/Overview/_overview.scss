@@ -5,6 +5,7 @@
 	position: relative;
 	padding: 80px #{$size--site-side-padding - $size--overview-item-padding} 0 $size--site-side-padding;
 	background: #FFFFFF;
+	box-shadow: 0px 0px 4px 0px rgba(34,34,34,0.1);
 
 	@include mobile {
 		padding: $size--site-side-padding--mobile * 2 #{$size--site-side-padding--mobile - $size--overview-item-padding--mobile} 0 $size--site-side-padding--mobile;

@@ -39,22 +39,22 @@ const onResize = () => {
 const setupScene = () => {
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(75, width / height, 1, 10000);
-	camera.position.z = 400;
+	camera.position.z = 160;
 
 	// scene.add(camera);
 
 
-	const groundMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } );
-	const mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 20000, 20000 ), groundMaterial );
-	mesh.position.y = -250;
-	mesh.rotation.x = - Math.PI / 2;
-	scene.add( mesh );
+	// const groundMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } );
+	// const mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 20000, 20000 ), groundMaterial );
+	// mesh.position.y = -250;
+	// mesh.rotation.x = - Math.PI / 2;
+	// scene.add( mesh );
 
 
-	const boxGeometry = new THREE.BoxGeometry( 200, 200, 200 );
-    const boxMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-    boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
-    scene.add( boxMesh );
+	// const boxGeometry = new THREE.BoxGeometry( 200, 200, 200 );
+ //    const boxMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+ //    boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
+ //    scene.add( boxMesh );
 
 
 	scene.add( new THREE.AmbientLight( 0xffffff ) );
@@ -117,9 +117,6 @@ const update = (delta) => {
 	cloth.particles.forEach((particle, i) => {
 		clothGeometry.vertices[i].copy(particle.position);
 	});
-
-	boxMesh.rotation.x += 0.01;
-	boxMesh.rotation.y += 0.02;
 }
 
 const render = () => {

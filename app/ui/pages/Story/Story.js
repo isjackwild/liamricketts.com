@@ -23,7 +23,6 @@ class Story extends React.Component {
 			currentForce: 0,
 			targetForce: 0,
 			scrollPosition: 0,
-			nextUpScrollPosition: 0,
 			then: null,
 			now: null,
 			delta: 1,
@@ -37,6 +36,7 @@ class Story extends React.Component {
 		this.sensitivity = 0.6;
 		this.friction = window.innerWidth <= 768 ? 0.25 : 0.5;
 		this.torque = 0.05;
+		this.dampenDist = Math.min(500, window.innerWidth * 0.66);
 
 		this.animate = this.animate.bind(this);
 		this.onResize = this.onResize.bind(this);
@@ -161,13 +161,23 @@ class Story extends React.Component {
 		let currentForce = this.state.currentForce + (this.state.targetForce - this.state.currentForce) * this.torque;
 		const targetForce = this.state.targetForce + (this.state.naturalForce - this.state.targetForce) * this.friction;
 
-		let scrollPosition = this.state.scrollPosition + currentForce * delta;
-		let nextUpScrollPosition = this.state.nextUpScrollPosition + currentForce * delta;
+
+		let dampening = 1;
+		if (currentForce > 0 && this.state.scrollPosition > (this.dampenDist * -1)) {
+			dampening = Math.abs(this.state.scrollPosition) / this.dampenDist;
+		} else if (currentForce < 0 && this.state.scrollPosition < (this.state.minScroll + this.dampenDist)) {
+			dampening = (this.state.scrollPosition - this.state.minScroll) / this.dampenDist;
+		}
+
+		const easeOutCubic = (t) => (--t)*t*t+1;
+		let scrollPosition = this.state.scrollPosition + currentForce * delta * easeOutCubic(dampening);
 		
-		if (scrollPosition < minScroll && currentForce < 0)
-			scrollPosition = window.innerWidth;
-		if (scrollPosition > window.innerWidth && currentForce > 0)
-			scrollPosition = minScroll;
+		// if (scrollPosition < minScroll && currentForce < 0)
+		// 	scrollPosition = window.innerWidth;
+		// if (scrollPosition > window.innerWidth && currentForce > 0)
+		// 	scrollPosition = minScroll;
+		// 	
+		scrollPosition = _.clamp(scrollPosition, minScroll, 0);
 
 		this.setState({
 			minScroll,

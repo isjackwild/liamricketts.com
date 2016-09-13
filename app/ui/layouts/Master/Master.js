@@ -1,4 +1,5 @@
 import React from 'react';
+import PubSub from 'pubsub-js';
 import About from '../../../ui/components/shared/About/About.js';
 import Nav from '../../../ui/components/shared/Nav/Nav.js';
 import Title from '../../../ui/components/shared/Title/Title.js';
@@ -41,6 +42,11 @@ const data = Component => class extends React.Component {
 			this.setState({ isReady: true });
 			document.body.classList.add('is-init');
 		}, 33);
+		PubSub.publish('navigate.to', this.props.location);
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.location !== this.props.location) PubSub.publish('navigate.to', this.props.location);
 	}
 
 	render() {

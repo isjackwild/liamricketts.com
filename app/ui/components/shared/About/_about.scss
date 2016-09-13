@@ -69,9 +69,9 @@
 }
 
 .about__address {
-	margin-bottom: 20px;
 	@extend %typo--contact;
-	line-height: rem(16px);
+	margin-bottom: 30px;
+
 	@include mobile {
 		margin-bottom: 12px;
 	}
@@ -83,11 +83,9 @@
 }
 
 .about__credits {
-	@extend %typo--credits;
-	line-height: 1.4em;
+	@extend %typo--contact;
 }
 
 .about__credits span {
 	display: block;
-	margin-bottom: 4px;
 }

@@ -58,6 +58,7 @@ const data = Component => class extends React.Component {
 		this.onMouseMove = this.onMouseMove.bind(this);
 		this.animate = this.animate.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
+		this.easing = 0.4;
 	}
 
 	componentDidMount() {
@@ -81,8 +82,8 @@ const data = Component => class extends React.Component {
 		if (!this.state.isVisible) return;
 		const fromCenterX = e.clientX - (window.innerWidth / 2);
 		const fromCenterY = e.clientY - (window.innerHeight / 2);
-		const targetForceX = _.clamp(fromCenterX, -500, 500) * -0.05;
-		const targetForceY = _.clamp(fromCenterY, -500, 500) * -0.05;
+		const targetForceX = _.clamp(fromCenterX, -500, 500) * -0.04;
+		const targetForceY = _.clamp(fromCenterY, -500, 500) * -0.04;
 
 		this.setState({
 			targetForceX,
@@ -111,8 +112,8 @@ const data = Component => class extends React.Component {
 	}
 
 	animate() {
-		const currentForceX = this.state.currentForceX + (this.state.targetForceX - this.state.currentForceX) * 0.022;
-		const currentForceY = this.state.currentForceY + (this.state.targetForceY - this.state.currentForceY) * 0.022;
+		const currentForceX = this.state.currentForceX + (this.state.targetForceX - this.state.currentForceX) * this.easing;
+		const currentForceY = this.state.currentForceY + (this.state.targetForceY - this.state.currentForceY) * this.easing;
 
 		let dampeningY = 1;
 		if (currentForceY > 0 && this.state.scrollY > (this.dampenDist * -1)) {

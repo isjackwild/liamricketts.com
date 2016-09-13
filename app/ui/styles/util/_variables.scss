@@ -10,10 +10,10 @@ $unloaded-grey: #D8D8D8;
 
 /* TRANSITIONS */
 $easing: cubic-bezier(0.77, 0, 0.175, 1);
-$timing--overview-hover: 0.3s;
+$timing--overview-hover: 0.2s;
 $timing--overview-hover--mobile: 0.05s;
 $timing--loaded: 0.8s;
-$timing--lightbox-show: 0.4s;
+$timing--lightbox-show: 0.3s;
 
 /* FONTS */
 $fonts: 'CooperHewittBookItalic', 'Helvetica', 'sans-serif';
@@ -64,14 +64,14 @@ $size--overview-story-item--mobile: 20%;
 %typo--wordmark {
 	font-family: 'CooperHewittBoldItalic', sans-serif;
 	font-size: rem(12px);
-	letter-spacing: em(1.05px);
+	letter-spacing: 0.05em;
 	text-transform: uppercase;
 }
 
 %typo--showstopper-wordmark {
 	font-family: 'CooperHewittBoldItalic', sans-serif;
-	font-size: rem(40px);
-	letter-spacing: em(3.7px);
+	font-size: rem(52px);
+	letter-spacing: 0.18em;
 	text-transform: uppercase;
 
 	@include mobile {
@@ -81,18 +81,23 @@ $size--overview-story-item--mobile: 20%;
 }
 
 %typo--overview-story-title {
-	@extend %typo--breadcrumb;
+	@extend %typo--wordmark;
 	line-height: 1.1em;
 }
 
 %typo--title {
+	// font-family: 'CooperHewittBoldItalic', sans-serif;
+	// font-size: rem(60px);
+	// letter-spacing: em(0.1px);
+	// line-height: 1.2em;
+	// 
 	font-family: 'CooperHewittBoldItalic', sans-serif;
-	font-size: rem(60px);
-	letter-spacing: em(0.1px);
-	line-height: 1.2em;
+	font-size: rem(52px);
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
 
 	@include mobile {
-		font-size: rem(40px);
+		font-size: rem(32px);
 	}
 }
 
@@ -127,8 +132,10 @@ $size--overview-story-item--mobile: 20%;
 }
 
 %typo--contact {
-	@extend %typo--breadcrumb;
-	line-height: 1.8em;
+	font-family: 'CooperHewittBookItalic', sans-serif;
+	font-size: rem(13px);
+	letter-spacing: em(0.35px);
+	line-height: 1.6em;
 }
 
 %typo--credits {
@@ -140,8 +147,8 @@ $size--overview-story-item--mobile: 20%;
 
 %typo--caption {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
-	font-size: rem(11px);
-	line-height: rem(15px);
+	font-size: rem(13px);
+	line-height: 1.6em;
 }
 
 %typo--next-up {
@@ -150,7 +157,13 @@ $size--overview-story-item--mobile: 20%;
 
 %typo--next-up-title {
 	font-family: 'CooperHewittBoldItalic', sans-serif;
-	font-size: rem(26px);
+	font-size: rem(16px);
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+
+	@include mobile {
+		font-size: rem(20px);
+	}
 }
 
 

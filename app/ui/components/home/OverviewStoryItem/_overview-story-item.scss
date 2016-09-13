@@ -6,7 +6,7 @@
 	margin-bottom: calc(5vw + 30px);
 	margin-right: $size--overview-item-padding;
 	position: relative;
-	transition: box-shadow $timing--overview-hover ease-in-out;
+	transition: box-shadow $timing--overview-hover cubic-bezier(0.2, 0, 0.2, 1);
 	vertical-align: bottom;
 
 	@include mobile {
@@ -42,11 +42,15 @@
 	top: 0;
 	left: 0;
 	background: $unloaded-grey;
-	transition: opacity $timing--loaded ease;
+	transition: opacity $timing--overview-hover ease;
 }
 
 .overview-story__item--ready:after {
 	opacity: 0;
+}
+
+.overview-story--dimmed .overview-story__item--ready:after {
+	opacity: 1;
 }
 
 

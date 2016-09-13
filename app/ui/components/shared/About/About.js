@@ -2,35 +2,38 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 
 
-const view = ({ text, links, address, contact, isVisible }) => {
+const view = ({ text, links, address, contact, isVisible, close, stopProp }) => {
 	return (
-		<section className={`about about--${isVisible ? 'visible' : 'hidden'}`}>
-			<div className="about__text" dangerouslySetInnerHTML={{__html: text}}></div>
-			<ul className="about__contact">
+		<section
+			className={`about about--${isVisible ? 'visible' : 'hidden'}`}
+			onClick={close}
+		>
+			<div className="about__text" dangerouslySetInnerHTML={{__html: text}} onClick={stopProp}></div>
+			<ul className="about__contact" onClick={stopProp}>
 				{
 					contact.map((option, i) => {
 						return (
-							<li className="about__contact-option" key={i}>
+							<li className="about__contact-option" key={i} onClick={stopProp}>
 								<a href={option.url}>{option.entry}</a>
 							</li>
 						);
 					})
 				}
 			</ul>
-			<div className="about__address" dangerouslySetInnerHTML={{__html: address}}></div>
-			<ul className="about__links">
+			<div className="about__address" dangerouslySetInnerHTML={{__html: address}} onClick={stopProp}></div>
+			<ul className="about__links" onClick={stopProp}>
 				{
 					links.map((link, i) => {
 						return (
-							<li className="about__link" key={i}>
+							<li className="about__link" key={i} onClick={stopProp}>
 								<a href={link.url}>{link.label}</a>
 							</li>
 						);
 					})
 				}
 			</ul>
-			<div className="about__credits">
-				<span>Site Design and Development by <a href="http://www.isjackwild.com" target="blank">Jack Wild</a></span>
+			<div className="about__credits" onClick={stopProp}>
+				<span>Design and Development by <a href="http://www.isjackwild.com" target="blank">Jack Wild</a></span>
 				<span>Typeset in Cooper Hewitt and Libre Baskerville from <a href="http://open-foundry.com/" target="blank">Open Foundry</a></span>
 				<span>Made in <a href="http://www.studiothree.net" target="blank">Studio Three</a></span>
 			</div>
@@ -55,6 +58,7 @@ const data = Component => class extends React.Component {
 		this.preventDefault = this.preventDefault.bind(this);
 		this.enableScroll = this.enableScroll.bind(this);
 		this.disableScroll = this.disableScroll.bind(this);
+		this.close = this.close.bind(this);
 	}
 
 	componentDidMount() {		
@@ -87,8 +91,16 @@ const data = Component => class extends React.Component {
 		window.ontouchmove = null;
 	}
 
+	close() {
+		PubSub.publish('about.toggle', false);
+	}
+
+	stopProp(e) {
+		e.stopPropagation();
+	}
+
 	render() {
-		return <Component {...this.props} {...this.state} />
+		return <Component {...this.props} {...this.state} close={this.close} stopProp={this.stopProp} />
 	}
 };
 
