@@ -7,7 +7,10 @@ import { init, kill } from './cloth-scene.js';
 
 const view = ({ isReady, isDimmed, scrollDown, coverOpacity }) => {
 	return (
-		<section className={`showstopper ${isDimmed ? 'showstopper--dimmed' : ''}`}>
+		<section
+			className={`showstopper ${isDimmed ? 'showstopper--dimmed' : ''}`}
+			onClick={scrollDown}
+		>
 			<div className="showstopper__inner">
 				<canvas className='showstopper__canvas'></canvas>
 				<span className={`showstopper__wordmark ${isReady ? 'showstopper__wordmark--ready' : ''}`}>Liam Ricketts</span>
@@ -57,22 +60,21 @@ const data = Component => class extends React.Component {
 	}
 
 	onScroll() {
-		console.log('scroll');
 		const overviewScrollTop = document.getElementsByClassName('overview')[0].offsetTop - (window.innerHeight / 5);
 		const multiplier = document.body.scrollTop / overviewScrollTop;
 		const coverOpacity = _.clamp(multiplier, 0, 1);
 		this.setState({ coverOpacity });
 	}
 
-	// scrollDown() {
-	// 	const scrollTop = document.getElementsByClassName('overview')[0].offsetTop;
-	// 	const to = {
-	// 		scrollTop,
-	// 		ease: Power3.easeInOut,
-	// 	}
+	scrollDown() {
+		const scrollTop = document.getElementsByClassName('overview')[0].offsetTop;
+		const to = {
+			scrollTop,
+			ease: Power3.easeInOut,
+		}
 
-	// 	TweenLite.to(document.body, 0.8, to);
-	// }
+		TweenLite.to(document.body, 0.6, to);
+	}
 
 	render() {
 		return <Component {...this.state} {...this.props} scrollDown={this.scrollDown} />

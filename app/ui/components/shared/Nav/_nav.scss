@@ -33,7 +33,6 @@
 	display: inline-block;
 	-webkit-user-select: none;
 	user-select: none;
-	cursor: pointer;
 	vertical-align: top;
 }
 
@@ -42,6 +41,7 @@
 	-webkit-user-select: none;
 	user-select: none;
 	vertical-align: top;
+	cursor: default;
 }
 
 .nav__breadcrumb {
@@ -71,6 +71,7 @@
 .nav__wordmark {
 	@extend %typo--wordmark;
 	vertical-align: top;
+	cursor: pointer;
 }
 
 .nav__about-toggle {

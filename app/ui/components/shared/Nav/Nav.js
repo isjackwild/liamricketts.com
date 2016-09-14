@@ -82,9 +82,9 @@ const data = Component => class extends React.Component {
 			this.setState({ isVisible: true });
 		}));
 
-		this.subs.push(PubSub.subscribe('overview.dim', (e, data) => {
-			this.setState({ isVisible: !data });
-		}));
+		// this.subs.push(PubSub.subscribe('overview.dim', (e, data) => {
+		// 	this.setState({ isVisible: !data });
+		// }));
 
 		this.subs.push(PubSub.subscribe('navigate.to', (e, data) => {
 			this.setState({ currentLocation: data.pathname });

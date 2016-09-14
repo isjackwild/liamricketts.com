@@ -2,10 +2,11 @@
 	position: relative;
 	width: 100%;
 	height: 56.25vw;
-	max-height: 80vh;
+	max-height: 85vh;
 	background: $liam-yellow;
 	transition: opacity $timing--overview-hover ease-in-out;
 	background: $unloaded-grey;
+	cursor: s-resize;
 	// pointer-events: none;
 
 	@include mobile {

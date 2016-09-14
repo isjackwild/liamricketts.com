@@ -29,7 +29,6 @@
 	opacity: 0;
 
 	@include mobile {
-		opacity: 1;
 		white-space: nowrap;
 		transition: opacity $timing--overview-hover--mobile ease-in-out;
 	}

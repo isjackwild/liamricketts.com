@@ -4,6 +4,7 @@ import PubSub from 'pubsub-js';
 import _ from 'lodash';
 import { StoryItem, StoryCover } from '../../../ui/components/story/StoryItem/StoryItem.js';
 import Lightbox from '../../../ui/components/story/Lightbox/Lightbox.js';
+import ScrollHint from '../../../ui/components/story/ScrollHint/ScrollHint.js';
 import TweenLite from 'gsap';
 
 
@@ -30,6 +31,7 @@ class Story extends React.Component {
 			isScrollDisabled: false,
 			debounceTouchMove: false,
 			incomingTransitionIsFinished: false,
+			isScrollHintInclude: localStorage.LRDontShowScrollHint ? false : true,
 		}
 
 		// this.naturalForce = -0.12;
@@ -55,6 +57,10 @@ class Story extends React.Component {
 
 		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
 			this.setState({ isScrollDisabled: data });
+		}));
+
+		this.subs.push(PubSub.subscribe('scroll-hint.remove', (e, data) => {
+			this.setState({ isScrollHintInclude: false });
 		}));
 
 		window.addEventListener('resize', this.onResize);
@@ -193,7 +199,7 @@ class Story extends React.Component {
 	}
 
 	render() {
-		const { items, title, tags, subtitle, background, minScroll, incomingTransitionIsFinished } = this.state;
+		const { items, title, tags, subtitle, background, minScroll, incomingTransitionIsFinished, isScrollHintInclude } = this.state;
 		const nextItems = window.stories[this.state.nextSlug].items;
 		const nextTitle = window.stories[this.state.nextSlug].title;
 
@@ -246,6 +252,11 @@ class Story extends React.Component {
 						})
 					}
 				</div>
+				{isScrollHintInclude ?
+					<ScrollHint background={background} />
+					:
+					null
+				}
 				<Lightbox />
 			</div>
 		);

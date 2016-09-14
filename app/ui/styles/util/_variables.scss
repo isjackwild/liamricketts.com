@@ -166,5 +166,8 @@ $size--overview-story-item--mobile: 20%;
 	}
 }
 
+%typo--scroll-hint {
+	@extend %typo--breadcrumb;
+}
 
 
