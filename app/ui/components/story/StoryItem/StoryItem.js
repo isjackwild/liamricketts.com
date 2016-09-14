@@ -110,7 +110,7 @@ class Image extends React.Component {
 	}
 
 	openInLightbox() {
-		PubSub.publish('lightbox.show', this.props.item);
+		PubSub.publish('lightbox.show', this.props.index);
 	}
 
 	render() {

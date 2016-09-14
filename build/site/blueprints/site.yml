@@ -1,6 +1,6 @@
 title: Site
 pages: true
-files: false
+files: true
 options:
   preview: false
   status: false
@@ -18,25 +18,8 @@ fields:
   copyright:
     label: Copyright
     type:  textarea
-  instagram:
-    label: Instagram URL
-    type:  url
-  facebook:
-    label: Facebook URL
-    type:  url
-  externalmenulinks:
-    label: External Menu Links
-    type: structure
-    help: External links to include in the site main navigation.
-    entry: >
-      Label: {{label}}<br/>
-      URL: {{externalurl}}
-    fields:
-      label:
-        label: Label
-        type: text
-        required: true
-      externalurl:
-        label: URL
-        type: url
-        required: true
+  info:
+    label: Editing the showstopper images
+    type: info
+    text: >
+      Showstopper images must be uploaded in the 'Site files' panel (left). You must have one mobile image called 'mobile.jpg', with an aspect ratio of 1:2, and a desktop image called 'desktop.jpg' with an aspect ration of 2:1. They should be resized and compressed prior to upload.

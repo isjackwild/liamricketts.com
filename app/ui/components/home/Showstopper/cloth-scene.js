@@ -4,11 +4,13 @@ let canvas, ctx, camera, renderer, scene, light, showStopper;
 let raf, then, now, delta;
 let width, height, aR;
 let clothGeometry, cloth;
-const pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 const THREE = window.THREE;
 let boxMesh;
+const textureUrl = window.innerWidth <= 768 ? window.site.showstopperMobile : window.site.showstopperDesktop;
 
 export const init = () => {
+	if (!textureUrl) return;
+
 	canvas = document.getElementsByClassName('showstopper__canvas')[0];
 	showStopper = document.getElementsByClassName('showstopper')[0];
 	window.addEventListener('resize', onResize);
@@ -30,7 +32,6 @@ const onResize = () => {
 	width = showStopper.clientWidth;
 	height = showStopper.clientHeight;
 	aR = width / height;
-	console.log(aR);
 
 	if (renderer) renderer.setSize(width, height);
 	if (camera) {
@@ -45,7 +46,7 @@ const setupScene = () => {
 	camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
 	setCameraDistance();
 
-	// scene.add(camera);
+	scene.add(camera);
 
 
 	// const groundMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } );
@@ -55,12 +56,12 @@ const setupScene = () => {
 	// scene.add( mesh );
 
 
-	const boxGeometry = new THREE.BoxGeometry( 200, 200, 200 );
-    const boxMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-    boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
-    // scene.add( boxMesh );
+	// const boxGeometry = new THREE.BoxGeometry( 10, 10, 10 );
+ //    const boxMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+ //    boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
+ //    scene.add( boxMesh );
 
- 	light = new THREE.DirectionalLight( 0xdfebff, 0.6 );
+ 	light = new THREE.DirectionalLight( 0xdfebff, 0.5 );
 	light.position.set( 50, 200, 100 );
 	light.position.multiplyScalar( 1.3 );
 
@@ -78,7 +79,7 @@ const setupScene = () => {
 
 	light.shadow.camera.far = 1000;
 
-	scene.add( light );
+	// scene.add( light );
 
 	scene.add( new THREE.AmbientLight( 0xffffff ) );
 }
@@ -93,11 +94,16 @@ const setCameraDistance = () => {
 }
 
 const setupCloth = () => {
-	cloth = new Cloth(16, 9)
+	cloth = new Cloth(xSegs, ySegs);
 
+	const onLoaded = () => {
+		PubSub.publish('load.loaded');
+	}
 	const loader = new THREE.TextureLoader();
-	const clothTexture = loader.load( 'assets/198A3542-2000x1339.jpg' );
+	PubSub.publish('load.add');
+	const clothTexture = loader.load(textureUrl, onLoaded, null, onLoaded);
 	clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
+	clothTexture.repeat.y = -1;
 	clothTexture.anisotropy = 16;
 
 	const clothMaterial = new THREE.MeshPhongMaterial( {
@@ -158,6 +164,8 @@ const render = () => {
 
 	clothGeometry.normalsNeedUpdate = true;
 	clothGeometry.verticesNeedUpdate = true;
+
+	camera.lookAt(scene.position);
 
 	renderer.render(scene, camera);
 }

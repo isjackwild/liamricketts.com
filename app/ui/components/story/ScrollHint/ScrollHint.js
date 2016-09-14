@@ -65,9 +65,9 @@ const data = Component => class extends React.Component {
 	}
 
 	onMouseWheel(e) {
-		let scale = this.state.scale + (e.deltaY / 350);
-		let opacity = this.state.opacity + (e.deltaY / -50);
-		let translate = this.state.translate + (e.deltaY * -0.7);
+		let scale = this.state.scale + (e.deltaY / 650);
+		let opacity = this.state.opacity + (e.deltaY / -40);
+		let translate = this.state.translate + (e.deltaY * -1);
 		opacity = _.clamp(opacity, 0, 1);
 		translate = Math.min(translate, 0);
 		scale = Math.max(scale, 1);

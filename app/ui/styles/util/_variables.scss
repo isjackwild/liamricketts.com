@@ -57,21 +57,21 @@ $size--overview-story-item--mobile: 20%;
 /* TYPE */
 %typo--breadcrumb {
 	font-family: 'CooperHewittBookItalic', sans-serif;
-	font-size: rem(12px);
+	font-size: rem(13px);
 	letter-spacing: em(0.35px);
 }
 
 %typo--wordmark {
 	font-family: 'CooperHewittBoldItalic', sans-serif;
-	font-size: rem(12px);
-	letter-spacing: 0.05em;
+	font-size: rem(13px);
+	letter-spacing: 0.1em;
 	text-transform: uppercase;
 }
 
 %typo--showstopper-wordmark {
 	font-family: 'CooperHewittBoldItalic', sans-serif;
-	font-size: rem(52px);
-	letter-spacing: 0.18em;
+	font-size: rem(80px);
+	letter-spacing: 0.1em;
 	text-transform: uppercase;
 
 	@include mobile {
@@ -93,7 +93,7 @@ $size--overview-story-item--mobile: 20%;
 	// 
 	font-family: 'CooperHewittBoldItalic', sans-serif;
 	font-size: rem(52px);
-	letter-spacing: 0.01em;
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
 
 	@include mobile {
@@ -103,10 +103,8 @@ $size--overview-story-item--mobile: 20%;
 
 %typo--subtitle {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
-	font-size: rem(16px);
-	letter-spacing: em(0.2px);
-	font-weight: bold;
-	line-height: 1.4em;
+	font-size: rem(15px);
+	line-height: rem(23px);
 
 	@include mobile {
 		font-size: rem(12px);
@@ -120,9 +118,8 @@ $size--overview-story-item--mobile: 20%;
 
 %typo--about-text {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
-	font-size: rem(16px);
+	font-size: rem(15px);
 	line-height: rem(23px);
-	letter-spacing: em(0.2px);
 	font-weight: bold;
 
 	@include mobile {
@@ -156,14 +153,7 @@ $size--overview-story-item--mobile: 20%;
 }
 
 %typo--next-up-title {
-	font-family: 'CooperHewittBoldItalic', sans-serif;
-	font-size: rem(16px);
-	letter-spacing: 0.03em;
-	text-transform: uppercase;
-
-	@include mobile {
-		font-size: rem(20px);
-	}
+	@extend %typo--overview-story-title;
 }
 
 %typo--scroll-hint {

@@ -2,11 +2,13 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 import _ from 'lodash';
 
-const view = ({ isVisible, isLoaded, mode, hide, width, height, src, loaderSrc, scrollX, scrollY }) => {
+const view = ({ isVisible, isLoaded, mode, hide, width, height, src, loaderSrc, scrollX, scrollY, onTouchStart, onTouchMove }) => {
 	return (
 		<div
 			className={`lightbox lightbox--${isVisible ? 'visible' : 'hidden'} lightbox--${isLoaded ? 'loaded' : 'loading'}`}
 			onClick={hide}
+			onTouchStart={onTouchStart}
+			onTouchMove={onTouchMove}
 		>
 			<div
 				className="lightbox__inner"
@@ -45,6 +47,9 @@ const data = Component => class extends React.Component {
 			scrollX: 0,
 			scrollY: 0,
 			isMobile: (window.innerWidth > 768) ? false : true,
+			index: 0,
+			touchStart: 0,
+			ignoreTouchMove: false,
 		}
 
 		this.loadImage = new Image();
@@ -58,13 +63,20 @@ const data = Component => class extends React.Component {
 		this.onMouseMove = this.onMouseMove.bind(this);
 		this.animate = this.animate.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
+		this.onKeyDown = this.onKeyDown.bind(this);
+		this.onTouchStart = this.onTouchStart.bind(this);
+		this.onTouchMove = this.onTouchMove.bind(this);
 		this.easing = 0.4;
+		this.touchTO = null;
+		this.swipeThreshold = 200;
+		this.swipeTimeThreshold = 200;
 	}
 
 	componentDidMount() {
 		this.subs.push(PubSub.subscribe('lightbox.show', this.show));
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousemove', this.onMouseMove);
+		window.addEventListener('keydown', this.onKeyDown);
 		this.loadImage.onload = this.onLoaded;
 	}
 
@@ -73,9 +85,11 @@ const data = Component => class extends React.Component {
 		cancelAnimationFrame(this.raf);
 		window.removeEventListener('resize', this.onResize);
 		window.removeEventListener('mousemove', this.onMouseMove);
+		window.removeEventListener('keydown', this.onKeyDown);
 		this.loadImage.src = null;
 		this.loadImage.onload = null;
 		clearTimeout(this.nullifyTimeout);
+		clearTimeout(this.touchTO);
 	}
 
 	onMouseMove(e) {
@@ -91,6 +105,47 @@ const data = Component => class extends React.Component {
 		});
 	}
 
+	onKeyDown(e) {
+		switch(e.keyCode) {
+			case 27:
+				this.hide();
+				break;
+			case 37:
+				if (this.state.index > 0) this.show(null, this.state.index - 1);
+				break;
+			case 39:
+				if (this.state.index < this.props.items.length - 1) this.show(null, this.state.index + 1);
+				break;
+		}
+	}
+
+	onTouchStart(e) {
+		clearTimeout(this.touchTO);
+		this.setState({
+			ignoreTouchMove: false,
+			touchStart: e.touches[0].clientX,
+		});
+		this.touchTO = setTimeout(() => {
+			this.setState({ ignoreTouchMove: true });
+		}, this.swipeTimeThreshold);
+	}
+
+	onTouchMove(e) {
+		if (this.state.ignoreTouchMove) return;
+		const diff = this.state.touchStart - e.touches[0].clientX;
+		if (diff < this.swipeThreshold * -1 && this.state.index > 0) {
+			this.show(null, this.state.index - 1);
+			this.setState({ ignoreTouchMove: true });
+			clearTimeout(this.touchTO);
+			return;
+		} else if (diff > this.swipeThreshold &&  this.state.index < this.props.items.length - 1) {
+			this.show(null, this.state.index + 1);
+			this.setState({ ignoreTouchMove: true });
+			clearTimeout(this.touchTO);
+			return 
+		}
+	}
+
 	onResize() {
 		const aspectRatio = window.innerHeight / window.innerWidth;
 		const mode = this.state.image && this.state.image.aspectRatio > aspectRatio ? 'tall' : 'wide';
@@ -98,8 +153,6 @@ const data = Component => class extends React.Component {
 		const height = (mode === 'wide') ? window.innerHeight : window.innerWidth * this.state.image.aspectRatio;
 		const overflowX = (mode === 'tall') ? 0 : width - window.innerWidth;
 		const overflowY = (mode === 'wide') ? 0 : height - window.innerHeight;
-
-
 
 		this.setState({
 			aspectRatio,
@@ -146,8 +199,9 @@ const data = Component => class extends React.Component {
 		this.raf = requestAnimationFrame(this.animate);
 	}
 
-	show(e, item) {
-		const { images, size } = item;
+	show(e, index) {
+		cancelAnimationFrame(this.raf);
+		const { images, size } = this.props.items[index];
 		const mode = images.aspectRatio > this.state.aspectRatio ? 'tall' : 'wide';
 		const width = (mode === 'tall') ? window.innerWidth : window.innerHeight / images.aspectRatio;
 		const height = (mode === 'wide') ? window.innerHeight : window.innerWidth * images.aspectRatio;
@@ -182,6 +236,7 @@ const data = Component => class extends React.Component {
 			height, 
 			overflowX,
 			overflowY,
+			index,
 		});
 
 		this.loadImage.src = images.large;
@@ -220,7 +275,7 @@ const data = Component => class extends React.Component {
 	}
 
 	render() {
-		return <Component {...this.state} {...this.props} hide={this.hide} />
+		return <Component {...this.state} {...this.props} hide={this.hide} onTouchMove={this.onTouchMove} onTouchStart={this.onTouchStart} />
 	}
 };
 

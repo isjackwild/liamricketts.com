@@ -1,7 +1,7 @@
 title: Story
 options:
   preview: false
-  status: false
+  status: true
   url: false
 pages: image
 files: false
@@ -26,8 +26,14 @@ fields:
     validation:
       minLength: 7
       maxLength: 7
+  hidden:
+    label: Hidden?
+    type: toggle
+    text: yes/no
+    default: true
+    help: If set to yes, the story will not show on the homepage overview.
   info:
     label: Adding, editing and deleting story images
     type: info
     text: >
-      To edit existing images, click it in the left hand panel, under 'Pages'. To add new images, click 'Add' in the left-hand panel, next to 'Pages'. To delete images, click 'Edit' in the left-hand panel, next to 'Pages', and delete it from the next page.
+      To edit existing images, click it in the left hand panel, under 'Pages'. To add new images, click 'Add' in the left-hand panel, next to 'Pages'. To delete or re-order images, click 'Edit' in the left-hand panel, next to 'Pages', and remove or re-order it from the next page. If an image is not set to visible, it will not show.

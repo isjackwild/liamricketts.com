@@ -9,7 +9,11 @@ $site_json = array(
 	'copyright'  => (string)$site->description(),
 	'instagram'  => (string)$site->instagram(),
 	'facebook'  => (string)$site->facebook(),
+	'showstopperDesktop' => ($site->file('desktop.jpg') ? (string)$site->file('desktop.jpg')->url() : null),
+	'showstopperMobile' => ($site->file('mobile.jpg') ? (string)$site->file('mobile.jpg')->url() : null),
 );
+
+
 
 $site_data = json_encode($site_json);
 

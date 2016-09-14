@@ -1,10 +1,10 @@
 <?php
 
-	$stories = $page->children();
+	$stories = $page->children()->visible();
 	$json = array();
 
 	foreach ($stories as $story) {
-		$content = $story->children();
+		$content = $story->children()->visible();
 		$content_json = array();
 
 		foreach ($content as $item) {
@@ -40,6 +40,7 @@
 		$story_json = array(
 			'title'		=> (string)$story->title()->html(),
 			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->html() : null),
+			'hidden'	=> (bool)$item->hidden()->bool(),
 			'tags'		=> $story->tags()->split(),
 			'slug'		=> (string)$story->slug(),
 			'background'=> (string)$story->background()->html(),

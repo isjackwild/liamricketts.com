@@ -1,12 +1,11 @@
-export const restDistance = 25;
-export const xSegs = 16;
-export const ySegs = 9;
-// Cloth is 400 * 225
+export const restDistance = 100;
+export const xSegs = window.innerWidth <= 768 ? 10 : 20;
+export const ySegs = window.innerWidth <= 768 ? 20 : 10;
 
-const MASS = 0.1;
+const MASS = 0.08;
 const THREE = window.THREE;
 
-const pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
+const pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
 
 
 const TIMESTEP = 18 / 1000;
@@ -18,7 +17,7 @@ const windForce = new THREE.Vector3( 0, 0, 0 );
 const DAMPING = 0.03;
 const DRAG = 1 - DAMPING;
 
-const GRAVITY = 981 * 1.4;
+const GRAVITY = 600;
 const gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 
 export const updateWind = (time) => {
@@ -81,7 +80,8 @@ class Particle {
 
 
 export class Cloth {
-	constructor(width = 16, height = 9) {
+	constructor(width = xSegs, height = ySegs) {
+		console.log(width, height);
 		this.width = width;
 		this.height = height;
 		this.tmpForce = new THREE.Vector3();

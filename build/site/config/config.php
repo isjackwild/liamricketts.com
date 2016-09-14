@@ -15,7 +15,7 @@ for more information: http://getkirby.com/license
 
 */
 
-c::set('license', 'put your license key here');
+c::set('license', 'K2-PERSONAL-b2093ae70268a38d9cc12b1a6d8e5f79');
 c::set('panel.install', true);
 
 /*
@@ -51,9 +51,10 @@ c::set('routes', array(
   ),
 ));
 
+c::set('autopublish.templates', array('story', 'image'));
 
 kirby()->hook('panel.file.upload', function($file) {
-  if ($file->type() == 'image') {
+  if ($file->type() == 'image' && $file->page()->intendedTemplate() === 'image') {
     $file->rename('fullsize');
 
     $image = new ImageConverter($file, array(

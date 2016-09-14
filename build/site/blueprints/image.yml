@@ -2,7 +2,7 @@ title: Image
 pages: false
 options:
   preview: false
-  status: false
+  status: true
   url: false
   template: false
 files:

@@ -2,9 +2,13 @@
 	@extend %typo--scroll-hint;
 	transition: opacity 0.22s ease-out;
 	position: fixed;
-	top: -9px;
+	top: -12px;
 	left: 15px;
 	display: inline-block;
+
+	@include mobile {
+		display: none;
+	}
 }
 
 .scroll-hint--hidden {

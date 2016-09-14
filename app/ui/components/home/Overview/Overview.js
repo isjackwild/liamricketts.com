@@ -7,6 +7,7 @@ const view = ({ stories }) => {
 		<section className="overview">
 			{
 				_.map(stories, (story, i) => {
+					if (story.hidden) return;
 					return <OverviewStory story={story} key={i} />;
 				})
 			}

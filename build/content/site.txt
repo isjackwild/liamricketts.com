@@ -6,24 +6,8 @@ Description: Liam Ricketts — London-based Photographer specialising in Editor
 
 ----
 
-Keywords: Liam Ricketts, Photographer, London, Photos, Editorial, Magazines, Photography
+Keywords: Liam Ricketts,Photographer,London,Photos,Editorial,Magazines,Photography
 
 ----
 
 Copyright: © 2016-(date: Year) Liam Ricketts
-
-----
-
-Instagram: 
-
-----
-
-Facebook: 
-
-----
-
-Externalmenulinks: 
-
-- 
-  label: Shop
-  externalurl: http://google.com

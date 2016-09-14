@@ -29,6 +29,7 @@
 	opacity: 0;
 
 	@include mobile {
+		opacity: 1;
 		white-space: nowrap;
 		transition: opacity $timing--overview-hover--mobile ease-in-out;
 	}
@@ -42,10 +43,8 @@
 	opacity: 1;
 }
 
-// .overview-story--dimmed {
-// 	opacity: 0.03;
-
-// 	@include mobile {
-// 		opacity: 0;
-// 	}
-// }
+.overview-story--dimmed .overview-story__title {
+	@include mobile {
+		opacity: 0;
+	}
+}

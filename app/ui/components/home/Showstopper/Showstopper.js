@@ -12,7 +12,7 @@ const view = ({ isReady, isDimmed, scrollDown, coverOpacity }) => {
 			onClick={scrollDown}
 		>
 			<div className="showstopper__inner">
-				<canvas className='showstopper__canvas'></canvas>
+				<canvas className={`showstopper__canvas showstopper__canvas--${isReady ? 'ready' : 'loading'}`}></canvas>
 				<span className={`showstopper__wordmark ${isReady ? 'showstopper__wordmark--ready' : ''}`}>Liam Ricketts</span>
 				<Loader />
 				<div
