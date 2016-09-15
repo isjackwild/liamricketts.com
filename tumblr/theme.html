@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+
+<!--                                                                                                 
+
+Observer Theme
+By Zack Sultan
+Revised February 21, 2013
+                
+-->
+
+<html>
+    <head>
+        <title>{Title}</title>
+        <link rel="shortcut icon" href="{Favicon}">
+        <link rel="alternate" type="application/rss+xml" href="{RSS}">
+        {block:Description}
+            <meta name="description" content="{MetaDescription}" />
+        {/block:Description}
+        <link rel="shortcut icon" href="{Favicon}">
+        <link rel="alternate" type="application/rss+xml" href="{RSS}">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+        <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+        
+<!-- Scripts -->
+    <script src="http://static.tumblr.com/4kpnlef/Pttmhz2ap/jquery-1.9.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+    		// Make desktop tumblr video stretch to 100%
+            $('.tumblr_video_container').css({ 'width' : '100%', 'height' : '100%' });
+            // Resize tumblr video on mobile
+            $('.iphone-video a').css({ 'width' : '100%', 'height' : '200px' });
+            // Resize spotify for responsive view
+            $('.mobile-spotify iframe').css('height', '80px');
+            $('.mobile-spotify iframe').css('width', '290px');        
+		});        
+        
+        //Always resize spotify on mobile
+	    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		    $(document).ready(function(){
+			    $('iframe.spotify_audio_player').css('height', '80px');
+			    $('iframe.spotify_audio_player').css('width', '290px');
+		    });
+	    }
+        
+        //disable safari active states
+        document.addEventListener("touchstart", function() {},false);
+        
+	</script>
+    
+<!-- Style Sheet -->
+        
+<style type="text/css">
+
+@font-face {
+	font-family: CooperHewittBoldItalic;
+	src: url('http://liamricketts.isjackwild.com/assets/fonts/CooperHewitt-WebFonts-public/CooperHewitt-BoldItalic.eot');
+	src: url('http://liamricketts.isjackwild.com/assets/fonts/CooperHewitt-WebFonts-public/CooperHewitt-BoldItalic.eot') format('embedded-opentype'),
+		 url('http://liamricketts.isjackwild.com/assets/fonts/CooperHewitt-WebFonts-public/CooperHewitt-BoldItalic.woff') format('woff');
+}
+
+@font-face {
+	font-family: CooperHewittBookItalic;
+	src: url('http://liamricketts.isjackwild.com/assets/fonts/CooperHewitt-WebFonts-public/CooperHewitt-BookItalic.eot');
+	src: url('http://liamricketts.isjackwild.com/assets/fonts/CooperHewitt-WebFonts-public/CooperHewitt-BookItalic.eot') format('embedded-opentype'),
+		 url('http://liamricketts.isjackwild.com/assets/fonts/CooperHewitt-WebFonts-public/CooperHewitt-BookItalic.woff') format('woff');
+}
+    
+::selection {
+    background: #FFD002; /* Safari */
+	color: #000000;
+	}
+	
+::-moz-selection {
+	background: #FFD002; /* Firefox */
+	color: #000000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+    font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    background: #FFD002;
+}
+	
+p, li, blockquote {
+	line-height: 28px;
+	margin: 0;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+	font-size: 30px;
+}
+
+.ir {
+	text-indent: -99999em;
+}
+
+/* Global colors 
+********************************/
+
+body {
+	color: #000;
+	background-color: #FFD002;
+}
+
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.header__wordmark a:hover {
+	text-decoration: none;
+}
+
+
+/* Global fonts 
+********************************/
+
+body {
+	font-family: 'Libre Baskerville', 'Times New Roman', serif;
+	font-weight: normal;
+}
+
+h1 {
+    font-family: 'CooperHewittBoldItalic', 'Times New Roman', serif;
+}
+
+
+/* Type
+********************************/
+
+.header__wordmark {
+	font-family: 'CooperHewittBoldItalic', sans-serif;
+	font-size: 5rem;
+	letter-spacing: 0.18em; 
+}
+
+@media (max-width: 768px) {
+	.header__wordmark {
+		font-size: 2rem;
+	}
+}
+
+.post__title, .footer__back-next {
+	font-family: 'CooperHewittBoldItalic', sans-serif;
+	font-size: .8125rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.post__caption {
+	font-family: 'Libre Baskerville', 'Times New Roman', serif;
+	font-size: .9375rem;
+    line-height: 1.4375rem;
+}
+
+.post__metadata {
+	font-family: 'CooperHewittBookItalic', sans-serif;
+	font-size: .8125rem;
+	letter-spacing: .02187em;
+	line-height: 1.6em;
+}
+
+
+/* Post wrappers
+********************************/
+
+.content {
+	width: 100%;
+	overflow-x: hidden;
+	padding: 0 50px;
+	text-align: center;
+}
+
+@media (max-width: 768px) {
+	.content {
+		padding: 0 20px;
+	}
+}
+
+.post {
+	width: 100%;
+	position: relative;
+	margin: auto;
+	max-width: 800px;
+	margin-bottom: calc(5vw + 30px);
+	text-align: left;
+}
+
+.header {
+	padding: 80px 50px;
+	text-align: center;
+}
+
+@media (max-width: 768px) {
+	.header {
+		padding: 50px 20px;
+	}
+}
+
+.post__photo-wrapper {
+	font-size: 0;
+	margin-bottom: 8px;
+	position: relative;
+}
+
+.post__photo-wrapper--set {
+	width: calc(100% + 12px);
+}
+
+
+/* Headings
+********************************/
+
+.title h1, .link-title h1, .chat-title h1 {
+	text-align: center;
+	margin: auto;
+	margin-bottom: 25px;
+	font-size: 42px;
+	line-height: 50px;
+}
+
+.link-title a {
+	text-decoration: none;
+	position: relative;
+}
+
+span.link-arrow {
+	position: relative;
+	font-size: 20px;
+	bottom: 3px;
+}
+
+.quote-short {
+	font-size: 24px;
+	line-height: 36px;
+	margin-bottom: 25px;
+}
+
+.photo img, .album-art img, .videoWrapper {
+    max-width: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 2px;
+}
+
+.photo img, .album-art img {
+//	min-width: 640px;
+}
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;	
+}
+
+.videoWrapper iframe, .videoWrapper object {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+
+/* Post body styles
+********************************/
+
+.post__photo {
+	width: 100%;
+	margin-bottom: 30px;
+	box-shadow: 0px 0px 5px 0px rgba(34,34,34,0.12);
+	vertical-align: bottom;
+}
+
+.post__photo--set {
+	width: calc(25% - 12px);
+    display: inline-block;
+    margin-bottom: calc(5vw + 30px);
+    margin-right: 12px;
+    position: relative;
+}
+
+.post__photo:not(.post__photo--set):last-child {
+	margin-bottom: 0;
+}
+
+.post__caption {
+	max-width: 550px;
+	margin-top: 20px;
+}
+
+.post__caption--set {
+	margin-top: calc(-5vw - 10px);
+}
+
+/* Metadata
+********************************/
+.post__metadata {
+	padding-top: 5px;
+}
+
+
+/* Footer
+********************************/
+.footer {
+	padding: 50px;
+	text-align: center;
+}
+
+.footer__back-next {
+	display: inline-block;
+	margin: 0 15px;
+}
+
+
+/* Notes and comments
+********************************/
+
+    
+</style>
+
+<!-- End header -->
+    
+    </head>
+       
+	<body>
+		
+		<div id="page">
+		
+			<div class="header">
+			    <h1 class="header__wordmark"><a href="/">{Title}</a></h1>
+			</div> <!-- header end -->
+			
+			<div id="content" class="content">
+            {block:Posts}
+			
+                {block:Text}
+                <!-- TEXT POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--text">
+                    {block:Title}
+					<h1 class="post__title">{Title}</h1>						
+                    {/block:Title}
+					
+					<div class="post__caption">
+					{Body}
+					</div> <!-- End caption -->
+				    
+                    {block:More} 
+					<div class="post__more">
+						<a href="{Permalink}">Read More...</a>
+					</div>
+                    {/block:More} 
+				
+					<div class="post__metadata">
+					    
+                        {block:Date}
+    					<div class="post__date">
+							<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+						</div>
+                        {/block:Date}
+						
+                        {block:ContentSource}
+    					<div class="post__source">
+							<a href="{SourceURL}">Via {SourceTitle}</a>
+						</div>
+                        {/block:ContentSource}
+                        
+                        {block:IfShowPostTags} 
+						{block:HasTags} 
+                        <div class="post__tags">
+                            {block:Tags}
+							<a href="{TagURL}">#{Tag}</a>
+						    {/block:Tags} 
+						</div>
+                        {/block:HasTags} 
+					    {/block:IfShowPostTags}
+                        
+                        {block:IfShowPostNotes}
+                        {block:NoteCount}
+                        <div class="post__notes-count">
+							<a href="{Permalink}">{NoteCountWithLabel}</a>
+						</div>
+                        {/block:NoteCount}
+                        {/block:IfShowPostNotes}
+					
+					</div> <!-- metadata end -->
+				
+				</div> <!-- post end -->
+                {/block:Text}
+				
+				{block:Photo} 
+				<!-- PHOTO POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--photo">
+				
+                    <div class="post__photo-wrapper">
+						<img class="post__photo" src="{PhotoURL-HighRes}" alt="{PhotoAlt}" />
+					</div>
+				
+					{block:Title}
+					<h1 class="post__title">{Title}</h1>						
+                    {/block:Title}
+					
+					{block:Caption}
+						<div class="post__caption">
+						    {Caption}
+						</div>
+                    {/block:Caption}
+				    
+                    {block:More} 
+					<div class="post__more">
+						<a href="{Permalink}">Read More...</a>
+					</div>
+                    {/block:More} 
+				
+					<div class="post__metadata">
+					    
+                        {block:Date}
+    					<div class="post__date">
+							<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+						</div>
+                        {/block:Date}
+						
+                        {block:ContentSource}
+    					<div class="post__source">
+							<a href="{SourceURL}">Via {SourceTitle}</a>
+						</div>
+                        {/block:ContentSource}
+                        
+                        {block:IfShowPostTags} 
+						{block:HasTags} 
+                        <div class="post__tags">
+                            {block:Tags}
+							<a href="{TagURL}">#{Tag}</a>
+						    {/block:Tags} 
+						</div>
+                        {/block:HasTags} 
+					    {/block:IfShowPostTags}
+                        
+                        {block:IfShowPostNotes}
+                        {block:NoteCount}
+                        <div class="post__notes-count">
+							<a href="{Permalink}">{NoteCountWithLabel}</a>
+						</div>
+                        {/block:NoteCount}
+                        {/block:IfShowPostNotes}
+					
+					</div> <!-- metadata end -->
+					
+				</div> <!-- post end -->
+				
+                {/block:Photo}
+                
+                
+                {block:Photoset} 
+    			<!-- PHOTOSET POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--photo">
+				
+					<div class="post__photo-wrapper post__photo-wrapper--set">
+                        
+                        {block:Photos} 
+						<img class="post__photo post__photo--set" src="{PhotoURL-HighRes}" alt="{PhotoAlt}" /> 
+                        {/block:Photos}
+                        
+					</div>
+				
+					{block:Title}
+					<h1 class="post__title">{Title}</h1>						
+                    {/block:Title}
+					
+					{block:Caption}
+						<div class="post__caption post__caption--set">
+						    {Caption}
+						</div>
+                    {/block:Caption}
+				    
+                    {block:More} 
+					<div class="post__more">
+						<a href="{Permalink}">Read More...</a>
+					</div>
+                    {/block:More} 
+				
+					<div class="post__metadata">
+					    
+                        {block:Date}
+    					<div class="post__date">
+							<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+						</div>
+                        {/block:Date}
+						
+                        {block:ContentSource}
+    					<div class="post__source">
+							<a href="{SourceURL}">Via {SourceTitle}</a>
+						</div>
+                        {/block:ContentSource}
+                        
+                        {block:IfShowPostTags} 
+						{block:HasTags} 
+                        <div class="post__tags">
+                            {block:Tags}
+							<a href="{TagURL}">#{Tag}</a>
+						    {/block:Tags} 
+						</div>
+                        {/block:HasTags} 
+					    {/block:IfShowPostTags}
+                        
+                        {block:IfShowPostNotes}
+                        {block:NoteCount}
+                        <div class="post__notes-count">
+							<a href="{Permalink}">{NoteCountWithLabel}</a>
+						</div>
+                        {/block:NoteCount}
+                        {/block:IfShowPostNotes}
+					
+					</div> <!-- metadata end -->
+					
+				</div> <!-- post end -->
+				
+                {/block:Photoset}
+                
+                
+				{block:Link}
+				<!-- LINK POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--link">
+						<a class="post__link-title" href="{URL}">{Name}</a>
+
+                        {block:Title}
+						<h1 class="post__title">{Title}</h1>						
+						{/block:Title}
+
+						{block:Description}
+							<div class="post__caption">
+							    {Description}
+							</div>
+						{/block:Description}
+
+						{block:More} 
+						<div class="post__more">
+							<a href="{Permalink}">Read More...</a>
+						</div>
+						{/block:More} 
+
+						<div class="post__metadata">
+						    
+						    {block:Date}
+							<div class="post__date">
+								<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+							</div>
+						    {/block:Date}
+							
+						    {block:ContentSource}
+							<div class="post__source">
+								<a href="{SourceURL}">Via {SourceTitle}</a>
+							</div>
+						    {/block:ContentSource}
+						    
+						    {block:IfShowPostTags} 
+							{block:HasTags} 
+						    <div class="post__tags">
+						        {block:Tags}
+								<a href="{TagURL}">#{Tag}</a>
+							    {/block:Tags} 
+							</div>
+						    {/block:HasTags} 
+						    {/block:IfShowPostTags}
+						    
+						    {block:IfShowPostNotes}
+						    {block:NoteCount}
+						    <div class="post__notes-count">
+								<a href="{Permalink}">{NoteCountWithLabel}</a>
+							</div>
+						    {/block:NoteCount}
+						    {/block:IfShowPostNotes}
+
+						</div> <!-- metadata end -->
+						
+				</div> <!-- post end -->
+				{/block:Link}
+                
+                
+				{block:Quote}
+				<!-- QUOTE POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--quote">
+					
+						<div class="post__quote quote-{Length}">
+						
+							&#8220;{Quote}&#8221;
+						
+						</div>
+						
+                        {block:Title}
+						<h1 class="post__title">{Title}</h1>						
+						{/block:Title}
+
+						{block:Source}
+							<div class="post__caption">
+							    {Source}
+							</div>
+						{/block:Source}
+
+						{block:More} 
+						<div class="post__more">
+							<a href="{Permalink}">Read More...</a>
+						</div>
+						{/block:More} 
+
+						<div class="post__metadata">
+						    
+						    {block:Date}
+							<div class="post__date">
+								<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+							</div>
+						    {/block:Date}
+							
+						    {block:ContentSource}
+							<div class="post__source">
+								<a href="{SourceURL}">Via {SourceTitle}</a>
+							</div>
+						    {/block:ContentSource}
+						    
+						    {block:IfShowPostTags} 
+							{block:HasTags} 
+						    <div class="post__tags">
+						        {block:Tags}
+								<a href="{TagURL}">#{Tag}</a>
+							    {/block:Tags} 
+							</div>
+						    {/block:HasTags} 
+						    {/block:IfShowPostTags}
+						    
+						    {block:IfShowPostNotes}
+						    {block:NoteCount}
+						    <div class="post__notes-count">
+								<a href="{Permalink}">{NoteCountWithLabel}</a>
+							</div>
+						    {/block:NoteCount}
+						    {/block:IfShowPostNotes}
+
+						</div> <!-- metadata end -->
+				
+				</div> <!-- post end -->
+                {/block:Quote}
+				
+				
+                {block:Chat}
+				<!-- CHAT POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post chat">						
+                    {block:Title}
+					<h1 class="post__title">{Title}</h1>						
+					{/block:Title}
+					
+					<ul class="post__chat">
+						{block:Lines}
+                        <li class="post__chat-item">
+                            {block:Label}
+                            <span class="{Alt}">
+                            {Label}
+                            </span>
+                            {/block:Label}
+                            
+                            {Line}
+                                
+                        </li>
+                        {block:Lines}
+					</ul><!-- chat end -->
+				
+					<div class="post__metadata">
+					    
+					    {block:Date}
+						<div class="post__date">
+							<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+						</div>
+					    {/block:Date}
+						
+					    {block:ContentSource}
+						<div class="post__source">
+							<a href="{SourceURL}">Via {SourceTitle}</a>
+						</div>
+					    {/block:ContentSource}
+					    
+					    {block:IfShowPostTags} 
+						{block:HasTags} 
+					    <div class="post__tags">
+					        {block:Tags}
+							<a href="{TagURL}">#{Tag}</a>
+						    {/block:Tags} 
+						</div>
+					    {/block:HasTags} 
+					    {/block:IfShowPostTags}
+					    
+					    {block:IfShowPostNotes}
+					    {block:NoteCount}
+					    <div class="post__notes-count">
+							<a href="{Permalink}">{NoteCountWithLabel}</a>
+						</div>
+					    {/block:NoteCount}
+					    {/block:IfShowPostNotes}
+
+					</div> <!-- metadata end -->
+					
+				</div> <!-- post end -->
+                {/block:Chat}
+                
+                
+				
+				{block:Audio} 
+				<!-- AUDIO POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--audio">    
+                    {block:AlbumArt}
+					<div class="album-art">
+						<img src="{AlbumArtURL}">
+					</div>
+                    {/block:AlbumArt}
+                    
+                    {block:AudioEmbed} 
+					<div class="album-art">
+                        <div class="desktop-spotify">
+						{AudioEmbed-640}
+                        </div>
+                        <div class="mobile-spotify">
+                        {AudioEmbed-400}
+                        </div>
+					</div>
+                    {/block:AudioEmbed} 
+					
+					
+                    
+                    {block:AudioPlayer} 
+                    
+                    <div class="audio-module">
+					
+						<div class="album-info">
+					        {block:TrackName}
+							<h2>{TrackName}</h2>
+                            {/block:TrackName}
+							<p class="album">
+                            {block:Artist}
+                            {Artist}
+                            {/block:Artist}
+                            {block:Album}
+                            &#8212; <em>{Album}</em>
+                            {/block:Album}    
+                            
+                            </p>
+					
+						</div>  
+                        
+						<div class="player">
+							{AudioPlayerWhite}
+						</div>
+                    
+                    </div><!-- end audio module-->
+                    
+                    <a href="{RawAudioURL}" class="mobile-player" >
+							<div class="play-triangle"> <span style="position: relative; bottom: 10px; left: 10px;">Listen</span> </div>
+					</a>
+
+                    {/block:AudioPlayer}
+					
+                    {block:Caption} 
+					<div class="post__caption">
+						{Caption}
+					</div>
+                    {/block:Caption} 
+					
+					<div class="post__metadata">
+					    {block:Date}
+						<div class="post__date">
+							<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+						</div>
+					    {/block:Date}
+						
+					    {block:ContentSource}
+						<div class="post__source">
+							<a href="{SourceURL}">Via {SourceTitle}</a>
+						</div>
+					    {/block:ContentSource}
+					    
+					    {block:IfShowPostTags} 
+						{block:HasTags} 
+					    <div class="post__tags">
+					        {block:Tags}
+							<a href="{TagURL}">#{Tag}</a>
+						    {/block:Tags} 
+						</div>
+					    {/block:HasTags} 
+					    {/block:IfShowPostTags}
+					    
+					    {block:IfShowPostNotes}
+					    {block:NoteCount}
+					    <div class="post__notes-count">
+							<a href="{Permalink}">{NoteCountWithLabel}</a>
+						</div>
+					    {/block:NoteCount}
+					    {/block:IfShowPostNotes}
+
+					</div> <!-- metadata end -->	
+				</div> <!-- post end -->
+                {/block:Audio} 
+                
+                
+		
+		        {block:Video} 
+				<!-- VIDEO POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--video">
+                    <div class="videoWrapper post__video-wrapper">
+					    {VideoEmbed-700}
+                    </div>
+				    
+                    {block:Caption} 
+					<div class="post__caption">
+						{Caption}
+					</div>
+                    {/block:Caption} 
+				
+					<div class="post__metadata">
+					    {block:Date}
+						<div class="post__date">
+							<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+						</div>
+					    {/block:Date}
+						
+					    {block:ContentSource}
+						<div class="post__source">
+							<a href="{SourceURL}">Via {SourceTitle}</a>
+						</div>
+					    {/block:ContentSource}
+					    
+					    {block:IfShowPostTags} 
+						{block:HasTags} 
+					    <div class="post__tags">
+					        {block:Tags}
+							<a href="{TagURL}">#{Tag}</a>
+						    {/block:Tags} 
+						</div>
+					    {/block:HasTags} 
+					    {/block:IfShowPostTags}
+					    
+					    {block:IfShowPostNotes}
+					    {block:NoteCount}
+					    <div class="post__notes-count">
+							<a href="{Permalink}">{NoteCountWithLabel}</a>
+						</div>
+					    {/block:NoteCount}
+					    {/block:IfShowPostNotes}
+
+					</div> <!-- metadata end -->
+					
+				</div> <!-- post end -->
+                {/block:Video} 
+				
+                
+                
+				{block:Answer} 
+				<!-- ANSWER POST 
+				///////////////////////////////////////////////////////-->
+				
+				<div class="post post--answer">		
+					<div class="post__q">
+						
+						<h1 class="qa-letter">Q</h1>
+						
+						<div class="asker-block">
+							<img class="asker" src="{AskerPortraitURL-24}">
+							<p>{Asker} asked:</p>
+							<p class="question">{Question}</p>
+						</div> 
+					
+					</div><!-- q end -->
+					
+					<div class="post__a">
+						
+						<h1 class="qa-letter">A</h1>
+						
+						<div class="post__caption" style="overflow:auto;">
+							{Answer}
+						</div> 
+					
+					</div><!-- a end -->
+					
+					<div class="post__metadata">
+					    {block:Date}
+						<div class="post__date">
+							<a href="{Permalink}">{ShortMonth}. {DayOfMonth} {Year}</a>
+						</div>
+					    {/block:Date}
+						
+					    {block:ContentSource}
+						<div class="post__source">
+							<a href="{SourceURL}">Via {SourceTitle}</a>
+						</div>
+					    {/block:ContentSource}
+					    
+					    {block:IfShowPostTags} 
+						{block:HasTags} 
+					    <div class="post__tags">
+					        {block:Tags}
+							<a href="{TagURL}">#{Tag}</a>
+						    {/block:Tags} 
+						</div>
+					    {/block:HasTags} 
+					    {/block:IfShowPostTags}
+					    
+					    {block:IfShowPostNotes}
+					    {block:NoteCount}
+					    <div class="post__notes-count">
+							<a href="{Permalink}">{NoteCountWithLabel}</a>
+						</div>
+					    {/block:NoteCount}
+					    {/block:IfShowPostNotes}
+					</div> <!-- metadata end -->
+					
+				</div> <!-- post end -->
+                {/block:Answer}
+                
+            {/block:Posts}
+                
+            {block:PermalinkPage}
+                <!-- PERMALINK CONTENT 
+                ////////////////////////////////////////////////// -->
+				    
+                <div class="narrow">
+                    
+						<div id="permalink-content">
+                        
+                        {block:IfDisqusShortname}
+
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+    
+                        var disqus_shortname = '{text:Disqus Shortname}'; // Required - Replace example with your forum shortname
+
+                            (function() {
+                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+                        </script>
+
+                        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                        {/block:IfDisqusShortname}
+					        
+                            {block:PostNotes} 
+							<div class="permalink-notes">
+					
+								<h3>Notes</h3>
+	                    
+                                {PostNotes}
+                                
+							</div> <!-- notes end -->
+                            {/block:PostNotes}
+					
+						</div> <!-- permalink content end -->  
+				
+				{/block:PermalinkPage}
+
+			</div> <!-- content end -->
+			
+			<div id="footer" class="footer">
+			    
+                {block:Pagination}
+				
+                {block:PreviousPage}
+                <a class="back-next footer__back-next footer__back-next--back" href="{PreviousPage}">Back</a>
+                {/block:PreviousPage}
+                
+                {block:NextPage}
+                <a class="back-next footer__back-next footer__back-next--next" href="{NextPage}">Next</a>
+                {/block:NextPage}
+                
+                {/block:Pagination}
+				
+				<div class="colophon">
+                    {block:IfShowCopyright}
+					<p>&copy; {Title} {CopyrightYears}</p>
+                    {/block:IfShowCopyright}
+				</div>
+			
+			</div><!-- content end -->
+		
+		</div> <!-- page end -->
+
+</body>
+
+</html>

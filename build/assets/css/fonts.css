@@ -1,0 +1,13 @@
+@font-face {
+	font-family: CooperHewittBoldItalic;
+	src: url('../fonts/CooperHewitt-WebFonts-public/CooperHewitt-BoldItalic.eot');
+	src: url('../fonts/CooperHewitt-WebFonts-public/CooperHewitt-BoldItalic.eot') format('embedded-opentype'),
+		 url('../fonts/CooperHewitt-WebFonts-public/CooperHewitt-BoldItalic.woff') format('woff');
+}
+
+@font-face {
+	font-family: CooperHewittBookItalic;
+	src: url('../fonts/CooperHewitt-WebFonts-public/CooperHewitt-BookItalic.eot');
+	src: url('../fonts/CooperHewitt-WebFonts-public/CooperHewitt-BookItalic.eot') format('embedded-opentype'),
+		 url('../fonts/CooperHewitt-WebFonts-public/CooperHewitt-BookItalic.woff') format('woff');
+}
