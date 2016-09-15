@@ -31,8 +31,8 @@ $size--large-image: 100vh;
 $size--medium-image: 70vh;
 $size--small-image: 40vh;
 
-$size--medium-image--mobile: 60vh;
-$size--small-image--mobile: 30vh;
+$size--medium-image--mobile: 70vh;
+$size--small-image--mobile: 40vh;
 
 
 $size--overview-story-item: 10%;
@@ -95,6 +95,7 @@ $size--overview-story-item--mobile: 20%;
 	font-size: rem(52px);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
+	line-height: 1.1em;
 
 	@include mobile {
 		font-size: rem(32px);

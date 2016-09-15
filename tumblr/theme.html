@@ -111,7 +111,7 @@ h1, h2, h3 {
 
 body {
 	color: #000;
-	background-color: #FFD002;
+	background-color: #FFF;
 }
 
 
@@ -157,7 +157,15 @@ h1 {
 	}
 }
 
-.post__title, .footer__back-next {
+.post__link-title, .post__title {
+	font-family: 'CooperHewittBoldItalic', sans-serif;
+    font-size: 3.25rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.1em;
+}
+
+.footer__back-next {
 	font-family: 'CooperHewittBoldItalic', sans-serif;
 	font-size: .8125rem;
 	letter-spacing: 0.1em;
@@ -416,13 +424,13 @@ span.link-arrow {
 				
 				<div class="post post--photo">
 				
-                    <div class="post__photo-wrapper">
-						<img class="post__photo" src="{PhotoURL-HighRes}" alt="{PhotoAlt}" />
-					</div>
-				
 					{block:Title}
 					<h1 class="post__title">{Title}</h1>						
                     {/block:Title}
+
+                    <div class="post__photo-wrapper">
+						<img class="post__photo" src="{PhotoURL-HighRes}" alt="{PhotoAlt}" />
+					</div>
 					
 					{block:Caption}
 						<div class="post__caption">
@@ -481,17 +489,15 @@ span.link-arrow {
 				
 				<div class="post post--photo">
 				
-					<div class="post__photo-wrapper post__photo-wrapper--set">
-                        
-                        {block:Photos} 
-						<img class="post__photo post__photo--set" src="{PhotoURL-HighRes}" alt="{PhotoAlt}" /> 
-                        {/block:Photos}
-                        
-					</div>
-				
 					{block:Title}
 					<h1 class="post__title">{Title}</h1>						
                     {/block:Title}
+
+					<div class="post__photo-wrapper post__photo-wrapper--set">
+                        {block:Photos} 
+						<img class="post__photo post__photo--set" src="{PhotoURL-HighRes}" alt="{PhotoAlt}" /> 
+                        {/block:Photos}
+					</div>
 					
 					{block:Caption}
 						<div class="post__caption post__caption--set">
@@ -838,6 +844,11 @@ span.link-arrow {
 				///////////////////////////////////////////////////////-->
 				
 				<div class="post post--video">
+
+					{block:Title}
+					<h1 class="post__title">{Title}</h1>						
+					{/block:Title}
+
                     <div class="videoWrapper post__video-wrapper">
 					    {VideoEmbed-700}
                     </div>

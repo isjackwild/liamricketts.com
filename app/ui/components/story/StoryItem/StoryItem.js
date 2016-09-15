@@ -66,9 +66,9 @@ class Image extends React.Component {
 		const multiplier = (() => {
 			switch(size) {
 				case 'small':
-					return (window.innerWidth <= 768) ? 0.3 : 0.4;
+					return 0.4;
 				case 'medium':
-					return (window.innerWidth <= 768) ? 0.6 : 0.7;
+					return 0.7;
 				case 'large':
 					return 1;
 				default:
@@ -87,11 +87,11 @@ class Image extends React.Component {
 			} else if (size === 'medium' && alignment === 'bottom') {
 				return window.innerHeight - height;
 			} else if (size === 'small' && alignment === 'top') {
-				const multiMedium = (window.innerWidth <= 768) ? 0.6 : 0.7;
+				const multiMedium = 0.7;
 				const heightMedium = window.innerHeight * multiMedium;
 				return (window.innerHeight - heightMedium) / 2;
 			} else if (size === 'small' && alignment === 'bottom') {
-				const multiMedium = (window.innerWidth <= 768) ? 0.6 : 0.7;
+				const multiMedium = 0.7;
 				const heightMedium = window.innerHeight * multiMedium;
 				return ((window.innerHeight - heightMedium) / 2) + (heightMedium - height);
 			} else {

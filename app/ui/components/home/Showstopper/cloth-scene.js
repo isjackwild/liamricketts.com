@@ -1,8 +1,15 @@
 import { Cloth, simulate, clothFunction, updateWind, xSegs, ySegs, restDistance } from './Cloth.js';
+import _ from 'lodash';
 
 let canvas, ctx, camera, renderer, scene, light, showStopper;
 let raf, then, now, delta;
 let width, height, aR;
+const mouse = {
+	x: 0,
+	y: 0,
+}
+let mouseover = false;
+let mouseleaveTimeout = null;
 let clothGeometry, cloth;
 const THREE = window.THREE;
 let boxMesh;
@@ -14,6 +21,8 @@ export const init = () => {
 	canvas = document.getElementsByClassName('showstopper__canvas')[0];
 	showStopper = document.getElementsByClassName('showstopper')[0];
 	window.addEventListener('resize', onResize);
+	showStopper.addEventListener('mousemove', onMouseMove);
+	showStopper.addEventListener('mouseleave', onMouseLeave);
 	now = new Date().getTime();
 	onResize();
 	setupScene();
@@ -25,7 +34,28 @@ export const init = () => {
 
 export const kill = () => {
 	window.removeEventListener('resize', onResize);
+	showStopper.removeEventListener('mousemove', onMouseMove);
+	showStopper.removeEventListener('mouseleave', onMouseLeave);
+	clearTimeout(mouseleaveTimeout);
 	cancelAnimationFrame(raf);
+}
+
+const convertRange = ( value, r1, r2 ) => { 
+    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
+}
+
+const onMouseMove = _.throttle((e) => {
+	mouse.x = e.clientX;
+	mouse.y = e.clientY;
+	mouseover = true;
+	clearTimeout(mouseleaveTimeout);
+	mouseleaveTimeout = setTimeout(() => {
+		mouseover = false;
+	}, 3333);
+}, 16.66, {leading: true},);
+
+const onMouseLeave = () => {
+	mouseover = false;
 }
 
 const onResize = () => {
@@ -149,7 +179,14 @@ const setupRenderer = () => {
 
 const update = (delta) => {
 	const time = Date.now();
-	updateWind(time);
+
+	const multi = {
+		x: convertRange(mouse.x, [0, width], [-1, 1]),
+		y: convertRange(mouse.y, [0, height], [-1, 1]),
+		mouseover,
+	}
+
+	updateWind(time, multi);
 
 	cloth.simulate(time, clothGeometry.faces);
 
