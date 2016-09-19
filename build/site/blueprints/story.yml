@@ -3,7 +3,10 @@ options:
   preview: false
   status: true
   url: false
-pages: image
+pages:
+  template:
+    - image
+    - gif
 files: false
 fields:
   title:

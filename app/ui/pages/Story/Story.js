@@ -203,7 +203,7 @@ class Story extends React.Component {
 		const { items, title, tags, subtitle, background, minScroll, incomingTransitionIsFinished, isScrollHintInclude } = this.state;
 		const nextItems = window.stories[this.state.nextSlug].items;
 		const nextTitle = window.stories[this.state.nextSlug].title;
-
+		let lightboxIndex = -1;
 		return (
 			<div className="page page--story story" style={{ backgroundColor: background }}>
 				<div className={`story__next-up story__next-up--${incomingTransitionIsFinished ? 'visible' : 'hidden'}`}>
@@ -242,10 +242,11 @@ class Story extends React.Component {
 					/>
 					{
 						items.map((item, i) => {
+							if (item.type === 'image') lightboxIndex++;
 							return (
 								<StoryItem
 									item={item}
-									index={i}
+									lightboxIndex={item.type === 'image' ? lightboxIndex : null}
 									key={i}
 									minScroll={minScroll}
 								/>

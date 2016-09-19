@@ -50,6 +50,7 @@ const data = Component => class extends React.Component {
 			index: 0,
 			touchStart: 0,
 			ignoreTouchMove: false,
+			itemsFiltered: [],
 		}
 
 		this.loadImage = new Image();
@@ -78,6 +79,10 @@ const data = Component => class extends React.Component {
 		window.addEventListener('mousemove', this.onMouseMove);
 		window.addEventListener('keydown', this.onKeyDown);
 		this.loadImage.onload = this.onLoaded;
+		console.log(_.filter(this.props.items, item => item.type === 'image'));
+		this.setState({
+			itemsFiltered: _.filter(this.props.items, item => item.type === 'image')
+		});
 	}
 
 	componentWillUnmount() {
@@ -114,7 +119,7 @@ const data = Component => class extends React.Component {
 				if (this.state.index > 0) this.show(null, this.state.index - 1);
 				break;
 			case 39:
-				if (this.state.index < this.props.items.length - 1) this.show(null, this.state.index + 1);
+				if (this.state.index < this.state.itemsFiltered.length - 1) this.show(null, this.state.index + 1);
 				break;
 		}
 	}
@@ -138,7 +143,7 @@ const data = Component => class extends React.Component {
 			this.setState({ ignoreTouchMove: true });
 			clearTimeout(this.touchTO);
 			return;
-		} else if (diff > this.swipeThreshold &&  this.state.index < this.props.items.length - 1) {
+		} else if (diff > this.swipeThreshold &&  this.state.index < this.state.itemsFiltered.length - 1) {
 			this.show(null, this.state.index + 1);
 			this.setState({ ignoreTouchMove: true });
 			clearTimeout(this.touchTO);
@@ -201,7 +206,7 @@ const data = Component => class extends React.Component {
 
 	show(e, index) {
 		cancelAnimationFrame(this.raf);
-		const { images, size } = this.props.items[index];
+		const { images, size } = this.state.itemsFiltered[index];
 		const mode = images.aspectRatio > this.state.aspectRatio ? 'tall' : 'wide';
 		const width = (mode === 'tall') ? window.innerWidth : window.innerHeight / images.aspectRatio;
 		const height = (mode === 'wide') ? window.innerHeight : window.innerWidth * images.aspectRatio;

@@ -11,4 +11,3 @@ history:
   - stories/musicians
   - stories/saturday-league
   - stories/carnival
-  - stories/portraits

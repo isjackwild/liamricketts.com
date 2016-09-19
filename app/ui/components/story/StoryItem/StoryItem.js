@@ -110,13 +110,13 @@ class Image extends React.Component {
 	}
 
 	openInLightbox() {
-		PubSub.publish('lightbox.show', this.props.index);
+		PubSub.publish('lightbox.show', this.props.lightboxIndex);
 	}
 
 	render() {
 		const { isLoaded, height, marginTop } = this.state;
 		const { item, scrollPosition } = this.props;
-		const { size, alignment, margin, caption, images } = item;
+		const { size, alignment, margin, caption, images, type } = item;
 
 		const src = (() => {
 			switch(size) {
@@ -149,11 +149,11 @@ class Image extends React.Component {
 				>
 					<img
 						ref="image"
-						className={`story__image ${!isLoaded ? 'story__image--hidden' : ''}`}
+						className={`story__image story__image--${type} ${!isLoaded ? 'story__image--hidden' : ''}`}
 						src={src}
 						width={images.fullWidth}
 						height={images.fullHeight}
-						onClick={this.openInLightbox}
+						onClick={type === 'gif' ? null : this.openInLightbox}
 						style={{height: `${height}px`}}
 					/>
 					<img

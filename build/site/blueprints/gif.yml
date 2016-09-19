@@ -1,0 +1,51 @@
+title: Gif
+pages: false
+options:
+  preview: false
+  status: true
+  url: false
+  template: false
+files:
+  max: 1
+  size: 8000000
+  type: image
+deletable: true
+fields:
+  size:
+    label: Size
+    type:  select
+    default: large
+    required: true
+    options:
+      medium: Medium
+      small: Small
+  alignment:
+    label: Alignment (only applies to Medium and Small images)
+    type:  select
+    default: middle
+    required: true
+    options:
+      top: Top
+      middle: Middle
+      bottom: Bottom
+  margin:
+    label: Margin (right)
+    type:  select
+    default: medium
+    required: true
+    options:
+      micro: Micro
+      small: Small
+      medium: Medium
+      large: Large
+  caption:
+    label: Caption (optional)
+    type: text
+    required: false
+    validate:
+      maxLength: 140
+  info:
+    label: Uploading the image
+    type: info
+    text: >
+      To add the image, click 'Add' in the left-hand panel, next to 'Files'. You *must* upload an image (.gif). The image should be resized and compressed prior to upload. Gifs are large files, so the smaller, the better. Gifs won't be show in the overview homepage, or in zoom-mode.

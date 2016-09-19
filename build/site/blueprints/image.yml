@@ -55,4 +55,4 @@ fields:
     label: Uploading the image
     type: info
     text: >
-      To add the image, click 'Add' in the left-hand panel, next to 'Files'. You *must* upload an image (.jpg). The image should be resized and compressed prior to upload. If you upload multiple images, only the first will be used.
+      To add the image, click 'Add' in the left-hand panel, next to 'Files'. You *must* upload an image (.jpg). The image should be no larger than 2000x2000. The server will resize and compress the image into multiple sizes.

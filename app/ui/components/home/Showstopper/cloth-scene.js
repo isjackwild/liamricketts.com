@@ -116,7 +116,6 @@ const setupScene = () => {
 
 const setCameraDistance = () => {
 	if (!cloth) return;
-	console.log(clothGeometry);
 	const fov = (camera.fov * (Math.PI / 180) );
 	// const dist = Math.abs(cloth.width / Math.sin(fov/2));
 	const dist = (cloth.width * restDistance) / 2 / Math.tan(Math.PI * camera.fov / 360);

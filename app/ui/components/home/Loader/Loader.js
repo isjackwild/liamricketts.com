@@ -1,6 +1,6 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
-import shuffle from '../../../../lib/utils.js';
+import { shuffle } from '../../../../lib/utils.js';
 
 const view = ({ progress, isComplete, backgrounds }) => {
 	let images = [];

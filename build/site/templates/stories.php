@@ -9,9 +9,18 @@
 
 		foreach ($content as $item) {
 			$files = $item->files();
-			$large = $files->find('large.jpg');
-			$medium = $files->find('medium.jpg');
-			$small = $files->find('small.jpg');
+			$type = $item->intendedTemplate();
+
+			if ($type === 'image') {
+				$large = $files->find('large.jpg');
+				$medium = $files->find('medium.jpg');
+				$small = $files->find('small.jpg');
+			} else {
+				$large = $files->first();
+				$medium = $files->first();
+				$small = $files->first();
+			}
+
 			$fullWidth = ($large->exists() ? $large->dimensions()->width() : 0);
 			$fullHeight = ($large->exists() ? $large->dimensions()->height() : 0);
 			$aR = ($large->exists() ? ($fullHeight / $fullWidth) : null);
@@ -26,11 +35,12 @@
 			);
 
 			$item_json = array(
+				'type' => (string)$type,
 				'size' 		=> (string)$item->size()->value(),
 				'alignment' => (string)$item->alignment()->value(),
 				'caption' => (string)$item->caption()->html(),
 				'margin'	 => (string)$item->margin()->value(),
-				'hideInHomepage' => (bool)$item->hideinhomepage()->bool(),
+				'hideInHomepage' => ($type === "gif" ? false : (bool)$item->hideinhomepage()->bool()),
 				'images' 	=> $images_json,
 			);
 
