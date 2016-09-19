@@ -26,6 +26,8 @@ const view = ({ isVisible, isLoaded, mode, hide, width, height, src, loaderSrc, 
 	);
 };
 
+
+
 const data = Component => class extends React.Component {
 	constructor(props) {
 		super(props);
@@ -79,7 +81,7 @@ const data = Component => class extends React.Component {
 		window.addEventListener('mousemove', this.onMouseMove);
 		window.addEventListener('keydown', this.onKeyDown);
 		this.loadImage.onload = this.onLoaded;
-		console.log(_.filter(this.props.items, item => item.type === 'image'));
+
 		this.setState({
 			itemsFiltered: _.filter(this.props.items, item => item.type === 'image')
 		});

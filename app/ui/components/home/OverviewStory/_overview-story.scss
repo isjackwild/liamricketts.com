@@ -29,7 +29,6 @@
 	opacity: 0;
 
 	@include mobile {
-		opacity: 1;
 		white-space: nowrap;
 		transition: opacity $timing--overview-hover--mobile ease-in-out;
 	}
@@ -37,9 +36,17 @@
 
 .overview-story:hover .overview-story__title {
 	opacity: 1;
+
+	@include mobile {
+		opacity: 0;
+	}
 }
 
 .overview-story--mouse-over {
+	opacity: 1;
+}
+
+.overview-story--mouse-over .overview-story__title {
 	opacity: 1;
 }
 
