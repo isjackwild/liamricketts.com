@@ -14,7 +14,11 @@ const view = ({ text, links, address, contact, isVisible, close, stopProp }) => 
 					contact.map((option, i) => {
 						return (
 							<li className="about__contact-option" key={i} onClick={stopProp}>
-								<a href={option.url}>{option.entry}</a>
+								{option.url ?
+									<a href={option.url}>{option.entry}</a>
+									:
+									option.entry
+								}
 							</li>
 						);
 					})

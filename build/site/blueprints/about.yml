@@ -19,7 +19,7 @@ fields:
         required: true
       url:
         label: URL
-        type: url
+        type: text
         required: false
   address:
     label: Address
@@ -29,13 +29,13 @@ fields:
     type: structure
     entry: >
       Label: {{label}}<br/>
-      URL: {{externalurl}}
+      URL: {{url}}
     fields:
       label:
         label: Label
         type: text
         required: true
-      externalurl:
+      url:
         label: URL
         type: url
         required: true

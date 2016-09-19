@@ -14,7 +14,7 @@
 	foreach ($contact_options as $option) {
 		$option_json = array(
 			'entry' => (string)$option->entry()->html(),
-			'url' => (string)$option->url()->toUrl(),
+			'url' => ($option->url() ? (string)$option->url()->html() : null),
 		);
 		array_push($contact_json, $option_json);
 	}

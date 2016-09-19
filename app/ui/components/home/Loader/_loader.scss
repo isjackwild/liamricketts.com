@@ -7,6 +7,7 @@
 	margin-top: 60px;
 	overflow: hidden;
 	transition: opacity $timing--overview-hover ease-in-out;
+	z-index: 1;
 
 	@include mobile {
 		width: calc(100% - #{$size--site-side-padding--mobile * 2});

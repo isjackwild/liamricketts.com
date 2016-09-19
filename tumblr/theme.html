@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 
-<!--                                                                                                 
-
-Observer Theme
-By Zack Sultan
-Revised February 21, 2013
-                
--->
 
 <html>
     <head>
@@ -120,7 +113,7 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
+a:not(.footer__back-next):hover {
 	text-decoration: underline;
 }
 
@@ -148,7 +141,9 @@ h1 {
 .header__wordmark {
 	font-family: 'CooperHewittBoldItalic', sans-serif;
 	font-size: 5rem;
-	letter-spacing: 0.18em; 
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	line-height: 1em;
 }
 
 @media (max-width: 768px) {
@@ -162,7 +157,13 @@ h1 {
     font-size: 3.25rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    line-height: 1.1em;
+    line-height: 1em;
+}
+
+@media (max-width: 768px) {
+	.post__link-title, .post__title {
+		font-size: 2rem;
+	}
 }
 
 .footer__back-next {
@@ -178,7 +179,7 @@ h1 {
     line-height: 1.4375rem;
 }
 
-.post__metadata {
+.post__metadata, .header__link {
 	font-family: 'CooperHewittBookItalic', sans-serif;
 	font-size: .8125rem;
 	letter-spacing: .02187em;
@@ -191,7 +192,6 @@ h1 {
 
 .content {
 	width: 100%;
-	overflow-x: hidden;
 	padding: 0 50px;
 	text-align: center;
 }
@@ -207,13 +207,28 @@ h1 {
 	position: relative;
 	margin: auto;
 	max-width: 800px;
-	margin-bottom: calc(5vw + 30px);
+	margin-bottom: calc(5vw + 100px);
 	text-align: left;
 }
 
 .header {
-	padding: 80px 50px;
+	padding: 80px 50px 30px 50px;
 	text-align: center;
+	margin-bottom: 80px;
+}
+
+.header__wordmark {
+	margin-bottom: 50px;
+}
+
+.header__links {
+	list-style-type: none;
+	padding: 0;
+}
+
+.header__link {
+	display: inline-block;
+	margin: 0 25px;
 }
 
 @media (max-width: 768px) {
@@ -313,12 +328,24 @@ span.link-arrow {
 }
 
 .post__caption {
-	max-width: 550px;
 	margin-top: 20px;
+}
+
+.post__caption p {
+	max-width: 500px;
 }
 
 .post__caption--set {
 	margin-top: calc(-5vw - 10px);
+}
+
+.post--text img.size-full {
+	width: 100%;
+	position: relative;
+}
+
+.post--text img.size-full:last-child {
+	margin-bottom: 0;
 }
 
 /* Metadata
@@ -357,6 +384,13 @@ span.link-arrow {
 		
 			<div class="header">
 			    <h1 class="header__wordmark"><a href="/">{Title}</a></h1>
+			    {block:HasPages}
+				<ul id="header__links">
+					{block:Pages}
+						<li class="header__link"><a href="{URL}">{Label}</a></li>
+					{/block:Pages}
+				</ul>
+				{/block:HasPages}
 			</div> <!-- header end -->
 			
 			<div id="content" class="content">

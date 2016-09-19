@@ -51,7 +51,7 @@ const onMouseMove = _.throttle((e) => {
 	clearTimeout(mouseleaveTimeout);
 	mouseleaveTimeout = setTimeout(() => {
 		mouseover = false;
-	}, 3333);
+	}, 5555);
 }, 16.66, {leading: true},);
 
 const onMouseLeave = () => {

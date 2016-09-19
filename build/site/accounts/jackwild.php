@@ -7,8 +7,8 @@ email: jack.wild@live.co.uk
 language: en
 role: admin
 history:
+  - about
   - stories/musicians
   - stories/saturday-league
   - stories/carnival
   - stories/portraits
-  - stories/carnival/6

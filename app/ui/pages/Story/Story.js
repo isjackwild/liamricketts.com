@@ -31,8 +31,8 @@ class Story extends React.Component {
 			isScrollDisabled: false,
 			debounceTouchMove: false,
 			incomingTransitionIsFinished: false,
-			// isScrollHintInclude: localStorage.LRDontShowScrollHint ? false : true,
-			isScrollHintInclude: true,
+			isScrollHintInclude: localStorage.LRDontShowScrollHint ? false : true,
+			// isScrollHintInclude: true,
 		}
 
 		// this.naturalForce = -0.12;

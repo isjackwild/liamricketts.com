@@ -18,6 +18,9 @@ fields:
   copyright:
     label: Copyright
     type:  textarea
+  analytics:
+    label: Google Analytics Tracking Code
+    type:  text
   info:
     label: Editing the showstopper images
     type: info
