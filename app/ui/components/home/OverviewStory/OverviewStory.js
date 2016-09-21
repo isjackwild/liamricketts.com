@@ -7,7 +7,7 @@ import OverviewStoryItem from '../OverviewStoryItem/OverviewStoryItem.js';
 const view = ({ story, isMouseOver, isDimmed, onMouseEnter, onMouseLeave }) => {
 	return (
 		<Link
-			to={`/story/${story.slug}`}
+			to={`/stories/${story.slug}`}
 			className={`overview-story overview-story--${isMouseOver ? 'mouse-over' : 'mouse-out'} ${isDimmed ? 'overview-story--dimmed' : ''}`}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}

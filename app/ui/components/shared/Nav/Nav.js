@@ -5,8 +5,8 @@ import PubSub from 'pubsub-js';
 
 const view = ({ toggleAbout, isAboutVisible, isVisible, storyTitle, hideAbout, isUp }) => {
 	return (
-		<nav className={`nav nav--${isVisible ? 'visible' : 'hidden'} nav--${isUp ? 'up' : 'down'}`}>
-			<ul className="nav__breadcrumbs" onClick={hideAbout}>
+		<nav className={`nav nav--${isVisible ? 'visible' : 'hidden'}`}>
+			<ul className={`nav__breadcrumbs nav__breadcrumbs--${isUp ? 'up' : 'down'}`} onClick={hideAbout}>
 				<li className="nav__wordmark">
 					<Link to='/'>Liam Ricketts</Link>
 				</li>
@@ -28,7 +28,7 @@ const view = ({ toggleAbout, isAboutVisible, isVisible, storyTitle, hideAbout, i
 				}
 			</ul>
 
-			<span className={`nav__about-toggle nav__about-toggle--${isAboutVisible ? 'active' : 'inactive'}`} onClick={toggleAbout}>
+			<span className={`nav__about-toggle nav__about-toggle--${isAboutVisible ? 'active' : 'inactive'} nav__about-toggle--${isUp ? 'up' : 'down'}`} onClick={toggleAbout}>
 				{window.innerWidth <= 768 ?
 					<span className="nav__about-toggle-open nav__icon">ℹ</span>
 					:

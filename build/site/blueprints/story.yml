@@ -20,7 +20,7 @@ fields:
   tags:
     label: Tags
     type:  tags
-    required: true
+    required: false
   background:
     label: Background colour
     type:  text
@@ -29,12 +29,6 @@ fields:
     validation:
       minLength: 7
       maxLength: 7
-  hidden:
-    label: Hidden?
-    type: toggle
-    text: yes/no
-    default: true
-    help: If set to yes, the story will not show on the homepage overview.
   info:
     label: Adding, editing and deleting story images
     type: info

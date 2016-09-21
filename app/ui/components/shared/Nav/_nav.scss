@@ -14,11 +14,6 @@
 	}
 }
 
-.nav--up {
-	transform: translateY(-40px);
-	opacity: 0;
-}
-
 .nav--hidden {
 	opacity: 0;
 	pointer-events: none;
@@ -34,6 +29,12 @@
 	-webkit-user-select: none;
 	user-select: none;
 	vertical-align: top;
+	transition: opacity $timing--overview-hover ease-in-out, transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.nav__breadcrumbs--up {
+	transform: translateY(-40px);
+	opacity: 0;
 }
 
 .nav__breadcrumbs li {
@@ -81,9 +82,20 @@
 	cursor: pointer;
 	text-align: right;
 	min-width: 95px;
+	transition: opacity $timing--overview-hover ease-in-out, transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
 
 	@include mobile {
 		right: $size--site-side-padding--mobile;
+	}
+}
+
+.nav__about-toggle--up {
+	transform: translateY(-40px);
+	opacity: 0;
+
+	@include mobile {
+		opacity: 1;
+		transform: none;
 	}
 }
 

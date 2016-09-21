@@ -51,7 +51,7 @@ c::set('routes', array(
   ),
 ));
 
-c::set('autopublish.templates', array('story', 'image'));
+c::set('autopublish.templates', array('story', 'image', 'gif'));
 
 kirby()->hook('panel.file.upload', function($file) {
   if ($file->type() == 'image' && $file->page()->intendedTemplate() === 'image') {

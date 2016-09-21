@@ -31,6 +31,7 @@ const data = Component => class extends React.Component {
 			translate: 0,
 			scale: 1,
 			isVisible: false,
+			isRemoved: false,
 			x: 0,
 			y: 0,
 		}
@@ -52,8 +53,11 @@ const data = Component => class extends React.Component {
 	}
 
 	removeSelf() {
+		if (this.state.isRemoved) return;
+		this.setState({ isRemoved: false });
 		PubSub.publish('scroll-hint.remove', true);
-		localStorage.setItem('LRDontShowScrollHint', true);
+		const count = localStorage.getItem('LRScrollHint') !== null ? parseInt(localStorage.getItem('LRScrollHint')) + 1 : 0;
+		localStorage.setItem('LRScrollHint', count);
 	}
 
 	onMouseMove(e) {

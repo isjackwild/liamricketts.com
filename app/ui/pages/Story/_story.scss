@@ -69,6 +69,7 @@
 	display: inline-block;
 	position: relative;
 	white-space: normal;
+	display: none;
 }
 
 .story__tag {
@@ -152,7 +153,7 @@
 .story__next-up-image {
 	transition: box-shadow $timing--overview-hover cubic-bezier(0.2, 0, 0.2, 1);
 	box-shadow: 0px 0px 2px 0px rgba(34,34,34,0.08);
-	width: calc(2vw + 40px);
+	width: calc(2.5vw + 50px);
 	margin: 0 4px 12px 4px;
 }
 

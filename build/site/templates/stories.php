@@ -1,6 +1,6 @@
 <?php
 
-	$stories = $page->children()->visible();
+	$stories = $page->children();
 	$json = array();
 
 	foreach ($stories as $story) {
@@ -50,12 +50,12 @@
 		$story_json = array(
 			'title'		=> (string)$story->title()->html(),
 			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->html() : null),
-			'hidden'	=> (bool)$item->hidden()->bool(),
+			'hidden'	=> !(bool)$story->isVisible(),
 			'tags'		=> $story->tags()->split(),
 			'slug'		=> (string)$story->slug(),
 			'background'=> (string)$story->background()->html(),
 			'items'		=> $content_json,
-			'next'		=> ($story->next() ? (string)$story->next()->slug() : (string)$stories->first()->slug()),
+			'next'		=> ($story->nextVisible() ? (string)$story->nextVisible()->slug() : (string)$stories->first()->slug()),
 		);
 
 		$json[(string)$story->slug()] = $story_json;

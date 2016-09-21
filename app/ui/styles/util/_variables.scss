@@ -46,6 +46,12 @@ $size--overview-story-item--mobile: 20%;
 	}
 }
 
+@mixin large {
+	@media (min-width: 1350px) {
+		@content;
+	}
+}
+
 @mixin xl {
 	@media (min-width: 1920px) {
 		@content;
@@ -59,6 +65,10 @@ $size--overview-story-item--mobile: 20%;
 	font-family: 'CooperHewittBookItalic', sans-serif;
 	font-size: rem(13px);
 	letter-spacing: em(0.35px);
+
+	@include xl {
+		font-size: rem(15px);
+	}
 }
 
 %typo--wordmark {
@@ -66,6 +76,10 @@ $size--overview-story-item--mobile: 20%;
 	font-size: rem(13px);
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
+
+	@include xl {
+		font-size: rem(15px);
+	}
 }
 
 %typo--showstopper-wordmark {
@@ -77,6 +91,10 @@ $size--overview-story-item--mobile: 20%;
 	@include mobile {
 		font-size: rem(32px);
 		letter-spacing: em(3.7px);
+	}
+
+	@include xl {
+		font-size: rem(100px);
 	}
 }
 
@@ -120,11 +138,18 @@ $size--overview-story-item--mobile: 20%;
 %typo--about-text {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
 	font-size: rem(15px);
-	line-height: rem(23px);
+	line-height: 1.5em;
 
 	@include mobile {
 		font-size: rem(14px);
-		line-height: rem(21px);
+	}
+
+	@include large {
+		font-size: rem(16px);
+	}
+
+	@include xl {
+		font-size: rem(17px);
 	}
 }
 
@@ -133,6 +158,14 @@ $size--overview-story-item--mobile: 20%;
 	font-size: rem(13px);
 	letter-spacing: em(0.35px);
 	line-height: 1.6em;
+	
+	@include large {
+		font-size: rem(14px);
+	}
+
+	@include xl {
+		font-size: rem(15px);
+	}
 }
 
 %typo--credits {
@@ -146,6 +179,10 @@ $size--overview-story-item--mobile: 20%;
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
 	font-size: rem(13px);
 	line-height: 1.6em;
+
+	@include xl {
+		font-size: rem(15px);
+	}
 }
 
 %typo--next-up {

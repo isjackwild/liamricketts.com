@@ -11,6 +11,7 @@ import TweenLite from 'gsap';
 class Story extends React.Component {
 	constructor(props) {
 		super(props);
+		const count = localStorage.getItem('LRScrollHint') !== null ? parseInt(localStorage.getItem('LRScrollHint')) : 0;
 
 		this.state = {
 			title: window.stories[props.params.storySlug].title,
@@ -31,7 +32,7 @@ class Story extends React.Component {
 			isScrollDisabled: false,
 			debounceTouchMove: false,
 			incomingTransitionIsFinished: false,
-			isScrollHintInclude: localStorage.LRDontShowScrollHint ? false : true,
+			isScrollHintInclude: count < 3 ? true : false,
 			// isScrollHintInclude: true,
 		}
 
@@ -208,7 +209,7 @@ class Story extends React.Component {
 			<div className="page page--story story" style={{ backgroundColor: background }}>
 				<div className={`story__next-up story__next-up--${incomingTransitionIsFinished ? 'visible' : 'hidden'}`}>
 					<span className="story__next-up-inner">
-						<Link to={`/story/${this.state.nextSlug}`}>
+						<Link to={`/stories/${this.state.nextSlug}`}>
 							{
 								nextItems.map((item, i) => {
 									return (

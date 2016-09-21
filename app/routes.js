@@ -8,7 +8,7 @@ import { Route, IndexRoute } from 'react-router';
 const Routes = (
 	<Route path="/" component={Master}>
 		<IndexRoute component={Home} />
-		<Route path="/story/:storySlug" component={Story} />
+		<Route path="/stories/:storySlug" component={Story} />
 	</Route>
 );
 
