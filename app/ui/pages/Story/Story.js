@@ -67,6 +67,7 @@ class Story extends React.Component {
 
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousewheel', this.onMouseWheel);
+		window.addEventListener('wheel', this.onMouseWheel);
 		window.addEventListener('touchstart', this.onTouchStart);
 		window.addEventListener('touchmove', this.onTouchMove);
 		window.addEventListener('touchend', this.onTouchEnd);
@@ -106,6 +107,7 @@ class Story extends React.Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.onResize);
 		window.removeEventListener('mousewheel', this.onMouseWheel);
+		window.removeEventListener('wheel', this.onMouseWheel);
 		window.removeEventListener('touchstart', this.onTouchStart);
 		window.removeEventListener('touchmove', this.onTouchMove);
 		window.removeEventListener('touchend', this.onTouchEnd);

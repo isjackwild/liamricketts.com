@@ -43,12 +43,14 @@ const data = Component => class extends React.Component {
 
 	componentDidMount() {
 		window.addEventListener('mousewheel', this.onMouseWheel);
+		window.addEventListener('wheel', this.onMouseWheel);
 		window.addEventListener('mousemove', this.onMouseMove);
 	}
 
 	componentWillUnmount() {
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
 		window.removeEventListener('mousewheel', this.onMouseWheel);
+		window.removeEventListener('wheel', this.onMouseWheel);
 		window.removeEventListener('mousemove', this.onMouseMove);
 	}
 

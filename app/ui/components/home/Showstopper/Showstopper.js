@@ -72,8 +72,9 @@ const data = Component => class extends React.Component {
 			scrollTop,
 			ease: Power3.easeInOut,
 		}
-
+		const html = document.getElementsByTagName('html')[0];
 		TweenLite.to(document.body, 0.6, to);
+		TweenLite.to(html, 0.6, to);
 	}
 
 	render() {

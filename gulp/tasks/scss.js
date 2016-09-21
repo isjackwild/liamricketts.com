@@ -19,7 +19,7 @@ gulp.task('build:scss', function() {
 	if (util.env.env === 'production') {
 		return gulp.src(SCSS_SRC_FILE)
 			.pipe(sass(({ outputStyle: 'compressed' })).on('error', sass.logError))
-			.pipe(autoprefixer('last 3 versions', '> 1%', 'ie 8', 'ie 7'))
+			.pipe(autoprefixer('last 6 versions', '> 0.5%', 'ie 8', 'ie 7'))
 			.pipe(gulp.dest(SCSS_BUILD_FOLDER));
 	} else {
 		return gulp.src(SCSS_SRC_FILE)

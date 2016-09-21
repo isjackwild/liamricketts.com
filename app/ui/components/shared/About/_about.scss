@@ -61,7 +61,7 @@
 
 .about__contact {
 	margin-bottom: 20px;
-	width: 250px;
+	width: 550px;
 	@extend %typo--contact;
 
 	@include mobile {
@@ -71,7 +71,7 @@
 
 .about__address {
 	@extend %typo--contact;
-	width: 250px;
+	width: 550px;
 	margin-bottom: 30px;
 
 	@include mobile {
@@ -80,13 +80,13 @@
 }
 
 .about__links {
-	width: 250px;
+	width: 550px;
 	margin-bottom: 70px;
 	@extend %typo--contact;
 }
 
 .about__credits {
-	width: 250px;
+	width: 550px;
 	@extend %typo--contact;
 }
 
