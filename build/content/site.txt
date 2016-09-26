@@ -11,7 +11,3 @@ Keywords: Liam Ricketts,Photographer,London,Photos,Editorial,Magazines,Photograp
 ----
 
 Copyright: © 2016-(date: Year) Liam Ricketts
-
-----
-
-Analytics: 

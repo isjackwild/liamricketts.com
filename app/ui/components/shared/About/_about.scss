@@ -15,6 +15,10 @@
 	@include mobile {
 		padding: #{(100vh - $size--medium-image--mobile) / 2} $size--site-side-padding--mobile #{$size--site-side-padding--mobile - 7px} $size--site-side-padding--mobile;
 	}
+
+	@include xl {
+		padding: #{(100vh - $size--medium-image) / 2} $size--site-side-padding--xl #{$size--site-side-padding--xl - 7px} $size--site-side-padding--xl;
+	}
 }
 
 .about a {
@@ -53,6 +57,11 @@
 		width: 90%;
 		max-width: 890%;
 	}
+
+	@include xl {
+		width: 650px; 
+		margin-bottom: 80px;
+	}
 }
 
 .about__text p:not(:last-child) {
@@ -67,26 +76,35 @@
 	@include mobile {
 		margin-bottom: 12px;
 	}
+
+	@include xl {
+		margin-bottom: 30px;
+	}
 }
 
 .about__address {
 	@extend %typo--contact;
-	width: 550px;
+	max-width: 550px;
 	margin-bottom: 30px;
 
 	@include mobile {
 		margin-bottom: 12px;
 	}
+
 }
 
 .about__links {
-	width: 550px;
+	max-width: 550px;
 	margin-bottom: 70px;
 	@extend %typo--contact;
+	
+	@include xl {
+		margin-bottom: 100px;
+	}
 }
 
 .about__credits {
-	width: 550px;
+	max-width: 550px;
 	@extend %typo--contact;
 }
 

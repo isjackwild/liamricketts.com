@@ -2,30 +2,72 @@ export const restDistance = 100;
 export const xSegs = window.innerWidth <= 768 ? 10 : 20;
 export const ySegs = window.innerWidth <= 768 ? 20 : 10;
 
-const MASS = 0.04;
+// let MASS = 0.025;
+let MASS = 0.085;
 const THREE = window.THREE;
 
 const pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
 
-const TIMESTEP = 18 / 1000;
+const TIMESTEP = 16 / 1000;
 const TIMESTEP_SQ = TIMESTEP * TIMESTEP;
+// const TIMESTEP_SQ = 0.05;
 
-let windStrength = 2;
+console.log(TIMESTEP_SQ);
+
+// let windStrength = 1;
+let windStrength = 3.5;
 const windForce = new THREE.Vector3( 0, 0, 0 );
 
-const DAMPING = 0.022;
-const DRAG = 1 - DAMPING;
+// let DAMPING = 0.0005;
+let DAMPING = 0;
+let DRAG = 1 - DAMPING;
 
-const GRAVITY = 800;
+// let GRAVITY = 666;
+let GRAVITY = 1000;
 const gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 
-export const updateWind = (time, { x, y, mouseover}) => {
+const controls = {
+	damping: DAMPING,
+	gravity: GRAVITY,
+	mass: MASS,
+	wind: windStrength,
+}
+
+// window.onload = () => {
+// 	const gui = new dat.GUI();
+// 	const a = gui.add(controls, 'damping');
+// 	const b = gui.add(controls, 'gravity');
+// 	const c = gui.add(controls, 'mass');
+// 	const d = gui.add(controls, 'wind');
+
+// 	const updateVars = () => {
+// 		DAMPING = controls.damping;
+// 		DRAG = 1 - DAMPING;
+
+// 		GRAVITY = controls.gravity;
+// 		MASS = controls.mass;
+
+// 		windStrength = controls.wind;
+
+// 		gravity.set( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
+
+// 	}
+
+// 	a.onChange(updateVars);
+// 	b.onChange(updateVars);
+// 	c.onChange(updateVars);
+// }
+
+
+
+
+export const updateWind = (time, { x, y, mouseover }) => {
 	if (mouseover) {
-		windStrength = 5;
-		windForce.set( x * -200, Math.cos( time / 3000 ), (Math.sin( time / 1000 ) - 1) / 4 ).normalize().multiplyScalar( windStrength );
+		windStrength = 3.5;
+		windForce.set( x * -200, Math.cos( time / 3000 ) / 7, (Math.sin( time / 1000 ) - 1) / 20 ).normalize().multiplyScalar( windStrength );
 	} else {
-		windStrength = Math.cos( time / 2000 ) * 3 + 2;
-		windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), (Math.sin( time / 1000 ) - 1) / 4).normalize().multiplyScalar( windStrength );
+		windStrength = Math.cos( time / 2000 ) + 2;
+		windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), (Math.sin( time / 1000 ) - 1) / 12).normalize().multiplyScalar( windStrength );
 	}
 }
 
@@ -38,6 +80,8 @@ const plane = (width, height) => {
 		return new THREE.Vector3( x, y, z );
 	};
 }
+
+
 export const clothFunction = plane( restDistance * xSegs, restDistance * ySegs );
 
 const diff = new THREE.Vector3();
@@ -65,7 +109,7 @@ class Particle {
 
 	addForce(force) {
 		this.a.add(
-			this.tmp2.copy( force ).multiplyScalar( this.invMass )
+			this.tmp2.copy( force ).multiplyScalar( 1 / MASS )
 		);
 	}
 

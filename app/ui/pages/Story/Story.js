@@ -121,19 +121,19 @@ class Story extends React.Component {
 	}
 
 	onMouseWheel(e) {
-		if (this.state.isScrollDisabled) return;
+		if (this.state.isScrollDisabled || !this.state.incomingTransitionIsFinished) return;
 
 		e.preventDefault();
 		this.setForce(e.deltaY);
 	}
 
 	onTouchStart(e) {
-		if (this.state.isScrollDisabled) return;
+		if (this.state.isScrollDisabled || !this.state.incomingTransitionIsFinished) return;
 		this.setState({lastTouchX: e.touches[0].clientX });
 	}
 
 	onTouchMove(e) {
-		if (this.state.isScrollDisabled || this.state.debounceTouchMove) return;
+		if (this.state.isScrollDisabled || this.state.debounceTouchMove || !this.state.incomingTransitionIsFinished) return;
 		e.preventDefault();
 
 		const delta = (this.state.lastTouchX - e.touches[0].clientX);

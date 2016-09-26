@@ -20,6 +20,12 @@
 		left: 50%;
 		transform: translateX(-50%);
 	}
+
+	@include xl {
+		width: 800px;
+		height: 30px;
+		margin-top: 100px;
+	}
 }
 
 .loader--pending {

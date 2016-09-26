@@ -36,10 +36,6 @@
 
 .overview-story:hover .overview-story__title {
 	opacity: 1;
-
-	@include mobile {
-		opacity: 0;
-	}
 }
 
 .overview-story--mouse-over {

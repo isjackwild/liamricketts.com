@@ -12,6 +12,11 @@
 	@include mobile {
 		padding: 0 $size--site-side-padding--mobile;
 	}
+
+	@include xl {
+		padding: 0 $size--site-side-padding--xl;
+		top: 25px;
+	}
 }
 
 .nav--hidden {
@@ -86,6 +91,10 @@
 
 	@include mobile {
 		right: $size--site-side-padding--mobile;
+	}
+
+	@include xl {
+		right: $size--site-side-padding--xl;
 	}
 }
 

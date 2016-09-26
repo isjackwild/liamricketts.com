@@ -14,6 +14,10 @@
 		margin-right: $size--overview-item-padding--mobile;
 		margin-bottom: calc(3vw + 20px);
 	}
+
+	@include xl {
+		width: calc(#{$size--overview-story-item--xl} - #{$size--overview-item-padding});
+	}
 }
 
 .overview-story__item--ready {

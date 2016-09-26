@@ -25,4 +25,4 @@ fields:
     label: Editing the showstopper images
     type: info
     text: >
-      Showstopper images must be uploaded in the 'Site files' panel (left). You must have one mobile image called 'mobile.jpg', with an aspect ratio of 1:2, and a desktop image called 'desktop.jpg' with an aspect ration of 2:1. They should be resized and compressed prior to upload.
+      Showstopper images must be uploaded in the 'Site files' panel (left). They must be named '[device]_[number].jpg', e.g. 'desktop_1.jpg', You must have at least one mobile and one desktop, and a maximum of 9 of each.

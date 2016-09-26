@@ -36,6 +36,10 @@
 	@include mobile {
 		padding: #{(100vh - $size--medium-image--mobile) / 2} #{$size--site-side-padding--mobile * 2.5} $size--site-side-padding--mobile $size--site-side-padding--mobile;
 	}
+
+	@include xl {
+		padding: #{(100vh - $size--medium-image) / 2} #{$size--site-side-padding--xl * 2.5} $size--site-side-padding--xl $size--site-side-padding--xl;
+	}
 }
 
 .story__cover:after {
@@ -118,6 +122,10 @@
 
 	@include mobile {
 		padding: 0 $size--site-side-padding--mobile;		
+	}
+
+	@include xl {
+		padding: 0 $size--site-side-padding--xl;		
 	}
 }
 

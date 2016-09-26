@@ -10,4 +10,8 @@
 	@include mobile {
 		padding: $size--site-side-padding--mobile * 2 #{$size--site-side-padding--mobile - $size--overview-item-padding--mobile} 0 $size--site-side-padding--mobile;
 	}
+
+	@include xl {
+		padding: $size--site-side-padding--xl * 2 #{$size--site-side-padding--xl - $size--overview-item-padding} 0 $size--site-side-padding--xl;
+	}
 }

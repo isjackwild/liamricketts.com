@@ -21,9 +21,9 @@
 				$small = $files->first();
 			}
 
-			$fullWidth = ($large->exists() ? $large->dimensions()->width() : 0);
-			$fullHeight = ($large->exists() ? $large->dimensions()->height() : 0);
-			$aR = ($large->exists() ? ($fullHeight / $fullWidth) : null);
+			$fullWidth = ($large ? $large->dimensions()->width() : 0);
+			$fullHeight = ($large ? $large->dimensions()->height() : 0);
+			$aR = ($large ? ($fullHeight / $fullWidth) : null);
 
 			$images_json = array(
 				'large' => ($large ? (string)$large->url() : null),

@@ -11,7 +11,9 @@
     "gulp": "gulp --gulpfile ./gulp/gulpfile.js --env development",
     "server": "php -S 127.0.0.1:4000 -t build/",
     "build": "gulp build --gulpfile ./gulp/gulpfile.js --env production",
-    "dev": "npm-run-all --parallel gulp server"
+    "dev": "npm-run-all --parallel gulp server",
+    "deploy": "npm run build && rsync -azP --exclude 'content' build/ root@isjackwild.com:/var/www/clients/liamricketts.isjackwild.com/public_html/",
+    "pull-content": "rsync -azP root@isjackwild.com:/var/www/clients/liamricketts.isjackwild.com/public_html/content/ build/content/"
   },
   "dependencies": {
     "gsap": "^1.19.0",

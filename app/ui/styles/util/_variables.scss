@@ -26,6 +26,7 @@ $size--overview-item-padding: 12px;
 $size--overview-item-padding--mobile: 8px;
 $size--site-side-padding: 50px;
 $size--site-side-padding--mobile: 20px;
+$size--site-side-padding--xl: 70px;
 
 $size--large-image: 100vh;
 $size--medium-image: 70vh;
@@ -36,6 +37,7 @@ $size--small-image--mobile: 40vh;
 
 
 $size--overview-story-item: 10%;
+$size--overview-story-item--xl: 7.5%;
 $size--overview-story-item--mobile: 20%;
 
 
@@ -67,7 +69,7 @@ $size--overview-story-item--mobile: 20%;
 	letter-spacing: em(0.35px);
 
 	@include xl {
-		font-size: rem(15px);
+		font-size: rem(16px);
 	}
 }
 
@@ -78,7 +80,7 @@ $size--overview-story-item--mobile: 20%;
 	text-transform: uppercase;
 
 	@include xl {
-		font-size: rem(15px);
+		font-size: rem(16px);
 	}
 }
 
@@ -87,14 +89,15 @@ $size--overview-story-item--mobile: 20%;
 	font-size: rem(80px);
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
+	-webkit-font-smoothing: antialiased;
 
 	@include mobile {
 		font-size: rem(32px);
-		letter-spacing: em(3.7px);
 	}
 
 	@include xl {
-		font-size: rem(100px);
+		font-size: rem(130px);
+		letter-spacing: 0.16em;
 	}
 }
 
@@ -118,16 +121,24 @@ $size--overview-story-item--mobile: 20%;
 	@include mobile {
 		font-size: rem(32px);
 	}
+
+	@include xl {
+		font-size: rem(68px);
+	}
 }
 
 %typo--subtitle {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
 	font-size: rem(15px);
-	line-height: rem(23px);
+	line-height: 1.6em;
 
 	@include mobile {
 		font-size: rem(12px);
 		letter-spacing: 0px;
+	}
+
+	@include xl {
+		font-size: rem(18px);
 	}
 }
 
@@ -138,7 +149,7 @@ $size--overview-story-item--mobile: 20%;
 %typo--about-text {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
 	font-size: rem(15px);
-	line-height: 1.5em;
+	line-height: 1.6em;
 
 	@include mobile {
 		font-size: rem(14px);
@@ -149,7 +160,7 @@ $size--overview-story-item--mobile: 20%;
 	}
 
 	@include xl {
-		font-size: rem(17px);
+		font-size: rem(18px);
 	}
 }
 
@@ -164,7 +175,7 @@ $size--overview-story-item--mobile: 20%;
 	}
 
 	@include xl {
-		font-size: rem(15px);
+		font-size: rem(16px);
 	}
 }
 

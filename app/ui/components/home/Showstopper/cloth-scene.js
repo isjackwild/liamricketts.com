@@ -13,7 +13,8 @@ let mouseleaveTimeout = null;
 let clothGeometry, cloth;
 const THREE = window.THREE;
 let boxMesh;
-const textureUrl = window.innerWidth <= 768 ? window.site.showstopperMobile : window.site.showstopperDesktop;
+const textureArray = window.innerWidth <= 768 ? window.site.showstopperMobile : window.site.showstopperDesktop;
+const textureUrl = textureArray[Math.floor(Math.random() * textureArray.length)];
 
 export const init = () => {
 	if (!textureUrl) return;
@@ -51,7 +52,7 @@ const onMouseMove = _.throttle((e) => {
 	clearTimeout(mouseleaveTimeout);
 	mouseleaveTimeout = setTimeout(() => {
 		mouseover = false;
-	}, 5555);
+	}, 11111);
 }, 16.66, {leading: true},);
 
 const onMouseLeave = () => {

@@ -5,6 +5,14 @@
 	pointer-events: none;
 	opacity: 0;
 	transition: opacity 0.05s ease-in-out;
+
+	@include mobile {
+		left: $size--site-side-padding--mobile;
+	}
+
+	@include xl {
+		left: $size--site-side-padding--xl;
+	}
 }
 
 .title--visible {
