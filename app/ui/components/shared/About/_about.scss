@@ -74,6 +74,7 @@
 	@extend %typo--contact;
 
 	@include mobile {
+		width: 90%;
 		margin-bottom: 12px;
 	}
 
@@ -88,6 +89,7 @@
 	margin-bottom: 30px;
 
 	@include mobile {
+		width: 90%;
 		margin-bottom: 12px;
 	}
 
@@ -99,6 +101,7 @@
 	@extend %typo--contact;
 	
 	@include xl {
+		width: 90%;
 		margin-bottom: 100px;
 	}
 }

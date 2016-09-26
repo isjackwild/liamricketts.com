@@ -1,9 +1,9 @@
-export const restDistance = 100;
+export const restDistance = 2;
 export const xSegs = window.innerWidth <= 768 ? 10 : 20;
 export const ySegs = window.innerWidth <= 768 ? 20 : 10;
 
 // let MASS = 0.025;
-let MASS = 0.085;
+let MASS = 0.2;
 const THREE = window.THREE;
 
 const pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
@@ -15,15 +15,15 @@ const TIMESTEP_SQ = TIMESTEP * TIMESTEP;
 console.log(TIMESTEP_SQ);
 
 // let windStrength = 1;
-let windStrength = 3.5;
+let windStrength = 2;
 export const windForce = new THREE.Vector3( 0, 0, 0 );
 
-// let DAMPING = 0.0005;
-let DAMPING = 0;
+let DAMPING = 0.01;
+// let DAMPING = 0;
 let DRAG = 1 - DAMPING;
 
 // let GRAVITY = 666;
-let GRAVITY = 1000;
+let GRAVITY = 50;
 const gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 
 const controls = {
@@ -33,43 +33,49 @@ const controls = {
 	wind: windStrength,
 }
 
-// window.onload = () => {
-// 	const gui = new dat.GUI();
-// 	const a = gui.add(controls, 'damping');
-// 	const b = gui.add(controls, 'gravity');
-// 	const c = gui.add(controls, 'mass');
-// 	const d = gui.add(controls, 'wind');
+if (window.location.search.indexOf('debug') > -1) {
+	setTimeout(() => {
+		document.getElementsByClassName('showstopper__wordmark')[0].style.display = 'none';
+	}, 0);
+	window.onload = () => {
+		const gui = new dat.GUI();
+		const a = gui.add(controls, 'damping');
+		const b = gui.add(controls, 'gravity');
+		const c = gui.add(controls, 'mass');
+		const d = gui.add(controls, 'wind');
 
-// 	const updateVars = () => {
-// 		DAMPING = controls.damping;
-// 		DRAG = 1 - DAMPING;
+		const updateVars = () => {
+			DAMPING = controls.damping;
+			DRAG = 1 - DAMPING;
 
-// 		GRAVITY = controls.gravity;
-// 		MASS = controls.mass;
+			GRAVITY = controls.gravity;
+			MASS = controls.mass;
 
-// 		windStrength = controls.wind;
+			windStrength = controls.wind;
 
-// 		gravity.set( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
+			gravity.set( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 
-// 	}
+		}
 
-// 	a.onChange(updateVars);
-// 	b.onChange(updateVars);
-// 	c.onChange(updateVars);
-// }
+		a.onChange(updateVars);
+		b.onChange(updateVars);
+		c.onChange(updateVars);
+		d.onChange(updateVars);
+	}
+} 
 
 
 
 
 export const updateWind = (time, { x, y, mouseover }, dir) => {
 	if (mouseover) {
-		windStrength = 3.5;
-		const _x = x * -1;
-		const _y = y * 0.1;
+		// windStrength = 3.5;
+		const _x = x * -0.5;
+		const _y = y * 0.25;
 		const _z = -1;
 		windForce.set( _x, _y, _z ).normalize().multiplyScalar( windStrength );
 	} else {
-		windStrength = Math.cos( time / 2000 ) + 2;
+		windStrength = Math.cos( time / 2000 );
 		windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), (Math.sin( time / 1000 ) - 1) / 12).normalize().multiplyScalar( windStrength );
 	}
 }

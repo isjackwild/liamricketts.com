@@ -87,13 +87,15 @@ const setupScene = () => {
 	// mesh.rotation.x = - Math.PI / 2;
 	// scene.add( mesh );
 
-	// const boxGeometry = new THREE.BoxGeometry( 10, 10, 10 );
-	// const boxMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } );
-	// boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
-	// scene.add( boxMesh ); 
+	if (window.location.search.indexOf('debug') > -1) {
+		const boxGeometry = new THREE.BoxGeometry( 10, 10, 10 );
+		const boxMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } );
+		boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
+		scene.add( boxMesh ); 
 
- 	// arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,0), 200, 0xff0000, 50, 50);
- 	// scene.add(arrow);
+	 	arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,-10), new THREE.Vector3(0,0,0), 3, 0xff0000, 0.5, 0.5);
+	 	scene.add(arrow);
+	}
 
  	light = new THREE.DirectionalLight( 0xdfebff, 0.5 );
 	light.position.set( 50, 200, 100 );
@@ -199,7 +201,7 @@ const update = (delta) => {
 		clothGeometry.vertices[i].copy(particle.position);
 	});
 
-	// arrow.setDirection(windForce);
+	if (window.location.search.indexOf('debug') > -1) arrow.setDirection(windForce);
 }
 
 const render = () => {
