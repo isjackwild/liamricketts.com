@@ -1,9 +1,10 @@
-import { Cloth, simulate, clothFunction, updateWind, xSegs, ySegs, restDistance } from './Cloth.js';
+import { Cloth, simulate, clothFunction, updateWind, xSegs, ySegs, restDistance, windForce } from './Cloth.js';
 import _ from 'lodash';
 
-let canvas, ctx, camera, renderer, scene, light, showStopper;
+let canvas, ctx, camera, renderer, scene, light, showStopper, arrow;
 let raf, then, now, delta;
 let width, height, aR;
+let isInit = true;
 const mouse = {
 	x: 0,
 	y: 0,
@@ -86,11 +87,13 @@ const setupScene = () => {
 	// mesh.rotation.x = - Math.PI / 2;
 	// scene.add( mesh );
 
-
 	// const boxGeometry = new THREE.BoxGeometry( 10, 10, 10 );
- //    const boxMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
- //    boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
- //    scene.add( boxMesh );
+	// const boxMaterial = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } );
+	// boxMesh = new THREE.Mesh( boxGeometry, boxMaterial );
+	// scene.add( boxMesh ); 
+
+ 	// arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,0), 200, 0xff0000, 50, 50);
+ 	// scene.add(arrow);
 
  	light = new THREE.DirectionalLight( 0xdfebff, 0.5 );
 	light.position.set( 50, 200, 100 );
@@ -121,6 +124,7 @@ const setCameraDistance = () => {
 	// const dist = Math.abs(cloth.width / Math.sin(fov/2));
 	const dist = (cloth.width * restDistance) / 2 / Math.tan(Math.PI * camera.fov / 360);
 	camera.position.z = dist / aR;
+	console.log(camera.position.z)
 }
 
 const setupCloth = () => {
@@ -188,11 +192,14 @@ const update = (delta) => {
 
 	updateWind(time, multi);
 
-	cloth.simulate(time, clothGeometry.faces);
+	cloth.simulate(time, clothGeometry.faces, isInit);
+	isInit = false;
 
 	cloth.particles.forEach((particle, i) => {
 		clothGeometry.vertices[i].copy(particle.position);
 	});
+
+	// arrow.setDirection(windForce);
 }
 
 const render = () => {

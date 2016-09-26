@@ -31,6 +31,13 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 */
 
 
+c::set('cache', true);
+c::set('cache.ignore', array(
+  'about',
+  'stories',
+));
+
+
 c::set('routes', array(
   array(
     'pattern' => array('(:any)', '(:all)/(:all)', '/'),

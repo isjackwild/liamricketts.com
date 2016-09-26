@@ -91,13 +91,14 @@ class Story extends React.Component {
 		const toTwo = {
 			opacity: 1,
 			ease: Sine.easeIn,
+			onComplete: () => { this.setState({ incomingTransitionIsFinished: true }) }
 		}
 		TweenLite.fromTo(this.refs.inner, 1, fromTwo, toTwo);
 		// TODO: Kill Tweens and do this using TimeLine
 		
-		setTimeout(() => {
-			this.setState({ incomingTransitionIsFinished: true });
-		}, 2222);
+		// setTimeout(() => {
+		// 	this.setState({ incomingTransitionIsFinished: true });
+		// }, 2222);
 
 		setTimeout(() => {
 			this.animate();
@@ -121,9 +122,9 @@ class Story extends React.Component {
 	}
 
 	onMouseWheel(e) {
+		e.preventDefault();
 		if (this.state.isScrollDisabled || !this.state.incomingTransitionIsFinished) return;
 
-		e.preventDefault();
 		this.setForce(e.deltaY);
 	}
 
@@ -133,8 +134,8 @@ class Story extends React.Component {
 	}
 
 	onTouchMove(e) {
-		if (this.state.isScrollDisabled || this.state.debounceTouchMove || !this.state.incomingTransitionIsFinished) return;
 		e.preventDefault();
+		if (this.state.isScrollDisabled || this.state.debounceTouchMove || !this.state.incomingTransitionIsFinished) return;
 
 		const delta = (this.state.lastTouchX - e.touches[0].clientX);
 		this.setState({

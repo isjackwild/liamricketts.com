@@ -16,7 +16,7 @@ console.log(TIMESTEP_SQ);
 
 // let windStrength = 1;
 let windStrength = 3.5;
-const windForce = new THREE.Vector3( 0, 0, 0 );
+export const windForce = new THREE.Vector3( 0, 0, 0 );
 
 // let DAMPING = 0.0005;
 let DAMPING = 0;
@@ -61,10 +61,13 @@ const controls = {
 
 
 
-export const updateWind = (time, { x, y, mouseover }) => {
+export const updateWind = (time, { x, y, mouseover }, dir) => {
 	if (mouseover) {
 		windStrength = 3.5;
-		windForce.set( x * -200, Math.cos( time / 3000 ) / 7, (Math.sin( time / 1000 ) - 1) / 20 ).normalize().multiplyScalar( windStrength );
+		const _x = x * -1;
+		const _y = y * 0.1;
+		const _z = -1;
+		windForce.set( _x, _y, _z ).normalize().multiplyScalar( windStrength );
 	} else {
 		windStrength = Math.cos( time / 2000 ) + 2;
 		windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), (Math.sin( time / 1000 ) - 1) / 12).normalize().multiplyScalar( windStrength );
@@ -96,7 +99,8 @@ const satisifyConstraints = ( p1, p2, distance ) => {
 }
 
 class Particle {
-	constructor(x, y, z, mass) {
+	constructor(x, y, z, mass, i) {
+		this.index = i;
 		this.position = clothFunction( x, y );
 		this.previous = clothFunction( x, y );
 		this.original = clothFunction( x, y );
@@ -135,13 +139,14 @@ export class Cloth {
 
 		const particles = [];
 		const constraints = [];
-		let u, v;
+		let u, v, i = 0;
 
 		for ( v = 0; v <= height; v ++ ) {
 			for ( u = 0; u <= width; u ++ ) {
 				particles.push(
-					new Particle( u / width, (v / height) * -1, 0, MASS )
+					new Particle( u / width, (v / height) * -1, 0, MASS, i )
 				);
+				i++;
 			}
 		}
 
@@ -187,10 +192,11 @@ export class Cloth {
 		this.index = index;
 	}
 
-	simulate(time, faces) {
+	simulate(time, faces, isInit) {
 		faces.forEach((face) => {
 			const normal = face.normal;
-			this.tmpForce.copy(normal).normalize().multiplyScalar(normal.dot(windForce));
+			const multi = isInit ? 1 : normal.dot(windForce);
+			this.tmpForce.copy(normal).normalize().multiplyScalar(multi);
 			this.particles[face.a].addForce(this.tmpForce);
 			this.particles[face.b].addForce(this.tmpForce);
 			this.particles[face.c].addForce(this.tmpForce);
