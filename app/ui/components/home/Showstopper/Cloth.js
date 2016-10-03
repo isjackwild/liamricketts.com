@@ -3,7 +3,7 @@ export const xSegs = window.innerWidth <= 768 ? 10 : 20;
 export const ySegs = window.innerWidth <= 768 ? 20 : 10;
 
 // let MASS = 0.025;
-let MASS = 0.2;
+let MASS = 0.1;
 const THREE = window.THREE;
 
 const pins = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
@@ -18,12 +18,12 @@ console.log(TIMESTEP_SQ);
 let windStrength = 2;
 export const windForce = new THREE.Vector3( 0, 0, 0 );
 
-let DAMPING = 0.01;
+let DAMPING = 0.005;
 // let DAMPING = 0;
 let DRAG = 1 - DAMPING;
 
 // let GRAVITY = 666;
-let GRAVITY = 50;
+let GRAVITY = 80;
 const gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 
 const controls = {
