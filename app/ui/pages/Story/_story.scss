@@ -53,6 +53,7 @@
 }
 
 .story__title-wrapper {
+	width: 100vw;
 	max-width: 500px;
 	position: relative;
 }
@@ -60,6 +61,7 @@
 .story__title {
 	@extend %typo--title;
 	margin-left: -2px;
+	white-space: normal;
 }
 
 .story__subtitle {

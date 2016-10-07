@@ -15,8 +15,10 @@ fields:
     required: true
   subtitle:
     label: Subtitle
-    type:  text
+    type:  textarea
     required: true
+    validate:
+      maxLength: 600
   tags:
     label: Tags
     type:  tags
@@ -27,7 +29,6 @@ fields:
     default: '#FFFFFF'
     help: Use the 6-character hexcode, including the preceding '#',
     validation:
-      minLength: 7
       maxLength: 7
   info:
     label: Adding, editing and deleting story images

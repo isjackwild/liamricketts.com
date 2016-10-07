@@ -6,7 +6,7 @@ import PubSub from 'pubsub-js';
 const view = ({ toggleAbout, isAboutVisible, isVisible, storyTitle, hideAbout, isUp }) => {
 	return (
 		<nav className={`nav nav--${isVisible ? 'visible' : 'hidden'}`}>
-			<ul className={`nav__breadcrumbs nav__breadcrumbs--${isUp ? 'up' : 'down'}`} onClick={hideAbout}>
+			<ul className={`nav__breadcrumbs nav__breadcrumbs--${isUp && !isAboutVisible? 'up' : 'down'}`} onClick={hideAbout}>
 				<li className="nav__wordmark">
 					<Link to='/'>Liam Ricketts</Link>
 				</li>
@@ -28,7 +28,7 @@ const view = ({ toggleAbout, isAboutVisible, isVisible, storyTitle, hideAbout, i
 				}
 			</ul>
 
-			<span className={`nav__about-toggle nav__about-toggle--${isAboutVisible ? 'active' : 'inactive'} nav__about-toggle--${isUp ? 'up' : 'down'}`} onClick={toggleAbout}>
+			<span className={`nav__about-toggle nav__about-toggle--${isAboutVisible ? 'active' : 'inactive'} nav__about-toggle--${isUp && !isAboutVisible ? 'up' : 'down'}`} onClick={toggleAbout}>
 				{window.innerWidth <= 768 ?
 					<span className="nav__about-toggle-open nav__icon">ℹ</span>
 					:
@@ -53,7 +53,7 @@ const data = Component => class extends React.Component {
 		this.state = {
 			isAboutVisible: false,
 			isVisible: true,
-			isUp: false,
+			isUp: window.location.pathname === '/' ? true : false,
 			storyTitle: false,
 			currentLocation: null,
 		}

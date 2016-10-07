@@ -12,7 +12,7 @@
     "server": "php -S 127.0.0.1:4000 -t build/",
     "build": "gulp build --gulpfile ./gulp/gulpfile.js --env production",
     "dev": "npm-run-all --parallel gulp server",
-    "deploy": "npm run build && rsync -rlptDzP --exclude 'content' --exclude '.htaccess' --exclude 'build/site/cache' --exclude 'site/accounts/.logins' build/ root@isjackwild.com:/var/www/clients/liamricketts.isjackwild.com/public_html/",
+    "deploy": "npm run build && rsync -rlptDzP --exclude 'content' --exclude 'thumbs' --exclude '.htaccess' --exclude 'build/site/cache' --exclude 'site/accounts/.logins' build/ root@isjackwild.com:/var/www/clients/liamricketts.isjackwild.com/public_html/",
     "pull-content": "rsync -azP root@isjackwild.com:/var/www/clients/liamricketts.isjackwild.com/public_html/content/ build/content/",
     "change-ownership": "chown -R www-data:www-data root@isjackwild.com:/var/www/clients/liamricketts.isjackwild.com/public_html"
   },

@@ -12,7 +12,7 @@ const Cover = ({ title, subtitle, tags, scrollPosition }) => {
 		>
 			<div className="story__title-wrapper">
 				<h1 className="story__title">{title}</h1>
-				<h2 className="story__subtitle">{subtitle}</h2>
+				<h2 className="story__subtitle" dangerouslySetInnerHTML={{ __html: subtitle }}></h2>
 			</div>
 
 			<div className="story__tag-wrapper">

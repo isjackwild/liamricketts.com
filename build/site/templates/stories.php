@@ -49,7 +49,7 @@
 
 		$story_json = array(
 			'title'		=> (string)$story->title()->html(),
-			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->html() : null),
+			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->kt() : null),
 			'hidden'	=> !(bool)$story->isVisible(),
 			'tags'		=> $story->tags()->split(),
 			'slug'		=> (string)$story->slug(),

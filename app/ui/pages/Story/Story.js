@@ -37,9 +37,9 @@ class Story extends React.Component {
 		}
 
 		// this.naturalForce = -0.12;
-		this.sensitivity = 0.6;
+		this.sensitivity = window.innerWidth <= 768 ? 0.73 : 0.6;
 		this.friction = window.innerWidth <= 768 ? 0.25 : 0.5;
-		this.torque = 0.05;
+		this.torque = window.innerWidth <= 768 ? 0.25 : 0.05;
 		this.dampenDist = Math.min(500, window.innerWidth * 0.66);
 
 		this.animate = this.animate.bind(this);
@@ -205,7 +205,8 @@ class Story extends React.Component {
 
 	render() {
 		const { items, title, tags, subtitle, background, minScroll, incomingTransitionIsFinished, isScrollHintInclude } = this.state;
-		const nextItems = window.stories[this.state.nextSlug].items;
+		let nextItems = window.stories[this.state.nextSlug].items;
+		if (window.innerWidth <= 768) nextItems = nextItems.slice(0, 12);
 		const nextTitle = window.stories[this.state.nextSlug].title;
 		let lightboxIndex = -1;
 		return (
