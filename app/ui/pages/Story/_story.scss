@@ -71,26 +71,30 @@
 	white-space: normal;
 }
 
-.story__tag-wrapper {
-	max-width: 300px;
-	display: inline-block;
-	position: relative;
-	white-space: normal;
-	display: none;
-}
+// .story__tag-wrapper {
+// 	max-width: 300px;
+// 	display: inline-block;
+// 	position: relative;
+// 	white-space: normal;
+// 	display: none;
+// }
 
-.story__tag {
-	@extend %typo--tag;
-	line-height: 1em;
-	display: inline-block;
-	margin-right: 6px;
-	border: 1px solid rgba(44,44,44,0.7);
-	border-radius: 3px;
-	padding: 6px 5px 3px 6px;
-	position: relative;
-	white-space: nowrap;
-	margin-bottom: 6px;
-	cursor: inherit;
+// .story__tag {
+// 	@extend %typo--tag;
+// 	line-height: 1em;
+// 	display: inline-block;
+// 	margin-right: 6px;
+// 	border: 1px solid rgba(44,44,44,0.7);
+// 	border-radius: 3px;
+// 	padding: 6px 5px 3px 6px;
+// 	position: relative;
+// 	white-space: nowrap;
+// 	margin-bottom: 6px;
+// 	cursor: inherit;
+// }
+
+.story__metadata {
+	@extend %typo--metadata;
 }
 
 .story__next-up {

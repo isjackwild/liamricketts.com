@@ -2,7 +2,7 @@ import React from 'react';
 import PubSub from 'pubsub-js';
 
 
-const Cover = ({ title, subtitle, tags, scrollPosition }) => {
+const Cover = ({ title, subtitle, metadata, scrollPosition }) => {
 	const transform = scrollPosition ? `translate3d(${scrollPosition}px, 0, 0)` : null
 
 	return (
@@ -15,13 +15,9 @@ const Cover = ({ title, subtitle, tags, scrollPosition }) => {
 				<h2 className="story__subtitle" dangerouslySetInnerHTML={{ __html: subtitle }}></h2>
 			</div>
 
-			<div className="story__tag-wrapper">
-				{
-					tags.map((tag, i) => {
-						return <span className="story__tag" key={i}>{tag}</span>
-					})
-				}
-			</div>
+			<span className="story__metadata">
+				{metadata}
+			</span>
 		</div>
 	);
 };

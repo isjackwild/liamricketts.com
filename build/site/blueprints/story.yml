@@ -19,9 +19,9 @@ fields:
     required: true
     validate:
       maxLength: 600
-  tags:
-    label: Tags
-    type:  tags
+  metadata:
+    label: Metadata (date, client, etc.)
+    type:  text
     required: false
   background:
     label: Background colour

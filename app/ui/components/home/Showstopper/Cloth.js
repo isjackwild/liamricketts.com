@@ -23,7 +23,7 @@ let DAMPING = 0.005;
 let DRAG = 1 - DAMPING;
 
 // let GRAVITY = 666;
-let GRAVITY = 80;
+let GRAVITY = window.innerWidth <= 768 ? 40 : 80;;
 const gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 
 const controls = {
@@ -76,6 +76,7 @@ export const updateWind = (time, { x, y, mouseover }, dir) => {
 		windForce.set( _x, _y, _z ).normalize().multiplyScalar( windStrength );
 	} else {
 		windStrength = Math.cos( time / 2000 );
+		if (window.innerWidth <= 768) windStrength *= 0.66;
 		windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), (Math.sin( time / 1000 ) - 1) / 12).normalize().multiplyScalar( windStrength );
 	}
 }

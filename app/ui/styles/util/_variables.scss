@@ -146,6 +146,10 @@ $size--overview-story-item--mobile: 20%;
 	@extend %typo--breadcrumb;
 }
 
+%typo--metadata {
+	@extend %typo--breadcrumb;
+}
+
 %typo--about-text {
 	font-family: 'Libre Baskerville', 'Times New Roman', serif;
 	font-size: rem(15px);

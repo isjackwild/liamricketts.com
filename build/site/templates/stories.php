@@ -51,7 +51,7 @@
 			'title'		=> (string)$story->title()->html(),
 			'subtitle'	=> ($story->subtitle()->exists() ? (string)$story->subtitle()->kt() : null),
 			'hidden'	=> !(bool)$story->isVisible(),
-			'tags'		=> $story->tags()->split(),
+			'metadata'	=> (string)$story->metadata()->html(),
 			'slug'		=> (string)$story->slug(),
 			'background'=> (string)$story->background()->html(),
 			'items'		=> $content_json,

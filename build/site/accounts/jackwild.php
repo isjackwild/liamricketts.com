@@ -7,8 +7,8 @@ email: jack.wild@live.co.uk
 language: en
 role: admin
 history:
+  - stories/mick-jenkins/3
+  - stories/carnival
   - stories/portraits
   - about
   - stories/musicians
-  - stories/saturday-league
-  - stories/carnival

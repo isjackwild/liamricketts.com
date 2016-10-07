@@ -15,7 +15,7 @@ class Story extends React.Component {
 
 		this.state = {
 			title: window.stories[props.params.storySlug].title,
-			tags: window.stories[props.params.storySlug].tags,
+			metadata: window.stories[props.params.storySlug].metadata,
 			subtitle: window.stories[props.params.storySlug].subtitle,
 			items: window.stories[props.params.storySlug].items,
 			background: window.stories[props.params.storySlug].background,
@@ -38,7 +38,7 @@ class Story extends React.Component {
 
 		// this.naturalForce = -0.12;
 		this.sensitivity = window.innerWidth <= 768 ? 0.73 : 0.6;
-		this.friction = window.innerWidth <= 768 ? 0.25 : 0.5;
+		this.friction = window.innerWidth <= 768 ? 0.1 : 0.3;
 		this.torque = window.innerWidth <= 768 ? 0.25 : 0.05;
 		this.dampenDist = Math.min(500, window.innerWidth * 0.66);
 
@@ -204,7 +204,7 @@ class Story extends React.Component {
 	}
 
 	render() {
-		const { items, title, tags, subtitle, background, minScroll, incomingTransitionIsFinished, isScrollHintInclude } = this.state;
+		const { items, title, metadata, subtitle, background, minScroll, incomingTransitionIsFinished, isScrollHintInclude } = this.state;
 		let nextItems = window.stories[this.state.nextSlug].items;
 		if (window.innerWidth <= 768) nextItems = nextItems.slice(0, 12);
 		const nextTitle = window.stories[this.state.nextSlug].title;
@@ -241,7 +241,7 @@ class Story extends React.Component {
 				>
 					<StoryCover
 						title={title}
-						tags={tags}
+						metadata={metadata}
 						subtitle={subtitle}
 						minScroll={minScroll}
 					/>
