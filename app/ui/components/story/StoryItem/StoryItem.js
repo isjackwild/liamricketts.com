@@ -15,8 +15,7 @@ const Cover = ({ title, subtitle, metadata, scrollPosition }) => {
 				<h2 className="story__subtitle" dangerouslySetInnerHTML={{ __html: subtitle }}></h2>
 			</div>
 
-			<span className="story__metadata">
-				{metadata}
+			<span className="story__metadata" dangerouslySetInnerHTML={{ __html: metadata }}>
 			</span>
 		</div>
 	);
@@ -111,7 +110,7 @@ class Image extends React.Component {
 
 	render() {
 		const { isLoaded, height, marginTop } = this.state;
-		const { item, scrollPosition } = this.props;
+		const { item, scrollPosition, index } = this.props;
 		const { size, alignment, margin, caption, images, type } = item;
 
 		const src = (() => {
@@ -136,6 +135,7 @@ class Image extends React.Component {
 
 		return (
 			<div
+				id={`story-item--${index}`}
 				className={`story__item story__item--align-${alignmentClass} story__item--size-${size} story__item--margin-${margin}`}
 				style={{transform: transform}}
 			>

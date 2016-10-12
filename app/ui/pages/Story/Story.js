@@ -48,6 +48,7 @@ class Story extends React.Component {
 		this.onTouchStart = this.onTouchStart.bind(this);
 		this.onTouchMove = _.throttle(this.onTouchMove.bind(this), 16);
 		this.onTouchEnd = this.onTouchEnd.bind(this);
+		this.scrollToImage = this.scrollToImage.bind(this);
 
 		this.subs = []
 	}
@@ -64,6 +65,8 @@ class Story extends React.Component {
 		this.subs.push(PubSub.subscribe('scroll-hint.remove', (e, data) => {
 			this.setState({ isScrollHintInclude: false });
 		}));
+
+		this.subs.push(PubSub.subscribe('lightbox.scrollTo', this.scrollToImage));
 
 		window.addEventListener('resize', this.onResize);
 		window.addEventListener('mousewheel', this.onMouseWheel);
@@ -114,6 +117,16 @@ class Story extends React.Component {
 		window.removeEventListener('touchend', this.onTouchEnd);
 		cancelAnimationFrame(this.raf);
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
+	}
+
+	scrollToImage(e, index) {
+		console.log(index);
+		const item = document.getElementById(`story-item--${index}`);
+		if (!item) return;
+		console.log(item.offsetLeft);
+		setTimeout(() => {
+			this.setState({ scrollPosition: (item.offsetLeft + 50) * -1 });
+		}, 666);
 	}
 
 	onResize() {
@@ -205,8 +218,7 @@ class Story extends React.Component {
 
 	render() {
 		const { items, title, metadata, subtitle, background, minScroll, incomingTransitionIsFinished, isScrollHintInclude } = this.state;
-		let nextItems = window.stories[this.state.nextSlug].items;
-		if (window.innerWidth <= 768) nextItems = nextItems.slice(0, 12);
+		let nextItems = window.stories[this.state.nextSlug].items.slice(0, 10);
 		const nextTitle = window.stories[this.state.nextSlug].title;
 		let lightboxIndex = -1;
 		return (
@@ -229,7 +241,7 @@ class Story extends React.Component {
 					</span>
 					<span className="story__next-up-span-wrapper">
 						<span className="story__next-up-span story__next-up-span--text">Next up: </span>
-						<Link to={`/story/${this.state.nextSlug}`}>
+						<Link to={`/stories/${this.state.nextSlug}`}>
 							<span className="story__next-up-span story__next-up-span--title">{nextTitle}</span>
 						</Link>
 					</span>
@@ -251,6 +263,7 @@ class Story extends React.Component {
 							return (
 								<StoryItem
 									item={item}
+									index={i}
 									lightboxIndex={item.type === 'image' ? lightboxIndex : null}
 									key={i}
 									minScroll={minScroll}

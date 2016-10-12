@@ -10,7 +10,7 @@ let minLoadTimePassed = false;
 
 let minLoadTimeTimeout = null;
 
-const minLoadTime = 888;
+const minLoadTime = 1222;
 
 export const init = () => {
 	PubSub.subscribe('load.add', onImageAdded);

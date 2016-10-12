@@ -89,7 +89,7 @@
 .showstopper__wordmark {
 	position: relative;
 	@extend %typo--showstopper-wordmark;
-	transition: color $timing--overview-hover ease-in-out, text-shadow $timing--overview-hover ease-in-out;
+	transition: color 0.6s ease-in-out, text-shadow 0.6s ease-in-out;
 }
 
 .showstopper__wordmark--ready {

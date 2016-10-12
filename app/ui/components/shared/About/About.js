@@ -30,7 +30,7 @@ const view = ({ text, links, address, contact, isVisible, close, stopProp }) => 
 					links.map((link, i) => {
 						return (
 							<li className="about__link" key={i} onClick={stopProp}>
-								<a href={link.url}>{link.label}</a>
+								<a href={link.url} target="blank">{link.label}</a>
 							</li>
 						);
 					})
@@ -38,7 +38,6 @@ const view = ({ text, links, address, contact, isVisible, close, stopProp }) => 
 			</ul>
 			<div className="about__credits" onClick={stopProp}>
 				<span>Design and Development by <a href="http://www.isjackwild.com" target="blank">Jack Wild</a></span>
-				<span>Typeset in Cooper Hewitt and Libre Baskerville from <a href="http://open-foundry.com/" target="blank">Open Foundry</a></span>
 				<span>Made in <a href="http://www.studiothree.net" target="blank">Studio Three</a></span>
 			</div>
 		</section>

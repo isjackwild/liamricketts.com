@@ -253,6 +253,8 @@ const data = Component => class extends React.Component {
 			this.setState({ isVisible: true });
 		});
 
+		PubSub.publish('lightbox.scrollTo', index);
+
 		if (!this.state.isMobile) {
 			this.animate();
 		}

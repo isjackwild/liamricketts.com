@@ -16,7 +16,7 @@ const view = ({ x, y, opacity, translate, scale, isVisible, background }) => {
 					backgroundColor: background,
 				}}
 			>
-				Scroll
+				Scroll down
 			</span>
 		</span>
 	);
