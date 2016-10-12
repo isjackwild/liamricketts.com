@@ -25,6 +25,7 @@ const data = Component => class extends React.Component {
 	componentDidMount() {
 		PubSub.publish('nav.update', false);
 		window.addEventListener('scroll', this.onScroll);
+		ga('send', 'pageview', window.location.pathname);
 
 		if (window.homeScroll) {
 			setTimeout(() => {
