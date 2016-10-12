@@ -115,7 +115,7 @@ const data = Component => class extends React.Component {
 	onKeyDown(e) {
 		switch(e.keyCode) {
 			case 27:
-				this.hide();
+				if (this.state.isVisible) this.hide();
 				break;
 			case 37:
 				if (this.state.index > 0) this.show(null, this.state.index - 1);

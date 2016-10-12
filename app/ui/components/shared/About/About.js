@@ -61,16 +61,27 @@ const data = Component => class extends React.Component {
 		this.preventDefault = this.preventDefault.bind(this);
 		this.enableScroll = this.enableScroll.bind(this);
 		this.disableScroll = this.disableScroll.bind(this);
+		this.onKeyDown = this.onKeyDown.bind(this);
 		this.close = this.close.bind(this);
 	}
 
-	componentDidMount() {		
+	onKeyDown(e) {
+		switch(e.keyCode) {
+			case 27:
+				if (this.state.isVisible) this.close();
+				break;
+		}
+	}
+
+	componentDidMount() {
+		window.addEventListener('keydown', this.onKeyDown);		
 		this.subs.push(PubSub.subscribe('about.toggle', (e, data) => {
 			this.setState({ isVisible: data });
 		}));
 	}
 
 	componentWillUnmount() {
+		window.removeEventListener('keydown', this.onKeyDown);		
 		this.subs.forEach(sub => PubSub.unsubscribe(sub));
 	}
 

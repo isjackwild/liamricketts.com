@@ -15,7 +15,7 @@ const TIMESTEP_SQ = TIMESTEP * TIMESTEP;
 console.log(TIMESTEP_SQ);
 
 // let windStrength = 1;
-let windStrength = 1.9;
+let windStrength = 0.66;
 export const windForce = new THREE.Vector3( 0, 0, 0 );
 
 let DAMPING = 0.002;
@@ -24,7 +24,7 @@ let DRAG = 1 - DAMPING;
 
 // let GRAVITY = 666;
 // let GRAVITY = window.innerWidth <= 768 ? 40 : 80;
-let GRAVITY = 40;
+let GRAVITY = 60;
 const gravity = new THREE.Vector3( 0, - GRAVITY, 0 ).multiplyScalar( MASS );
 
 const controls = {
@@ -76,7 +76,7 @@ export const updateWind = (time, { x, y, mouseover }, dir) => {
 		const _z = -1.2;
 		windForce.set( _x, _y, _z ).normalize().multiplyScalar( windStrength );
 	} else {
-		windStrength = Math.cos( time / 2000 ) / 1.5;
+		windStrength = (Math.cos( time / 2000 ) + 1) / 2.66;
 		if (window.innerWidth <= 768) windStrength *= 0.5;
 		windForce.set( Math.sin( time / 6000 ), Math.sin( time / 3000 ) / 3, -1.2).normalize().multiplyScalar( windStrength );
 	}
