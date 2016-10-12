@@ -54,6 +54,8 @@ class Story extends React.Component {
 	}
 
 	componentDidMount() {
+		ga('send', 'pageview', window.location.pathname);
+		
 		setTimeout(() => {
 			PubSub.publish('nav.update', this.state.title);
 		}, 0);
