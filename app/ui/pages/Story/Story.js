@@ -122,12 +122,13 @@ class Story extends React.Component {
 	}
 
 	scrollToImage(e, index) {
-		console.log(index);
 		const item = document.getElementById(`story-item--${index}`);
 		if (!item) return;
-		console.log(item.offsetLeft);
+		const offset = (window.innerWidth - item.offsetWidth) / 2;
+
+		console.log(offset);
 		setTimeout(() => {
-			this.setState({ scrollPosition: (item.offsetLeft + 50) * -1 });
+			this.setState({ scrollPosition: (item.offsetLeft - offset) * -1 });
 		}, 666);
 	}
 
