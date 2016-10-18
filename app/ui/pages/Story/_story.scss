@@ -144,6 +144,11 @@
 .story__next-up-span-wrapper {
 	display: block;
 	text-align: left;
+	margin-top: -20px;
+
+	@include mobile {
+		margin-top: -5px;
+	}
 }
 
 .story__next-up-span {

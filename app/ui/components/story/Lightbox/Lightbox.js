@@ -118,10 +118,10 @@ const data = Component => class extends React.Component {
 				if (this.state.isVisible) this.hide();
 				break;
 			case 37:
-				if (this.state.index > 0) this.show(null, this.state.index - 1);
+				if (this.state.isVisible && this.state.index > 0) this.show(null, this.state.index - 1);
 				break;
 			case 39:
-				if (this.state.index < this.state.itemsFiltered.length - 1) this.show(null, this.state.index + 1);
+				if (this.state.isVisible && this.state.index < this.state.itemsFiltered.length - 1) this.show(null, this.state.index + 1);
 				break;
 		}
 	}

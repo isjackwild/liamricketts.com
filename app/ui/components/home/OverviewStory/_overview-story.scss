@@ -7,7 +7,7 @@
 
 	@include mobile {
 		display: block;
-		margin-bottom: calc(5vw + 30px);
+		margin-bottom: calc(5vw + 40px);
 	}
 }
 
@@ -31,12 +31,13 @@
 	@include mobile {
 		white-space: nowrap;
 		transition: opacity $timing--overview-hover--mobile ease-in-out;
+		bottom: 4px;
 	}
 }
 
-.overview-story:hover .overview-story__title {
-	opacity: 1;
-}
+// .overview-story:hover .overview-story__title {
+// 	opacity: 1;
+// }
 
 .overview-story--mouse-over {
 	opacity: 1;

@@ -37,7 +37,7 @@ class Story extends React.Component {
 		}
 
 		// this.naturalForce = -0.12;
-		this.sensitivity = window.innerWidth <= 768 ? 0.73 : 0.6;
+		this.sensitivity = window.innerWidth <= 768 ? 0.33 : 0.6;
 		this.friction = window.innerWidth <= 768 ? 0.1 : 0.3;
 		this.torque = window.innerWidth <= 768 ? 0.25 : 0.05;
 		this.dampenDist = Math.min(500, window.innerWidth * 0.66);
@@ -126,7 +126,6 @@ class Story extends React.Component {
 		if (!item) return;
 		const offset = (window.innerWidth - item.offsetWidth) / 2;
 
-		console.log(offset);
 		setTimeout(() => {
 			this.setState({ scrollPosition: (item.offsetLeft - offset) * -1 });
 		}, 666);
@@ -150,7 +149,7 @@ class Story extends React.Component {
 	}
 
 	onTouchMove(e) {
-		e.preventDefault();
+		if (!this.state.isScrollDisabled) e.preventDefault();
 		if (this.state.isScrollDisabled || this.state.debounceTouchMove || !this.state.incomingTransitionIsFinished) return;
 
 		const delta = (this.state.lastTouchX - e.touches[0].clientX);

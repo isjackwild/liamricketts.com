@@ -21,6 +21,14 @@ export const init = () => {
 	if (!textureUrl) return;
 
 	canvas = document.getElementsByClassName('showstopper__canvas')[0];
+	try {
+		const ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+	} catch (e) {
+		PubSub.publish('load.loaded');
+		return;
+	}
+
+
 	showStopper = document.getElementsByClassName('showstopper')[0];
 	window.addEventListener('resize', onResize);
 	showStopper.addEventListener('mousemove', onMouseMove);
